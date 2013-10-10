@@ -1,0 +1,36 @@
+<html ng-app="myApp">
+ <head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+<script src="libs/functions.js"></script>
+<script src="libs/xml2json.min.js"></script> 
+</head>
+
+ <body>
+  Horaires transilien
+  <div ng-controller="AppController">
+    Click <a ng-click="refreshHosts()">here</a> to refresh data.</p>
+   <table border="1">
+    <tbody>
+     <tr>
+      <th>Depart</th>
+      <th>Arrivee</th>
+      <th>Heure</th>
+       <th>Num</th>
+       <th>Nom</th> 
+     </tr>
+     <tr ng-repeat="train in dataSet.train">
+      <td>{{dataSet._gare}}</td>
+      <td>{{train.term}}</td> 
+      <td>
+       {{train.date.__text}}</td>
+      <td>
+       {{train.num}}</td>
+      <td>
+       {{train.miss}}</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+ </body>
+</html>

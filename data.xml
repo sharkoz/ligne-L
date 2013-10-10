@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<passages gare="87393009">
+<train><date mode="R">23/05/2012 12:14</date>
+<num>148614</num>
+<miss>VICK</miss>
+<term>87393157</term>
+</train>
+<train><date mode="R">23/05/2012 12:20</date>
+<num>147406</num>
+<miss>ELBA</miss>
+<term>87545350</term>
+</train>
+<train><date mode="R">23/05/2012 12:44</date>
+<num>148618</num>
+<miss>VICK</miss>
+<term>87393157</term>
+</train>
+<train><date mode="R">23/05/2012 12:50</date>
+<num>147410</num>
+<miss>ELBA</miss>
+<term>87545350</term>
+</train>
+<train><date mode="R">23/05/2012 13:14</date>
+<num>148622</num>
+<miss>VICK</miss>
+<term>87393157</term>
+</train>
+</passages>
