@@ -7,7 +7,7 @@
 </head>
 
  <body>
-  Horaires transilien
+  Horaires transilien {{gare[87382218]}} / {{gare['87382218']}}
   <div ng-controller="AppController">
     Click <a ng-click="refreshHosts()">here</a> to refresh data.</p>
    <table border="1">
@@ -20,8 +20,8 @@
        <th>Nom</th> 
      </tr>
      <tr ng-repeat="train in dataSet.train">
-      <td>{{dataSet._gare}}</td>
-      <td>{{train.term}}</td> 
+      <td>{{gare[dataSet._gare]}}</td>
+      <td>{{gare[train.term]}}</td> 
       <td>
        {{train.date.__text}}</td>
       <td>
