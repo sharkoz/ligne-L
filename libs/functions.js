@@ -1,10 +1,7 @@
-
+/*
 var app = angular.module('lanInfo', ['ngResource']);
 
-
-
 app.controller('DispHosts', function($scope, $resource) {
-
 
     $scope.hosts = [];
     $scope.loadHosts = function() {
@@ -26,17 +23,16 @@ app.controller('DispHosts', function($scope, $resource) {
         //console.log($h);
     };
 
-
 });
+*/
 
 
-
-angular.module('myApp.service',[]).
+angular.module('myApp.service',[]).
     factory('DataSource', ['$http',function($http){
        return {
            get: function(callback){
                 $http.get(
-                    'data.xml',
+                    'http://rlier.fr/ligne-L/data.xml',
                     {transformResponse:function(data) {
                       // convert the data to JSON and provide
                       // it to the success function below
