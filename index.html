@@ -2,12 +2,48 @@
  <head>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+<script src="phonegap.js"></script>
 <script src="libs/functions.js"></script>
 <script src="libs/xml2json.min.js"></script> 
 <link href="style/style.css" media="screen" rel="stylesheet" type="text/css">
 </head>
 
  <body>
+ <script type="text/javascript" charset="utf-8">
+
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    //
+    function onDeviceReady() {
+        var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        db.transaction(populateDB, errorCB, successCB);
+    }
+
+    // Populate the database 
+    //
+    function populateDB(tx) {
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+    }
+
+    // Transaction error callback
+    //
+    function errorCB(tx, err) {
+        alert("Error processing SQL: "+err);
+    }
+
+    // Transaction success callback
+    //
+    function successCB() {
+        alert("success!");
+    }
+
+    </script>
  <div class="head"><h1>Horaires Ligne L</h1></div>
  <div class="header"></div>
   <div class="card">
