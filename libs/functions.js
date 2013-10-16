@@ -32,7 +32,7 @@ angular.module('myApp.service',[]).
        return {
            get: function(callback){
                 $http.get(
-                    'http://rlier.fr/ligne-L/data.xml',
+                    'http://rlier.fr/ligne-server/data.xml',
                     {transformResponse:function(data) {
                       // convert the data to JSON and provide
                       // it to the success function below
