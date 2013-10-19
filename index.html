@@ -3,9 +3,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
 <script src="phonegap.js"></script>
-<script src="libs/functions.js"></script>
-<script src="libs/xml2json.min.js"></script> 
-<link href="style/style.css" media="screen" rel="stylesheet" type="text/css">
+<script src="lib/functions.js"></script>
+<script src="lib/xml2json.min.js"></script> 
+<link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 </head>
 
  <body>
@@ -14,12 +14,12 @@
   <div class="card">
   Horaires rapides - Transilien ligne L
   </div>
-<div class="body card postit info-plus">
+<div class="card">
  Horaires transilien {{gare[87382218]}} / {{gare['87382218']}}
   <div ng-controller="AppController">
     Click <a ng-click="refreshHosts()">here</a> to refresh data.</p>
 <a href="javascript:location.reload(true)">Refresh this page</a>
-   <table border="1">
+   <table border="2">
     <tbody>
      <tr>
       <th>Depart</th>
