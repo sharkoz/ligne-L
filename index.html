@@ -1,9 +1,12 @@
-<html ng-app="myApp">
+<html ng-app="ligneL">
  <head>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-route.min.js"></script>
 <script src="phonegap.js"></script>
-<script src="lib/functions.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
 <script src="lib/xml2json.min.js"></script> 
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 </head>
@@ -11,12 +14,12 @@
  <body>
  <div class="head"><h1>Horaires Ligne L</h1></div>
  <div class="header"></div>
-  <div class="card">
+  <div ng-view>
   Horaires rapides - Transilien ligne L
   </div>
 <div class="card">
  Horaires transilien {{gare[87382218]}} / {{gare['87382218']}}
-  <div ng-controller="AppController">
+  <div ng-controller="HorairesCtrl">
     Click <a ng-click="refreshHosts()">here</a> to refresh data.</p>
 <a href="javascript:location.reload(true)">Refresh this page</a>
    <table border="2">
