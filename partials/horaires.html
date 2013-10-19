@@ -1,22 +1,18 @@
 <div class="card" ng-repeat="trajet in param.trajet">
+Depart : {{gare[trajet.depart]}} <br />
+URL : {{trajet.url}}
+
   <table border="2">
    <tbody>
     <tr>
-     <th>Depart : {{trajet.url}}</th>
-     <th>Arrivee</th>
      <th>Heure</th>
-      <th>Num</th>
+     <th>Destination</th>
       <th>Nom</th> 
     </tr>
     <tr ng-repeat="train in dataSet.train">
-     <td>{{gare[dataSet._gare]}}</td>
+     <td>{{train.date.__text | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
-     <td>
-      {{train.date.__text}}</td>
-     <td>
-      {{train.num}}</td>
-     <td>
-      {{train.miss}}</td>
+     <td>{{train.miss}}</td>
     </tr>
    </tbody>
   </table>  

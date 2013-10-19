@@ -28,3 +28,31 @@ height: 112px;
     margin: 10px;
     opacity: 1;
 }
+
+table {
+  border-collapse: collapse;
+	border-top-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+}
+td{
+	border-top-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+tr:nth-child(even) {
+  background: #eee;
+}
+tr{
+	border-top-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+}
+
+
+

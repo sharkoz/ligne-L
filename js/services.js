@@ -1,14 +1,3 @@
-/*app.factory('DataSource', function($resource){
-return $resource('https://rlier.fr/ligne-server/data.xml', {}, {
-  trasformResponse:function(response){
-var x2js = new X2JS();
-console.log(response);
-var json = x2js.xml_str2json( response );
-return json.passages
-}});
-})
-*/
-
 app.factory('DataSource', ['$http',function($http){
   return {
     get: function(callback){
@@ -32,52 +21,6 @@ app.factory('DataSource', ['$http',function($http){
     }
   }])
 
-/*
-.factory('XmlJs', function($resource){
-var xml = $resource('http://rlier.fr/ligne-server/data.xml', {}, {}).get()
-.success(function(data, status){
-
-});
-var x2js = new X2JS();
-var json = x2js.xml_str2json( xml.get() );
-
-
-return {passage : json.passages}
-})
-
-/*
-       return {
-           get: function(callback){
-                $http.get(
-                    'http://rlier.fr/ligne-server/data.xml',
-                    {transformResponse:function(data) {
-                      // convert the data to JSON and provide
-                      // it to the success function below
-                        var x2js = new X2JS();
-                        var json = x2js.xml_str2json( data );
-                        
-                        return json.passages;
-                        }
-                    }
-                ).
-                success(function(data, status) {
-                    // send the converted data back
-                    // to the callback function
-                    callback(data);
-                })
-           }
-       }
-    }]);
-     
- 
-var AppController = function($scope,DataSource) {
-    //This is the callback function
-    setData = function(data) {
-    console.log(data)
-        $scope.dataSet = data;
-
-
-*/
 
 .service('LibGare', function(){
 return { values : {'87381657' : 'ACHERES VILLE',
@@ -126,8 +69,9 @@ return { values : {'87381657' : 'ACHERES VILLE',
 .service('Param', function(){
   return { 
     values : {trajet : [
-    {'url' : 'data.xml'},
-    {'url' : 'data2.xml'}]}
+    {'depart' : '87382218' , 'arrivee' : '', 'url' : 'data.xml'},
+    {'depart' : '87382440' , 'arrivee' : '', 'url' : 'data2.xml'}
+    ]}
   } 
 });
 
