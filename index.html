@@ -16,11 +16,13 @@
  <div class="head"><h1>Horaires Ligne L</h1></div>
  <div class="header"></div>
   <div ng-view>
-  Horaires rapides - Transilien ligne L
+  Chargement...
   </div>
+
+
 <div class="card">
  Horaires transilien {{gare[87382218]}} / {{gare['87382218']}}
-  <div ng-controller="HorairesCtrl">
+  <div ng-controller="TrajetCtrl">
     Click <a ng-click="refreshHosts()">here</a> to refresh data.</p>
 <a href="javascript:location.reload(true)">Refresh this page</a>
    <table border="2">

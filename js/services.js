@@ -1,8 +1,8 @@
 app.factory('DataSource', ['$http',function($http){
   return {
-    get: function(callback){
+    get: function(callback, url){
       $http.get(
-      'data.xml',
+      url,
       {transformResponse:function(data) {
         // convert the data to JSON and provide
         // it to the success function below
