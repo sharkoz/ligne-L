@@ -20,6 +20,10 @@ left: 0;
 .header{
 height: 112px;
 }
+@keyframes transition {
+0%   { opacity:0; }
+100% { opacity:1; }
+}
 .card {
     background: white;
 	padding: 15px 15px 15px 15px;
@@ -27,6 +31,8 @@ height: 112px;
     border-radius: 3px 3px;
     margin: 10px;
     opacity: 1;
+    opacity:0;
+    animation: transition 2s ease-in-out 0s forwards;
 }
 
 table {
