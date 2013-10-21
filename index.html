@@ -18,35 +18,6 @@
   <div ng-view>
   Chargement...
   </div>
-
-
-<div class="card">
- Horaires transilien {{gare[87382218]}} / {{gare['87382218']}}
-  <div ng-controller="TrajetCtrl">
-    Click <a ng-click="refreshHosts()">here</a> to refresh data.</p>
-<a href="javascript:location.reload(true)">Refresh this page</a>
-   <table border="2">
-    <tbody>
-     <tr>
-      <th>Depart</th>
-      <th>Arrivee</th>
-      <th>Heure</th>
-       <th>Num</th>
-       <th>Nom</th> 
-     </tr>
-     <tr ng-repeat="train in dataSet.train">
-      <td>{{gare[dataSet._gare]}}</td>
-      <td>{{gare[train.term]}}</td> 
-      <td>
-       {{train.date.__text}}</td>
-      <td>
-       {{train.num}}</td>
-      <td>
-       {{train.miss}}</td>
-     </tr>
-    </tbody>
-   </table>
-  </div>
-  	</div> 
+  
   </body>
 </html>

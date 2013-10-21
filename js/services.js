@@ -8,7 +8,7 @@ app.factory('DataSource', ['$http',function($http){
         // it to the success function below
         var x2js = new X2JS();
         var json = x2js.xml_str2json( data );
-        console.log(json.passages);
+        //console.log(json.passages);
         return json.passages;
         }
       }
@@ -69,7 +69,10 @@ return { values : {'87381657' : 'ACHERES VILLE',
 .service('Param', function(){
   return { 
     values : {trajet : [
-    {'depart' : '87382218' , 'arrivee' : '', 'url' : 'data.xml'},
+    {'depart' : '87382440' , 'arrivee' : '87384008', 'url' : '../ligne-server/live/87382440/87384008'},
+    {'depart' : '87382440' , 'arrivee' : '', 'url' : 'data2.xml'},
+    {'depart' : '87382440' , 'arrivee' : '', 'url' : 'data.xml'},
+    {'depart' : '87382418' , 'arrivee' : '', 'url' : 'data2.xml'},
     {'depart' : '87382440' , 'arrivee' : '', 'url' : 'data2.xml'}
     ]}
   } 
