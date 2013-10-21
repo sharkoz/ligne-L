@@ -1,8 +1,6 @@
 <div class="card" ng-repeat="trajet in param.trajet" ng-controller="TrajetCtrl">
 <h1>{{gare[trajet.depart]}}</h1>
 <h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{trajet.url}}</h2>
- <input type="text" name="name" ng-model="DataSet.name"> 
-
   <table class="horaires">
    <tbody>
     <tr ng-repeat="train in dataSet.train">
