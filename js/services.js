@@ -2,7 +2,7 @@ app.factory('DataSource', ['$http',function($http){
   return {
     get: function(callback, url){
       $http.get(
-      url,
+      url/*,
       {transformResponse:function(data) {
         // convert the data to JSON and provide
         // it to the success function below
@@ -11,7 +11,7 @@ app.factory('DataSource', ['$http',function($http){
         //console.log(json.passages);
         return json.passages;
         }
-      }
+      }*/
       ).success(function(data, status) {
         // send the converted data back
         // to the callback function
@@ -50,7 +50,7 @@ return { values : {'87381657' : 'ACHERES VILLE',
 '87386318' : 'NANTERRE UNIVERSITE',
 '87334482' : 'NEUVILLE UNIVERSITE',
 '87393876' : 'NOISY LE ROI',
-'87384008' : 'PARIS SAINT-LAZARE (GARE SAINT-LAZARE)',
+'87384008' : 'PARIS SAINT-LAZARE',
 '87381111' : 'PONT CARDINET',
 '87382382' : 'PUTEAUX',
 '87382358' : 'SAINT-CLOUD',
