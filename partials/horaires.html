@@ -4,7 +4,7 @@
   <table class="horaires">
    <tbody>
     <tr ng-repeat="train in dataSet.train">
-     <td>{{train.date.__text | limitTo:-5}}</td>
+     <td>{{train.date.$ | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
      <td>{{train.miss}}</td>
     </tr>
