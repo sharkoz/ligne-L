@@ -15,7 +15,18 @@
 </head>
 
  <body>
- <div class="head"><h1>Horaires Ligne L</h1></div>
+ <div class="head"><h1>Horaires Ligne L</h1>
+<script>
+var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+if ( nativeapp ) {
+    // PhoneGap application
+	document.write("Natif");
+} else {
+    // Web page
+	document.write("Web");
+}
+</script>
+</div>
  <div class="header"></div>
   <div ng-view>
   Chargement...

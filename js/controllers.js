@@ -19,7 +19,11 @@ if ($scope.$storage.param===undefined)
 
  }
  	$scope.param = $scope.$storage.param;
+ 	console.log("Libgare :")
+    console.log(LibGare.values) 
     $scope.gare = LibGare.values;
+    console.log("gare :")
+    console.log($scope.gare.value) 
 
 }
 
