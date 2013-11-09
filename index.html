@@ -16,16 +16,7 @@
 
  <body>
  <div class="head"><h1>Horaires Ligne L</h1>
-<script>
-var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-if ( nativeapp ) {
-    // PhoneGap application
-	document.write("Natif");
-} else {
-    // Web page
-	document.write("Web");
-}
-</script>
+{{apiUrl}}<div ng-click="$localStorage.$reset();console.log("Purge");">Purger LocalStorage</div>
 </div>
  <div class="header"></div>
   <div ng-view>

@@ -7,6 +7,16 @@ function AppCtrl( $scope, $localStorage){
     $scope.$storage = $localStorage;
     console.log("Local Storage:")
     console.log($scope.$storage.param)
+
+    var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+	if ( nativeapp ) {
+	    // PhoneGap application
+		$scope.apiUrl = "http://rlier.fr/ligne-server/";
+	} else {
+	    // Web page
+		$scope.apiUrl = "../ligne-server/";
+	}
+	console.log($scope.apiUrl)
 }
 
 function HorairesCtrl( $scope, LibGare, Param ){
@@ -19,11 +29,13 @@ if ($scope.$storage.param===undefined)
 
  }
  	$scope.param = $scope.$storage.param;
- 	console.log("Libgare :")
-    console.log(LibGare.values) 
-    $scope.gare = LibGare.values;
-    console.log("gare :")
-    console.log($scope.gare.value) 
+ 	
+    $scope.gare = LibGare.func;
+    $scope.ListeGares = LibGare.values;
+    console.log("Gare :")
+    console.log($scope.gare) 
+    console.log("ListeGares :")
+    console.log($scope.ListeGares) 
 
 }
 
@@ -35,7 +47,7 @@ function TrajetCtrl( $scope, DataSource ){
 		console.log("dataSet :");
 		console.log($scope.dataSet);
     }
-         
+         console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
     DataSource.get(setData, $scope.trajet.url);
 
 }

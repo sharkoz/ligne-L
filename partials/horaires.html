@@ -6,7 +6,7 @@
     <tr ng-repeat="train in dataSet.train">
      <td>{{train.date.$mode}}</td>
      <td>{{train.date.$ | limitTo:-5}}</td>
-     <td ng-repeat="arret in gare | filter:{key:train.term}">{{arret.value}}</td> 
+     <td>{{gare[train.term]}}</td> 
      <td>{{train.miss}}</td>
     </tr>
    </tbody>
@@ -14,9 +14,16 @@
   <div class="animate-switch-container" ng-show="options">
         Paramétrer la carte :
         <input type="text" ng-model="trajet.url">
-	<SELECT name="nom" ng-model="trajet.depart" size="1">
-		<OPTION ng-repeat="index in gare | orderBy:'value'" value="{{index.key}}">{{index.value}}</OPTION>
+        <br>Depart :
+	<SELECT name="nom" ng-model="trajet.depart" size="1" style="width:100%;max-width:50%;">
+		<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}">{{index.value}}</OPTION>
 	</SELECT>
+      <br>Path :
+  <SELECT name="nom" ng-model="trajet.path" size="1" style="width:100%;max-width:50%;">
+    <OPTION>live</OPTION>
+    <OPTION>test</OPTION>
+    <OPTION>previ</OPTION>
+  </SELECT>
         <input name="submit" type="submit" value="Sauvegarder" onclick="javascript:location.reload()"/>
   </div>
 
