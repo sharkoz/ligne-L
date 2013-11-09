@@ -42,12 +42,15 @@ if ($scope.$storage.param===undefined)
 function TrajetCtrl( $scope, DataSource ){
 
     //This is the callback function
-    setData = function(data) {
+    $scope.setData = function(data) {
         $scope.dataSet = data.passages;
-		console.log("dataSet :");
+		console.log("dataSet : scop "+$scope.$id+".");
 		console.log($scope.dataSet);
     }
+
          console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
-    DataSource.get(setData, $scope.trajet.url);
+    $scope.jsoncall = function(){DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
+
+    $scope.jsoncall();
 
 }

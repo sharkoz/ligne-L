@@ -101,7 +101,7 @@ func : {'87381657' : 'ACHERES VILLE',
 .service('Param', function(){
   return { 
     values : {trajet : [
-	{'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'previ', 'url' : 'http://rlier.fr/ligne-server/live/87382440/87384008'},
+	{'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'previ'},
     {'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'live', 'url' : '../ligne-server/live/87382440/87384008'},
 	{'depart' : '87384008' , 'arrivee' : '87382440', 'path' : 'previ', 'url' : 'http://rlier.fr/ligne-server/live/87384008/87382440'},
     {'depart' : '87384008' , 'arrivee' : '87382440', 'path' : 'previ', 'url' : '../ligne-server/live/87384008/87382440'},
