@@ -14,10 +14,14 @@
 </head>
 
  <body>
- <div class="head"><h1>Horaires Ligne L</h1>
-{{apiUrl}}<div ng-click="$storage.$reset()">Purger LocalStorage</div>
+ <div class="head"><h1>Horaires Ligne L</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">i</div>
 </div>
  <div class="header"></div>
+<div class="card" ng-show="GlobalOptions">
+<h1>Parametres globaux</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">x</div>
+<i>Chemin : </i>{{apiUrl}}<br>
+<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/>
+</div>
   <div ng-view>
   Chargement...
   </div>

@@ -83,20 +83,21 @@ func : {'87381657' : 'ACHERES VILLE',
 '87386318' : 'NANTERRE UNIVERSITE',
 '87334482' : 'NEUVILLE UNIVERSITE',
 '87393876' : 'NOISY LE ROI',
-'87384008' : 'PARIS SAINT-LAZARE (GARE SAINT-LAZARE)',
+'87384008' : 'PARIS SAINT-LAZARE',
 '87381111' : 'PONT CARDINET',
 '87382382' : 'PUTEAUX',
 '87382358' : 'SAINT-CLOUD',
-'87366922' : 'SAINT-GERMAIN EN LAYE BEL AIR FOURQUEUX',
-'87382804' : 'SAINT-GERMAIN EN LAYE GRANDE CEINTURE',
-'87382481' : 'SAINT-NOM LA BRETECHE FORET DE MARLY',
+'87366922' : 'ST-GERMAIN BEL AIR FOURQUEUX',
+'87382804' : 'ST-GERMAIN GRANDE CEINTURE',
+'87382481' : 'ST-NOM LA BRETECHE',
 '87386417' : 'SARTROUVILLE',
 '87382341' : 'SEVRES VILLE D\'AVRAY',
 '87382374' : 'SURESNES MONT VALERIEN',
 '87382267' : 'VAUCRESSON',
 '87382861' : 'VERSAILLES RIVE DROITE',
 '87382887' : 'VIROFLAY RIVE DROITE'},
-gareloc : {"87381657" : { "latitude" : "48.97009463350331", "longitude" : "2.077399690137432"},
+gareloc : {
+"87381657" : { "latitude" : 48.9700946, "longitude" : 2.0773996},
 "87381137" : { "latitude" : 48.9057768, "longitude" : 2.2833224},
 "87382002" : { "latitude" : 48.9055805, "longitude" : 2.2685717},
 "87382440" : { "latitude" : 48.8542235, "longitude" : 2.1322404},
@@ -143,13 +144,7 @@ gareloc : {"87381657" : { "latitude" : "48.97009463350331", "longitude" : "2.077
   return { 
     values : {trajet : [
 	{'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'previ'},
-    {'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'live', 'url' : '../ligne-server/live/87382440/87384008'},
-	{'depart' : '87384008' , 'arrivee' : '87382440', 'path' : 'previ', 'url' : 'http://rlier.fr/ligne-server/live/87384008/87382440'},
-    {'depart' : '87384008' , 'arrivee' : '87382440', 'path' : 'previ', 'url' : '../ligne-server/live/87384008/87382440'},
-    {'depart' : '87382440' , 'arrivee' : '', 'path' : 'previ', 'url' : 'http://rlier.fr/ligne-server/previ/87382440'},
-    {'depart' : '87382440' , 'arrivee' : '', 'path' : 'previ', 'url' : '../ligne-server/previ/87382440'},
-    {'depart' : '87384008' , 'arrivee' : '', 'path' : 'previ', 'url' : 'http://rlier.fr/ligne-server/previ/87384008'},
-    {'depart' : '87384008' , 'arrivee' : '', 'path' : 'previ', 'url' : '../ligne-server/previ/87384008'}
+    {'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'live'}
     ]}
   } 
 })
