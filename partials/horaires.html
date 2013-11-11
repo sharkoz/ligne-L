@@ -1,13 +1,13 @@
 <div class="card" ng-repeat="trajet in param.trajet " ng-controller="TrajetCtrl">
 
-<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(GareLoc[trajet.depart],pos)}}m</strong></h1> <div class="corner_config" ng-click="options = ! options">i</div>
+<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{$parent.calculateDistance(GareLoc[trajet.depart],$parent.pos)}}m</strong></h1> <div class="corner_config" ng-click="options = ! options">i</div>
 <h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{$parent.apiUrl+trajet.path+'/'+trajet.depart}}</h2>
 
   <div class="animate-switch-container" ng-show="options">
         Paramétrer la carte :
         <br>Depart :
   <SELECT name="nom" ng-model="trajet.depart" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.depart">{{index.value}} ({{calculateDistance(GareLoc[index.key],pos)}}m)</OPTION>
+    <OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.depart">{{index.value}} (m)</OPTION>
   </SELECT>
       <br>Path :
   <SELECT name="nom" ng-model="trajet.path" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
@@ -23,7 +23,7 @@
 
   <table class="horaires">
    <tbody>
-    <tr ng-repeat="train in dataSet.train |limitTo:5">
+    <tr ng-repeat="train in dataSet.train |limitTo:$parent.$storage.max">
      <td>{{train.date.$mode}}</td>
      <td>{{train.date.$ | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 

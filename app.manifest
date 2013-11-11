@@ -1,0 +1,24 @@
+CACHE MANIFEST
+# v1.
+CACHE:
+favicon.ico
+L.gif
+splash.png
+css/style.css
+img/planL.jpg
+js/app.js
+js/controllers.js
+js/services.js
+lib/angular.min.js
+lib/angular-resource.min.js
+lib/angular-route.min.js
+lib/functions.js
+lib/ngStorage.min.js
+lib/prefixfree.min.js
+lib/xml2json.min.js
+partials/horaires.html
+FALLBACK:
+ONLINE:
+*
+SETTINGS:
+prefer-online

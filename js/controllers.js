@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $localStorage){
+function AppCtrl( $scope, $localStorage, Geomath, Locate){
 
     $scope.$storage = $localStorage;
     console.log("Local Storage:")
@@ -17,11 +17,7 @@ function AppCtrl( $scope, $localStorage){
 		$scope.apiUrl = "../ligne-server/";
 	}
 	//console.log($scope.apiUrl)
-}
-
-function HorairesCtrl( $scope, LibGare, Param, Geomath, Locate ){
-
-    $scope.setLoc = function(position) {
+        $scope.setLoc = function(position) {
       var coords = position.coords || position.coordinate || position;
       $scope.localise = true;
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
@@ -37,23 +33,33 @@ function HorairesCtrl( $scope, LibGare, Param, Geomath, Locate ){
         //}
     }
 
+    $scope.localise = false;
+    $scope.pos = $scope.$storage.pos;
+        $scope.locate = Locate;
+    $scope.calculateDistance = function(geo1, geo2){
+        return Geomath.calculateDistance(geo1, geo2);
+    }
+    $scope.local = Locate.doGeolocation($scope.setLoc);
+
+        $scope.max = $scope.$storage.max;
+
+}
+
+function HorairesCtrl( $scope, LibGare, Param){
+
+
+
 if ($scope.$storage.param===undefined)
 {
     $scope.$storage.param = Param.values;
   	//console.log("Initiate Local Storage:")
     //console.log($scope.param) 
 }
- 	$scope.localise = false;
+
     $scope.param = $scope.$storage.param;
-    $scope.pos = $scope.$storage.pos;
+
     console.log($scope.param);
  	
-    $scope.locate = Locate;
-    $scope.calculateDistance = function(geo1, geo2){
-        return Geomath.calculateDistance(geo1, geo2);
-    }
-    $scope.local = Locate.doGeolocation($scope.setLoc);
-
     $scope.gare = LibGare.func;
     $scope.ListeGares = LibGare.values;
     $scope.GareLoc = LibGare.gareloc;

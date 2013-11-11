@@ -11,6 +11,8 @@
 <script src="lib/xml2json.min.js"></script> 
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 <script src="lib/prefixfree.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 
  <body>
@@ -20,7 +22,14 @@
 <div class="card" ng-show="GlobalOptions">
 <h1>Parametres globaux</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">x</div>
 <i>Chemin : </i>{{apiUrl}}<br>
-<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/>
+<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
+Trains max :
+<SELECT name="max" ng-model="$storage.max" size="1" style="width:100%;max-width:50%;">
+    <OPTION>5</OPTION>
+    <OPTION>8</OPTION>
+    <OPTION>10</OPTION>
+    <OPTION>15</OPTION>
+  </SELECT>
 </div>
   <div ng-view>
   Chargement...
