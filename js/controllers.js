@@ -50,6 +50,8 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
     $scope.local();
         $scope.max = $scope.$storage.max;
 
+        document.addEventListener("menubutton", function(){$parent.GlobalOptions = ! $parent.GlobalOptions}, false);
+
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
