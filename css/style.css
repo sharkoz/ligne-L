@@ -1,6 +1,7 @@
 body {
     background: #f3f3f3;
     font-family: 'Roboto', sans-serif;
+    margin:0;
 }
 .head {
 max-width: 500px;
@@ -47,14 +48,14 @@ card:nth-child(n+3) {
 }
 
 
-table {
+.card table {
   border-collapse: collapse;
 	border-top-width: 0px;
 	border-left-width: 0px;
 	border-right-width: 0px;
 	border-bottom-width: 1px;
 }
-td{
+.card td{
 	border-top-width: 0px;
 	border-left-width: 0px;
 	border-right-width: 0px;
@@ -62,10 +63,10 @@ td{
 	padding-right: 10px;
 	padding-left: 10px;
 }
-tr:nth-child(even) {
+.card tr:nth-child(even) {
   background: #eee;
 }
-tr{
+.card tr{
 	border-top-width: 0px;
 	border-left-width: 0px;
 	border-right-width: 0px;
@@ -87,6 +88,29 @@ h2 {
   font-size:.9rem;
   margin: 10px;
   color:gray;
+}
+
+.menu {
+  position: fixed;
+  bottom: 0;
+  width:100%;
+  height:25px;
+  background: black;
+  text-align: center;
+  color:white;
+}
+.footer {
+  width:100%;
+  height:25px;
+}
+
+.menu table{
+  color:white;
+  margin-right: auto;
+  margin-left: auto;
+}
+.menu td{
+  padding-right: 35px;
 }
 
 .corner_config {

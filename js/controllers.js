@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $localStorage, Geomath, Locate){
+function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 
     $scope.$storage = $localStorage;
     console.log("Local Storage:")
@@ -17,6 +17,11 @@ function AppCtrl( $scope, $localStorage, Geomath, Locate){
 		$scope.apiUrl = "../ligne-server/";
 	}
 	//console.log($scope.apiUrl)
+
+    $scope.reloadRoute = function () {
+        $route.reload();
+    };
+
         $scope.setLoc = function(position) {
       var coords = position.coords || position.coordinate || position;
       $scope.localise = true;
@@ -39,8 +44,10 @@ function AppCtrl( $scope, $localStorage, Geomath, Locate){
     $scope.calculateDistance = function(geo1, geo2){
         return Geomath.calculateDistance(geo1, geo2);
     }
-    $scope.local = Locate.doGeolocation($scope.setLoc);
-
+    $scope.local = function(){
+        Locate.doGeolocation($scope.setLoc);
+    }
+    $scope.local();
         $scope.max = $scope.$storage.max;
 
 }
@@ -67,6 +74,11 @@ if ($scope.$storage.param===undefined)
     //console.log($scope.gare) 
     //console.log("ListeGares :")
     //console.log($scope.ListeGares) 
+
+    $scope.addTrajet = function(){
+        $scope.param.trajet.push({'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'previ'});
+        setTimeout(window.scrollTo(0,document.body.scrollHeight),500);
+    }
 
 }
 

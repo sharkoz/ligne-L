@@ -34,4 +34,13 @@
 
 </div>
 
-<div class="card" ng-click="param.trajet.push({'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'previ'})"><br><i text-align="center">Ajouter un trajet</i><br></div>
+
+<div class="menu">
+  <table>
+    <td ng-click="$parent.local()">Localiser</td>
+    <td ng-click="addTrajet()">Ajouter</td>
+    <td ng-click="$parent.reloadRoute()">Rafraichir</td>
+  </table>
+
+</div>
+<div class="footer"> Bottom </div>
