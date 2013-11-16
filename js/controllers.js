@@ -98,4 +98,18 @@ function TrajetCtrl( $scope, DataSource ){
 
     $scope.jsoncall();
 
+
+
+    //Sauvegarde pour toute la journée
+    $scope.saveData = function(data) {
+        $scope.trajet.save = data.passages;
+        //console.log("dataSet : scop "+$scope.$id+".");
+        console.log($scope.dataSet);
+    }
+
+         //console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
+    $scope.jsonSave = function(){DataSource.get($scope.saveData, $scope.apiUrl+"all/"+$scope.trajet.depart);};
+
+    $scope.jsonSave();
+
 }

@@ -31,7 +31,18 @@
     </tr>
    </tbody>
   </table>
-
+  <div  style="overflow-y: scroll; height:200px;">
+  <table class="horaires">
+   <tbody>
+    <tr ng-repeat="train in trajet.save.train">
+     <td>{{train.date.$mode}}</td>
+     <td>{{train.date.$ | limitTo:-5}}</td>
+     <td>{{gare[train.term]}}</td> 
+     <td>{{train.miss}}</td>
+    </tr>
+   </tbody>
+  </table>
+  </div>
 </div>
 
 
