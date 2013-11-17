@@ -52,7 +52,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 
 
         $scope.onLoad = function() {
-        document.addEventListener("deviceready", onDeviceReady, false);
+        document.addEventListener("deviceready", $scope.onDeviceReady(), false);
     }
 
     // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
