@@ -6,7 +6,7 @@
         id        = "fr.rlier.ligne-L"
         version   = "1.0.0">
 
-    <name>Hello World</name>
+    <name>Ligne-L</name>
 
     <description>
 Ligne L    
@@ -26,7 +26,8 @@ Ligne L
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires.
-    <preference name="permissions"                value="none"/>
+    <preference name="permissions"                value="none"/> -->
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="phonegap-version"           value="2.9.0" />          <!-- all: current version of PhoneGap -->

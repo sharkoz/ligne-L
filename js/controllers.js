@@ -50,7 +50,19 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
     $scope.local();
         $scope.max = $scope.$storage.max;
 
-        document.addEventListener("menubutton", function(){GlobalOptions = ! GlobalOptions}, false);
+
+        $scope.onLoad = function() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+        $scope.onDeviceReady = function () {
+        // Register the event listener
+        document.addEventListener("menubutton",  function(){GlobalOptions = ! GlobalOptions}, false);
+    }
+
+    $scope.onLoad();
 
 }
 
@@ -104,7 +116,6 @@ function TrajetCtrl( $scope, DataSource ){
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
         //console.log("dataSet : scop "+$scope.$id+".");
-        console.log($scope.dataSet);
     }
 
          //console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
