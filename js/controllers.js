@@ -52,18 +52,18 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
         $scope.max = $scope.$storage.max;
 
 
-        $scope.onLoad = function() {
-        document.addEventListener("deviceready", $scope.onDeviceReady(), false);
-    }
-
-    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
-    //
-        $scope.onDeviceReady = function () {
-        // Register the event listener
-        document.addEventListener("menubutton",  function(){GlobalOptions = ! GlobalOptions}, false);
-    }
-
-    $scope.onLoad();
+  //      $scope.onLoad = function() {
+  //      document.addEventListener("deviceready", $scope.onDeviceReady(), false);
+  //  }
+//
+  //  // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+  //  //
+  //      $scope.onDeviceReady = function () {
+  //      // Register the event listener
+  //      document.addEventListener("menubutton",  function(){GlobalOptions = ! GlobalOptions}, false);
+  //  }
+//
+  //  $scope.onLoad();
 
 }
 
