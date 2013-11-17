@@ -28,6 +28,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
       $scope.$storage.pos = $scope.pos;
         console.log($scope.pos);
+        $scope.reloadRoute();
         //console.log($scope.dataSet);
 
         //for (var i=0;i<$scope.param.trajet.length;i++)
@@ -110,7 +111,7 @@ function TrajetCtrl( $scope, DataSource ){
 
     $scope.jsoncall();
 
-
+    $scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
 
     //Sauvegarde pour toute la journée
     $scope.saveData = function(data) {
