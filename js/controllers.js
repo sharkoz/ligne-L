@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
+function AppCtrl( $scope, $localStorage, $route, Geomath, Locate, InitDB){
 
     $scope.$storage = $localStorage;
     console.log("Local Storage:")
@@ -14,7 +14,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 		$scope.apiUrl = "http://rlier.fr/ligne-server/";
 	} else {
 	    // Web page
-		$scope.apiUrl = "../ligne-server/";
+		$scope.apiUrl = "../../ligne-server/";
 	}
 	//console.log($scope.apiUrl)
 
@@ -51,19 +51,10 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
     $scope.local();
         $scope.max = $scope.$storage.max;
 
+		
+// NEW DB
 
-  //      $scope.onLoad = function() {
-  //      document.addEventListener("deviceready", $scope.onDeviceReady(), false);
-  //  }
-//
-  //  // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
-  //  //
-  //      $scope.onDeviceReady = function () {
-  //      // Register the event listener
-  //      document.addEventListener("menubutton",  function(){GlobalOptions = ! GlobalOptions}, false);
-  //  }
-//
-  //  $scope.onLoad();
+	$scope.db = InitDB;
 
 }
 
@@ -120,7 +111,7 @@ function TrajetCtrl( $scope, DataSource ){
     }
 
          //console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
-    $scope.jsonSave = function(){DataSource.get($scope.saveData, $scope.apiUrl+"all/"+$scope.trajet.depart);};
+    $scope.jsonSave = function(){DataSource.get($scope.saveData, $scope.apiUrl+"gtfs/"+$scope.trajet.depart);};
 
     $scope.jsonSave();
 
