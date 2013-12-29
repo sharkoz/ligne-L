@@ -49,6 +49,13 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
         Locate.doGeolocation($scope.setLoc);
     }
     $scope.local();
+	if ($scope.$storage.max===undefined)
+{
+    $scope.$storage.max = "8";
+
+  	//console.log("Initiate Local Storage:")
+    //console.log($scope.param) 
+}
         $scope.max = $scope.$storage.max;
 
 
@@ -74,6 +81,7 @@ function HorairesCtrl( $scope, LibGare, Param){
 if ($scope.$storage.param===undefined)
 {
     $scope.$storage.param = Param.values;
+
   	//console.log("Initiate Local Storage:")
     //console.log($scope.param) 
 }

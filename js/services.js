@@ -143,8 +143,8 @@ gareloc : {
 .service('Param', function(){
   return { 
     values : {trajet : [
-	{'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'previ'},
-    {'depart' : '87382440' , 'arrivee' : '87384008', 'path' : 'live'}
+	{'depart' : '87382358' , 'arrivee' : '87384008', 'path' : 'live'},
+    {'depart' : '87384008' , 'arrivee' : '87382358', 'path' : 'live'}
     ]}
   } 
 })
