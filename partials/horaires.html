@@ -9,9 +9,14 @@
   <SELECT name="nom" ng-model="trajet.depart" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
     <OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.depart">{{index.value}} (m)</OPTION>
   </SELECT>
+  <br>Arrivée :
+  <SELECT name="nom" ng-model="trajet.arrivee" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
+    <OPTION value=".">Toutes directions</OPTION>
+	<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
+  </SELECT>
       <br>Path :
   <SELECT name="nom" ng-model="trajet.path" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION>live</OPTION>
+    <OPTION>mobil</OPTION>
     <OPTION>test</OPTION>
     <OPTION>previ</OPTION>
   </SELECT>
@@ -23,22 +28,20 @@
 
   <table class="horaires">
    <tbody>
-    <tr ng-repeat="train in dataSet.train |limitTo:$parent.$storage.max">
+    <!--<tr ng-repeat="train in dataSet.train |limitTo:$parent.$storage.max">
      <td>{{train.date.mode}}</td>
      <td>{{train.date.val | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
      <td>{{train.miss}}</td>
-    </tr>
-   </tbody>
-  </table>
-  <div  style="overflow-y: scroll; height:200px;">
-  <table class="horaires">
-   <tbody>
-    <tr ng-repeat="train in trajet.save.train">
+	 <td>{{train.num}}</td>
+    </tr>-->
+    <tr ng-repeat="train in trajet.previ">
      <td>{{train.date.mode}}</td>
      <td>{{train.date.val | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
      <td>{{train.miss}}</td>
+	 <td>{{train.num}}</td>
+	 <td>{{train.delta}} min</td>
     </tr>
    </tbody>
   </table>
