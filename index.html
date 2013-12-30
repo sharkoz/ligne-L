@@ -21,7 +21,7 @@
  <div class="head"><h1>Horaires Ligne L</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">i</div>
 </div>
  <div class="header"></div>
-<div class="card" ng-show="GlobalOptions">
+<div class="card ng-cloak" ng-cloak ng-show="GlobalOptions" >
 <h1>Parametres globaux</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">x</div>
 <i>Chemin : </i>{{apiUrl}}<br>
 <i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
@@ -34,6 +34,9 @@ Trains max :
   </SELECT>
 </div>
   <div ng-view>
+  Chargement...
+  </div>
+    <div id="splash-page" class="card ng-cloak" ng-cloak>
   Chargement...
   </div>
 <script>

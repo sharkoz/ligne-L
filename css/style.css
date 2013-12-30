@@ -28,6 +28,21 @@ height: 50px;
 0%   { opacity:0; transform: translate(-500px,1500px); }
 100% { opacity:1; transform: translate(0px); }
 }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+#splash-page
+{
+    display: none;
+}
+#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a splash screen*/
+{
+    display: block;
+}
+
+
 .card {
     background: white;
 	padding: 15px 15px 15px 15px;
