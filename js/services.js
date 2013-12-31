@@ -19,6 +19,7 @@ return { values : [
 {"key" : "PSL", "value" : "PARIS SAINT-LAZARE", "latitude" : "48.87535783596312", "longitude" : "2.3247332774874016"}
 ],
 func : {
+'0' : ': Toutes directions',
 'AB'  : 'Aulnay sous Bois',
 'ABL' : 'Ablon',
 'ACW' : 'Achères-Ville',

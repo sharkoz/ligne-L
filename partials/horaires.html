@@ -11,7 +11,7 @@
   </SELECT>
   <br>Arrivée :
   <SELECT name="nom" ng-model="trajet.arrivee" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION value=".">Toutes directions</OPTION>
+    <OPTION value="0">Toutes directions</OPTION>
 	<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
   </SELECT>
       <br>Path :
@@ -40,8 +40,8 @@
      <td>{{train.date.val | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
      <td>{{train.miss}}</td>
-	 <td>{{train.num}}</td>
-	 <td>{{train.delta}} min</td>
+	 <!--<td>{{train.num}}</td>-->
+	 <td>{{train.delta}}</td>
     </tr>
    </tbody>
   </table>

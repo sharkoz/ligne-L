@@ -94,14 +94,15 @@ function TrajetCtrl( $scope, DataSource, Getprevi ){
     $scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
 
 	merge = function(live, previ){
+		console.log(previ);
 		var liv;
 		var pre;
 		for(liv=0; liv<live.length; ++liv){
 			for(pre=0; pre<previ.length; ++pre){
 				if(live[liv].num == previ[pre].num){
+					previ[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/60;
 					previ[pre].date.mode='R';
 					previ[pre].date.val=live[liv].date.val;
-					previ[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/60;
 				}
 			}
 		}
