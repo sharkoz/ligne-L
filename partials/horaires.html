@@ -35,7 +35,7 @@
      <td>{{train.miss}}</td>
 	 <td>{{train.num}}</td>
     </tr>-->
-    <tr ng-repeat="train in trajet.previ">
+    <tr ng-repeat="train in trajet.display">
      <td>{{train.date.mode}}</td>
      <td>{{train.date.val | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
@@ -57,4 +57,4 @@
   </table>
 
 </div>
-<div class="footer"> Bottom </div>
+<div class="footer">  </div>

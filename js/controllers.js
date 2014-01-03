@@ -3,7 +3,7 @@
 
 
 function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
-
+console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
     //console.log("Local Storage:")
@@ -36,7 +36,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
       $scope.$storage.pos = $scope.pos;
         console.log($scope.pos);
-        $scope.reloadRoute();
+        //$scope.reloadRoute(); //Attention ! Bug !
     }
 
     $scope.calculateDistance = function(geo1, geo2){
@@ -63,7 +63,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 
 function HorairesCtrl( $scope, LibGare, Param){
 
-
+console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 if ($scope.$storage.param===undefined)
 {
@@ -90,31 +90,35 @@ if ($scope.$storage.param===undefined)
 }
 
 function TrajetCtrl( $scope, DataSource, Getprevi ){
-
+	console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
     $scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
-
+	
 	merge = function(live, previ){
-		console.log(previ);
+		console.log('Merging for '+live[0].term+' Times are live :'+live[1].date.val+' and previ : '+previ[1].date.val);
 		var liv;
 		var pre;
+		var display = previ;
 		for(liv=0; liv<live.length; ++liv){
 			for(pre=0; pre<previ.length; ++pre){
 				if(live[liv].num == previ[pre].num){
-					previ[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/60;
-					previ[pre].date.mode='R';
-					previ[pre].date.val=live[liv].date.val;
+				console.log('Times are live :'+live[liv].date.val+' and previ : '+previ[pre].date.val)
+					display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/60000;
+					console.log(new Date('1970/01/01 '+previ[pre].date.val+':00')+"-"+new Date('1970/01/01 '+live[liv].date.val+':00')+" = "+display[pre].delta);
+					display[pre].date.mode='R';
+					display[pre].date.val=live[liv].date.val;
 				}
 			}
 		}
-		return previ;
+		return display;
 	}
 	
     //Sauvegarde pour toute la journée
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+		$scope.trajet.display = $scope.trajet.previ;
 		if($scope.dataSet!==undefined){
-		$scope.trajet.previ = merge($scope.dataSet.train, $scope.previ);
+		$scope.trajet.display = merge($scope.dataSet.train, $scope.previ);
 		}//console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
         //console.log("dataSet : scop "+$scope.$id+".");
     }
@@ -130,17 +134,19 @@ function TrajetCtrl( $scope, DataSource, Getprevi ){
 	}
 	else
 	{
-		$scope.trajet.previ = Getprevi.get($scope.trajet.save, $scope.max);
-		//console.log('Données mémorisées chargées ');
-		console.log($scope.trajet.previ);
+		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+		$scope.trajet.display = $scope.trajet.previ;
+		console.log("Données mémorisées chargées controller "+$scope.$id);
+		//console.log($scope.trajet.previ);
 	}
 	
 	    //This is the callback function
     $scope.setData = function(data) {
+		console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.dataSet = data.passages;
-		console.log($scope.dataSet.train);
-		console.log($scope.trajet.previ);
-		$scope.trajet.previ = merge($scope.dataSet.train, $scope.trajet.previ);
+		//console.log($scope.dataSet.train);
+		//console.log($scope.trajet.previ);
+		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
 		//console.log("dataSet : scop "+$scope.$id+".");
 		//console.log($scope.dataSet);
     }
