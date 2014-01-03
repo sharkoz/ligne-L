@@ -35,13 +35,14 @@
      <td>{{train.miss}}</td>
 	 <td>{{train.num}}</td>
     </tr>-->
+	<tr><td></td><td>Heure</td><td>Direction</td><td>Mission</td><td>Voie</td></tr>
     <tr ng-repeat="train in trajet.display">
-     <td>{{train.date.mode}}</td>
+     <td>{{train.delta}}</td>
      <td>{{train.date.val | limitTo:-5}}</td>
      <td>{{gare[train.term]}}</td> 
      <td>{{train.miss}}</td>
 	 <!--<td>{{train.num}}</td>-->
-	 <td>{{train.delta}}</td>
+	 <td>{{train.voie}}</td>
     </tr>
    </tbody>
   </table>

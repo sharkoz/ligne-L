@@ -94,18 +94,16 @@ function TrajetCtrl( $scope, DataSource, Getprevi ){
     $scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
 	
 	merge = function(live, previ){
-		console.log('Merging for '+live[0].term+' Times are live :'+live[1].date.val+' and previ : '+previ[1].date.val);
 		var liv;
 		var pre;
 		var display = previ;
 		for(liv=0; liv<live.length; ++liv){
 			for(pre=0; pre<previ.length; ++pre){
 				if(live[liv].num == previ[pre].num){
-				console.log('Times are live :'+live[liv].date.val+' and previ : '+previ[pre].date.val)
 					display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/60000;
-					console.log(new Date('1970/01/01 '+previ[pre].date.val+':00')+"-"+new Date('1970/01/01 '+live[liv].date.val+':00')+" = "+display[pre].delta);
 					display[pre].date.mode='R';
 					display[pre].date.val=live[liv].date.val;
+					display[pre].voie=live[liv].voie;
 				}
 			}
 		}
