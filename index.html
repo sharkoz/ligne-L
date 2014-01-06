@@ -1,23 +1,19 @@
-<html ng-app="ligneL" id="ng-app" ng-controller="AppCtrl">
+<html ng-app="ligneL" >
  <head>
-<script src="lib/angular.min.js"></script>
-<script src="lib/angular-resource.min.js"></script>
-<script src="lib/angular-route.min.js"></script>
-<script src="lib/ngStorage.min.js"></script>
-<script src="phonegap.js"></script>
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="lib/xml2json.min.js"></script> 
+
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
-<script src="lib/prefixfree.min.js"></script>
+<link href="css/jquery.mobile-1.4.0.css" media="screen" rel="stylesheet" type="text/css">
+<script src="lib/jquery-2.0.3.min.js"></script>
+<script src="lib/jquery.mobile-1.4.0.min.js"></script>
 
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-
-<meta name="viewport" content="width=550, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
  <body>
+ <div data-role="page">
+ <div role="main" class="ui-content" id="ng-app" ng-controller="AppCtrl">
+ 
  <div class="head"><h1>Horaires Ligne L</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">i</div>
 </div>
  <div class="header"></div>
@@ -25,20 +21,108 @@
 <h1>Parametres globaux</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">x</div>
 <i>Chemin : </i>{{apiUrl}}<br>
 <i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
-Trains max :
-<SELECT name="max" ng-model="$storage.max" size="1" style="width:100%;max-width:50%;">
+Trains max : 
+<fieldset data-role="controlgroup">
+<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="0" max="15" value="5" data-popup-enabled="true">
+</fieldset>
+<!--<SELECT name="max" ng-model="$storage.max" size="1" style="width:100%;max-width:50%;">
     <OPTION>5</OPTION>
     <OPTION>8</OPTION>
     <OPTION>10</OPTION>
     <OPTION>15</OPTION>
-  </SELECT>
+  </SELECT>-->
 </div>
-  <div ng-view>
+  <!--<div ng-view>
+  Chargement...
+  </div>-->
+    <div id="splash-page" class="ng-cloak">
   Chargement...
   </div>
-    <div id="splash-page" class="card ng-cloak" ng-cloak>
-  Chargement...
+  
+  <div ng-controller="HorairesCtrl">
+  <div class="card" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">
+
+<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h1> <div class="corner_config" ng-click="options = ! options">i</div>
+<h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{$parent.apiUrl+trajet.path+'/'+trajet.depart}}</h2>
+
+  <div class="animate-switch-container" ng-show="options">
+        Paramétrer la carte :
+        <br>Depart : {{gare[trajet.depart]}}
+		<div data-role="collapsible" data-collapsed="false">
+    <input list="depart" type="text" id="choix_bieres" ng-model="autoDepart" ng-change="getLocation()">
+    <ul data-role="listview" ng-show="autoShow">
+         <li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="http://monrer.fr/img/rer{{im.idLigne}}.svg" height="22"></img></span></a></li>
+    </ul>
+</div>
+  <fieldset data-role="controlgroup">
+  <!--<SELECT name="nom" ng-model="trajet.depart" size="1" ng-change="jsoncall()">
+    <OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.depart">{{index.value}} (m)</OPTION>
+  </SELECT>-->
+  <br>Arrivée :
+  <SELECT name="nom" ng-model="trajet.arrivee" size="1" ng-change="jsoncall()">
+    <OPTION value="0">Toutes directions</OPTION>
+	<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
+  </SELECT>
+  </fieldset>
+     <!-- <br>Path :
+  <SELECT name="nom" ng-model="trajet.path" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
+    <OPTION>mobil</OPTION>
+    <OPTION>test</OPTION>
+    <OPTION>previ</OPTION>
+  </SELECT>-->
+        <input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); options=!options"/>
+        <br>
+        <input name="submit" type="submit" value="Supprimer trajet" ng-click="$parent.param.trajet.splice($index,1); options=!options"/>
+		
+
   </div>
+
+  <table class="horaires">
+   <tbody>
+	<tr><td></td><td>Heure</td><td>Direction</td><td>Mission</td><td>Voie</td></tr>
+    <tr ng-repeat="train in trajet.display">
+     <td>{{train.delta}}</td>
+     <td>{{train.date.val | limitTo:-5}}</td>
+     <td>{{gare[train.term]}}</td> 
+     <td>{{train.miss}}</td>
+	 <!--<td>{{train.num}}</td>-->
+	 <td>{{train.voie}}</td>
+    </tr>
+   </tbody>
+  </table>
+  </div>
+</div>
+</div>
+
+
+<div class="menu">
+  <table>
+    <td ng-click="$parent.local()">Localiser</td>
+    <td ng-click="addTrajet()">Ajouter</td>
+    <td ng-click="$parent.reloadRoute()">Rafraichir</td>
+  </table>
+
+</div>
+<div class="footer">  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -49,5 +133,18 @@ Trains max :
   ga('send', 'pageview');
 
 </script>
+<script src="lib/angular.min.js"></script>
+<script src="lib/angular-resource.min.js"></script>
+<script src="lib/angular-route.min.js"></script>
+<script src="lib/ngStorage.min.js"></script>
+
+<script src="phonegap.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<!--<script src="lib/xml2json.min.js"></script> -->
+<script src="lib/prefixfree.min.js"></script>
+</div>
+</div>
   </body>
 </html>

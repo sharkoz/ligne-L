@@ -89,10 +89,21 @@ if ($scope.$storage.param===undefined)
 
 }
 
-function TrajetCtrl( $scope, DataSource, Getprevi ){
+function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
-    $scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
+    //$scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
+
+	// Recherche des gares
+	$scope.getLocation = function(){DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);};
+	// Callback
+	$scope.refreshDepart = function(data) {
+		$scope.DepartList =  data;
+		$scope.autoShow = 1;
+		$scope.autoTR3A = '';
+		console.log(data);
+	}
 	
+	//Fonction pour merger les temps prévus et les temps réels
 	merge = function(live, previ){
 		var liv;
 		var pre;
@@ -142,11 +153,7 @@ function TrajetCtrl( $scope, DataSource, Getprevi ){
     $scope.setData = function(data) {
 		console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.dataSet = data.passages;
-		//console.log($scope.dataSet.train);
-		//console.log($scope.trajet.previ);
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-		//console.log("dataSet : scop "+$scope.$id+".");
-		//console.log($scope.dataSet);
     }
 
          //console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
