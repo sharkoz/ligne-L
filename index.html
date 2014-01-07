@@ -11,6 +11,9 @@
 </head>
 
  <body>
+     <div id="splash-page" class="ng-cloak">
+  Chargement...
+  </div>
  <div data-role="page">
  <div role="main" class="ui-content" id="ng-app" ng-controller="AppCtrl">
  
@@ -23,7 +26,7 @@
 <i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
 Trains max : 
 <fieldset data-role="controlgroup">
-<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="0" max="15" value="5" data-popup-enabled="true">
+<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
 </fieldset>
 <!--<SELECT name="max" ng-model="$storage.max" size="1" style="width:100%;max-width:50%;">
     <OPTION>5</OPTION>
@@ -35,9 +38,7 @@ Trains max :
   <!--<div ng-view>
   Chargement...
   </div>-->
-    <div id="splash-page" class="ng-cloak">
-  Chargement...
-  </div>
+
   
   <div ng-controller="HorairesCtrl">
   <div class="card" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">
@@ -51,7 +52,7 @@ Trains max :
 		<div data-role="collapsible" data-collapsed="false">
     <input list="depart" type="text" id="choix_bieres" ng-model="autoDepart" ng-change="getLocation()">
     <ul data-role="listview" ng-show="autoShow">
-         <li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="http://monrer.fr/img/rer{{im.idLigne}}.svg" height="22"></img></span></a></li>
+         <li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/rer{{im.idLigne}}.svg" height="22"></img></span></a></li>
     </ul>
 </div>
   <fieldset data-role="controlgroup">
@@ -91,17 +92,16 @@ Trains max :
    </tbody>
   </table>
   </div>
-</div>
-</div>
 
 
 <div class="menu">
   <table>
     <td ng-click="$parent.local()">Localiser</td>
     <td ng-click="addTrajet()">Ajouter</td>
-    <td ng-click="$parent.reloadRoute()">Rafraichir</td>
+    <td><input name="submit" type="submit" value="Rafraichir" ng-click="location.reload();"/></td>
   </table>
-
+</div>
+</div>
 </div>
 <div class="footer">  </div>
   
