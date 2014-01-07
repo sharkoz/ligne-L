@@ -1,6 +1,6 @@
 <html ng-app="ligneL" >
  <head>
-
+<title>Transilien</title>
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/jquery.mobile-1.4.0.css" media="screen" rel="stylesheet" type="text/css">
 <script src="lib/jquery-2.0.3.min.js"></script>
@@ -11,99 +11,83 @@
 </head>
 
  <body>
-     <div id="splash-page" class="ng-cloak">
-  Chargement...
-  </div>
+ 
  <div data-role="page">
+ 
  <div role="main" class="ui-content" id="ng-app" ng-controller="AppCtrl">
  
- <div class="head"><h1>Horaires Ligne L</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">i</div>
-</div>
+ <div class="head"><h1>Horaires Ligne L</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">i</div></div>
  <div class="header"></div>
-<div class="card ng-cloak" ng-cloak ng-show="GlobalOptions" >
-<h1>Parametres globaux</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">x</div>
-<i>Chemin : </i>{{apiUrl}}<br>
-<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
-Trains max : 
-<fieldset data-role="controlgroup">
-<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
-</fieldset>
-<!--<SELECT name="max" ng-model="$storage.max" size="1" style="width:100%;max-width:50%;">
-    <OPTION>5</OPTION>
-    <OPTION>8</OPTION>
-    <OPTION>10</OPTION>
-    <OPTION>15</OPTION>
-  </SELECT>-->
-</div>
+	<div class="card ng-cloak" ng-cloak ng-show="GlobalOptions" >
+		<h1>Parametres globaux</h1><div class="corner_config" ng-click="GlobalOptions = ! GlobalOptions">x</div>
+		<i>Chemin : </i>{{apiUrl}}<br>
+		<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
+		Trains max : 
+		<fieldset data-role="controlgroup">
+		<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
+		</fieldset>
+	</div>
+	
   <!--<div ng-view>
   Chargement...
   </div>-->
 
-  
-  <div ng-controller="HorairesCtrl">
-  <div class="card" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">
+<div ng-controller="HorairesCtrl">
 
-<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h1> <div class="corner_config" ng-click="options = ! options">i</div>
-<h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{$parent.apiUrl+trajet.path+'/'+trajet.depart}}</h2>
+	<div class="card" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">
+		<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h1> <div class="corner_config" ng-click="options = ! options">i</div>
+		<h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{$parent.apiUrl+trajet.path+'/'+trajet.depart}}</h2>
 
-  <div class="animate-switch-container" ng-show="options">
-        Paramétrer la carte :
-        <br>Depart : {{gare[trajet.depart]}}
-		<div data-role="collapsible" data-collapsed="false">
-    <input list="depart" type="text" id="choix_bieres" ng-model="autoDepart" ng-change="getLocation()">
-    <ul data-role="listview" ng-show="autoShow">
-         <li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/rer{{im.idLigne}}.svg" height="22"></img></span></a></li>
-    </ul>
-</div>
-  <fieldset data-role="controlgroup">
-  <!--<SELECT name="nom" ng-model="trajet.depart" size="1" ng-change="jsoncall()">
-    <OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.depart">{{index.value}} (m)</OPTION>
-  </SELECT>-->
-  <br>Arrivée :
-  <SELECT name="nom" ng-model="trajet.arrivee" size="1" ng-change="jsoncall()">
-    <OPTION value="0">Toutes directions</OPTION>
-	<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
-  </SELECT>
-  </fieldset>
-     <!-- <br>Path :
-  <SELECT name="nom" ng-model="trajet.path" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION>mobil</OPTION>
-    <OPTION>test</OPTION>
-    <OPTION>previ</OPTION>
-  </SELECT>-->
-        <input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); options=!options"/>
-        <br>
-        <input name="submit" type="submit" value="Supprimer trajet" ng-click="$parent.param.trajet.splice($index,1); options=!options"/>
-		
+		<div class="animate-switch-container" ng-show="options">
+			Paramétrer la carte :<br>
+			Depart : {{gare[trajet.depart]}}
+			<div data-role="collapsible" data-collapsed="false">
+				<input list="depart" type="text" id="choix_bieres" ng-model="autoDepart" ng-change="getLocation()">
+				<ul data-role="listview" ng-show="autoShow">
+					<li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/rer{{im.idLigne}}.svg" height="22"></img></span></a></li>
+				</ul>
+			</div>
+			<fieldset data-role="controlgroup">
+			Arrivée :
+			<SELECT name="nom" ng-model="trajet.arrivee" size="1" ng-change="jsoncall()">
+				<OPTION value="0">Toutes directions</OPTION>
+				<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
+			</SELECT>
+			</fieldset>
+			<!-- <br>Path :
+			<SELECT name="nom" ng-model="trajet.path" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
+				<OPTION>mobil</OPTION>
+				<OPTION>test</OPTION>
+				<OPTION>previ</OPTION>
+			</SELECT>-->
+			<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); options=!options"/>
+			<input name="submit" type="submit" value="Supprimer trajet" ng-click="$parent.param.trajet.splice($index,1); options=!options"/>
+		</div>
 
-  </div>
-
-  <table class="horaires">
-   <tbody>
-	<tr><td></td><td>Heure</td><td>Direction</td><td>Mission</td><td>Voie</td></tr>
-    <tr ng-repeat="train in trajet.display">
-     <td>{{train.delta}}</td>
-     <td>{{train.date.val | limitTo:-5}}</td>
-     <td>{{gare[train.term]}}</td> 
-     <td>{{train.miss}}</td>
-	 <!--<td>{{train.num}}</td>-->
-	 <td>{{train.voie}}</td>
-    </tr>
-   </tbody>
-  </table>
-  </div>
-
-
-<div class="menu">
-  <table>
-    <td ng-click="$parent.local()">Localiser</td>
-    <td ng-click="addTrajet()">Ajouter</td>
-    <td><input name="submit" type="submit" value="Rafraichir" ng-click="location.reload();"/></td>
-  </table>
+		<table class="horaires">
+			<tbody>
+				<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Mission</td><td>Voie</td></tr>
+				<tr ng-repeat="train in trajet.display">
+				<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
+				<td>{{gare[train.term]}}</td> 
+				<td>{{train.miss}}</td>
+				<!--<td>{{train.num}}</td>-->
+				<td>{{train.voie}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="footer">  </div>
+	<div class="menu">
+		<table>
+			<td><input name="submit" type="submit" value="Localiser" ng-click="console.log('local'); $parent.local(); console.log('local')"/></td>
+			<td><input name="submit" type="submit" value="Ajouter" ng-click="addTrajet()"/></td>
+			<td><input name="submit" type="submit" value="Rafraichir" ng-click="HorairesCtrl( $scope, LibGare, Param); "/></td>
+		</table>
+	</div>
 </div>
 </div>
-</div>
-<div class="footer">  </div>
+
   
   
   

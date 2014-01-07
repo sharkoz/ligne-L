@@ -83,7 +83,7 @@ if ($scope.$storage.param===undefined)
     //console.log($scope.ListeGares) 
 
     $scope.addTrajet = function(){
-        $scope.param.trajet.push({'depart' : 'BGV' , 'arrivee' : 'SNB', 'path' : 'mobil'});
+        $scope.param.trajet.push({'depart' : 'PSL' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"}});
         setTimeout(window.scrollTo(0,document.body.scrollHeight),500);
     }
 
@@ -91,7 +91,7 @@ if ($scope.$storage.param===undefined)
 
 function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
-    //$scope.trajet.dist = $scope.calculateDistance($scope.GareLoc[$scope.trajet.depart],$scope.pos);
+    $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 
 	// Recherche des gares
 	$scope.getLocation = function(){DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);};
@@ -111,7 +111,13 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 		for(liv=0; liv<live.length; ++liv){
 			for(pre=0; pre<previ.length; ++pre){
 				if(live[liv].num == previ[pre].num){
-					display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/60000;
+					display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
+					if(display[pre].delta == "0"){
+						display[pre].message = "A l'heure";
+					}
+					else{
+						display[pre].message = "+ "+display[pre].delta+"min";
+					}
 					display[pre].date.mode='R';
 					display[pre].date.val=live[liv].date.val;
 					display[pre].voie=live[liv].voie;
@@ -125,10 +131,12 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+		//console.log($scope.trajet.previ);
 		$scope.trajet.display = $scope.trajet.previ;
 		if($scope.dataSet!==undefined){
-		$scope.trajet.display = merge($scope.dataSet.train, $scope.previ);
-		}//console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
+		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+		}
+		//console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
         //console.log("dataSet : scop "+$scope.$id+".");
     }
 
