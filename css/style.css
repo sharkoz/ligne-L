@@ -68,20 +68,90 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
   position:   fixed;
 }
 
+.metacard{
+    opacity:0;	
+   animation: transition 1s ease-out 0s forwards;
+       position: center;
+	   display: block;
+	         -webkit-perspective: 800px;
+         -moz-perspective: 800px;
+           -o-perspective: 800px;
+              perspective: 800px;
+}
 
 .card {
-    background: white;
-	padding: 15px 15px 15px 15px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    border-radius: 3px 3px;
     max-width: 500px;
-    position: center;
+	
     margin: 10px;
     margin-right: auto;
     margin-left: auto;
-    opacity:0;
-    animation: transition 0.5s ease-out 0s forwards;
+
+    display: block;
+	background: white;
+	padding: 15px 15px 15px 15px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    border-radius: 3px 3px;
+      -webkit-transition: -webkit-transform 2s;
+         -moz-transition: -moz-transform 2s;
+           -o-transition: -o-transform 2s;
+              transition: transform 2s;
+      -webkit-transform-style: preserve-3d;
+         -moz-transform-style: preserve-3d;
+           -o-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+			        -webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+           -o-backface-visibility: hidden;
+              backface-visibility: hidden;
 }
+
+    .card.flipped {
+      -webkit-transform: rotateY( -179.9deg );
+         -moz-transform: rotateY( -179.9deg );
+           -o-transform: rotateY( -179.9deg );
+              transform: rotateY( -179.9deg );
+    }
+
+    .card figure {
+	width: 100%;
+      -webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+           -o-backface-visibility: hidden;
+              backface-visibility: hidden;
+    }
+	.card div{
+	      -webkit-backface-visibility: hidden;
+         -moz-backface-visibility: hidden;
+           -o-backface-visibility: hidden;
+              backface-visibility: hidden;
+	}
+
+    .card .front {
+		  	width: 100%;
+    }
+
+    .card.back {
+	      position: absolute;
+      -webkit-transform: rotateY( 179.9deg );
+         -moz-transform: rotateY( 179.9deg );
+           -o-transform: rotateY( 179.9deg );
+              transform: rotateY( 179.9deg );
+    }
+	    .card.back.flipped {
+		position: absolute;
+		top: 0;
+		    margin-right: auto;
+    margin-left: auto;
+      -webkit-transform: rotateY( 0deg );
+         -moz-transform: rotateY( 0deg );
+           -o-transform: rotateY( 0deg );
+              transform: rotateY( 0deg );
+    }
+	.card.hidden {
+		visibility:hidden;
+		position: static;
+	}
+
 card:nth-child(2) {
   animation-delay:0.25s;
 }
@@ -89,6 +159,46 @@ card:nth-child(n+3) {
   animation-delay:0.5s;
 }
 
+	
+	.card.back input,.card.back select {
+		width : 100%;
+	}
+
+	.card.back li{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-webkit-border-top-left-radius:6px;
+	-moz-border-radius-topleft:6px;
+	border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+	-moz-border-radius-topright:6px;
+	border-top-right-radius:6px;
+	-webkit-border-bottom-right-radius:6px;
+	-moz-border-radius-bottomright:6px;
+	border-bottom-right-radius:6px;
+	-webkit-border-bottom-left-radius:6px;
+	-moz-border-radius-bottomleft:6px;
+	border-bottom-left-radius:6px;
+	text-indent:0;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:25px;
+	line-height:25px;
+	width:100%;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #ffffff;
+	}
 
 .card table {
   border-collapse: collapse;
