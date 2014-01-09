@@ -32,15 +32,13 @@
 			<div class="">
 				<figure class="card front {{cflip}}">
 					<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h1> <div class="corner_config" ng-click="cflip = 'flipped'">i</div>
-					<h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{$parent.apiUrl+trajet.path+'/'+trajet.depart}}</h2>
+					<h2>Vers {{gare[trajet.arrivee]}}
 					<table class="horaires">
 						<tbody>
 							<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Voie</td></tr>
 							<tr ng-repeat="train in trajet.display">
 							<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
 							<td>{{gare[train.term]}}</td> 
-							<!--<!--<td>{{train.miss}}</td>
-							<td>{{train.num}}</td>-->
 							<td>{{train.voie}}</td>
 							</tr>
 						</tbody>
@@ -51,7 +49,7 @@
 					Depart : {{gare[trajet.depart]}}
 						<input type="text" ng-model="autoDepart" ng-change="getLocation()">
 						<ul ng-show="autoShow">
-							<li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/rer{{im.idLigne}}.svg" height="22"></img></span></a></li>
+							<li ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/{{im.idLigne}}.svg" height="22"></img></span></a></li>
 						</ul>
 					<br/>Arrivée :
 					<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">

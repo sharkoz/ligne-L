@@ -131,7 +131,7 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
     }
 
     .card.back {
-	      position: absolute;
+	      position: absolute;  
       -webkit-transform: rotateY( 179.9deg );
          -moz-transform: rotateY( 179.9deg );
            -o-transform: rotateY( 179.9deg );
@@ -140,6 +140,8 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
 	    .card.back.flipped {
 		position: absolute;
 		top: 0;
+				  left: 0;
+		  right: 0;
 		    margin-right: auto;
     margin-left: auto;
       -webkit-transform: rotateY( 0deg );
