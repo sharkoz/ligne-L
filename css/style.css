@@ -80,7 +80,7 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
 }
 
 .card {
-    max-width: 500px;
+    max-width: 470px;
 	
     margin: 10px;
     margin-right: auto;
@@ -140,10 +140,10 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
 	    .card.back.flipped {
 		position: absolute;
 		top: 0;
-				  left: 0;
-		  right: 0;
-		    margin-right: auto;
-    margin-left: auto;
+		left: 0;
+		right: 0;
+		margin-right: auto;
+		margin-left: auto;
       -webkit-transform: rotateY( 0deg );
          -moz-transform: rotateY( 0deg );
            -o-transform: rotateY( 0deg );
