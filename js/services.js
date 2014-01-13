@@ -657,14 +657,6 @@ return {get : function(save, max){
     
 	var self = this;
 
-    this.doGeolocation = function(callback) {
-      if (navigator.geolocation) {
-        var loc = navigator.geolocation.getCurrentPosition(callback, self.positionError);
-      } else {
-        positionError(-1);
-      }
-    }
-
     this.positionError = function (err) {
       var msg;
       switch(err.code) {
@@ -684,6 +676,14 @@ return {get : function(save, max){
           msg = "Votre appareil ne supporte pas la géolocalisation";
       }
     console.log(msg);
+    }
+	
+	    this.doGeolocation = function(callback) {
+      if (navigator.geolocation) {
+        var loc = navigator.geolocation.getCurrentPosition(callback, self.positionError);
+      } else {
+        //self.positionError(-1);
+      }
     }
 
 });

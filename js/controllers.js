@@ -59,6 +59,30 @@ console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// Refresh coordinates
     $scope.local();
     
+	$scope.hideOptions = function(index) {
+		$scope.GlobalOptions = false;
+		console.log($scope.GlobalOptions+"Chargement du callback pour "+$scope.$id);
+		//$scope.GlobalOptions = ! $scope.GlobalOptions;
+		console.log($scope.GlobalOptions);
+		$scope.$apply();
+	}
+	
+	//$scope.showOptions = function(){
+	$scope.slider = 'slider'+$scope.$id;
+	console.log(document.getElementById($scope.slider));
+	//$scope.mySwipe = new Swipe(document.getElementById($scope.slider), {
+	$scope.mySwipe = new Swipe(document.getElementById('slider'), {
+	startSlide: 1,
+	speed: 400,
+	continuous: false,
+	disableScroll: false,
+	stopPropagation: true,
+	callback: function(index, elem){$scope.GlobalOptions=false;$scope.$apply();$scope.mySwipe.slide(1);},
+	transitionEnd: function(index, elem) {}
+	});
+	//}
+	
+	
 }
 
 function HorairesCtrl( $scope, LibGare, Param){

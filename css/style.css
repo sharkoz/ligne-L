@@ -6,8 +6,6 @@ body {
 .head {
 max-width: 500px;
 height: 50px;
-background: url("../img/planL.jpg") 100% 80% no-repeat;
-background-position:center;
 margin-right: auto;
 margin-left: auto;
 text-align:center;
@@ -22,11 +20,69 @@ bottom: 0;
 left: 0;
 }
 .header{
-height: 50px;
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgb(17, 17, 17);
+background-image: linear-gradient(rgb(60, 60, 60), rgb(17, 17, 17));
+background-origin: padding-box;
+background-size: auto;
+border-bottom-color: rgb(51, 51, 51);
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(51, 51, 51);
+border-left-style: solid;
+border-left-width: 0px;
+border-right-color: rgb(51, 51, 51);
+border-right-style: solid;
+border-right-width: 0px;
+border-top-color: rgb(51, 51, 51);
+border-top-style: solid;
+border-top-width: 1px;
+color: rgb(255, 255, 255);
+display: block;
+font-family: Helvetica, Arial, sans-serif;
+font-weight: bold;
+height: 42.390625px;
+overflow-x: hidden;
+overflow-y: hidden;
+position: relative;
+text-shadow: rgb(0, 0, 0) 0px -1px;
+
 }
+.header h1{
+text-align: center; 
+margin-top: 0.6em;
+margin-right: 30%;
+margin-bottom: 0.8em;
+margin-left: 30%;
+font-size: 16px;
+min-height: 1.1em;
+}
+.width{
+position: absolute;
+display:block;
+height : 100%;
+width:100%;
+max-width: 500px;	
+margin-right: auto;
+margin-left: auto;
+margin-top: 0;
+top:0;
+right:0;
+left:0;
+}
+.menubutton{ cursor: pointer;  vertical-align:middle; display:block;  position:absolute;margin-left:15px; margin-top:5px; margin-bottom:auto; width:30px; height:30px;}
+.menubutton:before{content:''; height:4px; width:30px; background:grey; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px; display:block;
+ position:absolute; top:5px; left:0; box-shadow:0 9px grey, 0 18px grey;-webkit-box-shadow:0 9px grey, 0 18px grey;-moz-box-shadow:0 9px grey, 0 18px grey;}
+
 @keyframes transition {
-0%   { opacity:0; transform: translate(-500px,1500px); }
-100% { opacity:1; transform: translate(0px); }
+0%   { opacity:0; max-height:0; transform: translate(-500px,500px); }
+100% { opacity:1; max-height:50%; transform: translate(0px);}
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -68,9 +124,27 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
   position:   fixed;
 }
 
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+      margin-right: auto;
+    margin-left: auto;
+	left:0;right:0;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
 .metacard{
     opacity:0;	
-   animation: transition 1s ease-out 0s forwards;
+   animation: transition 0.5s ease-out 0s forwards;
        position: center;
 	   display: block;
 	         -webkit-perspective: 800px;
@@ -131,7 +205,12 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
     }
 
     .card.back {
-	      position: absolute;  
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		margin-right: auto;
+		margin-left: auto;
       -webkit-transform: rotateY( 179.9deg );
          -moz-transform: rotateY( 179.9deg );
            -o-transform: rotateY( 179.9deg );
@@ -166,7 +245,7 @@ card:nth-child(n+3) {
 		width : 100%;
 	}
 
-	.card.back li{
+	.card.back  .autocomplete{
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -194,13 +273,23 @@ card:nth-child(n+3) {
 	font-size:15px;
 	font-weight:bold;
 	font-style:normal;
-	height:25px;
+	height:30px;
 	line-height:25px;
 	width:100%;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #ffffff;
 	}
+.card.back .autocomplete:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+.card.back .autocomplete:active {
+	position:relative;
+	top:1px;
+}
 
 .card table {
   border-collapse: collapse;
@@ -318,3 +407,9 @@ h2 {
 .animate-switch-container > .ng-leave.ng-leave-active {
   top:50px;
 }
+
+
+
+
+
+
