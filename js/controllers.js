@@ -3,11 +3,11 @@
 
 
 function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
-console.log("Chargement du controller AppCtrl pour "+$scope.$id);
+//console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
-    //console.log("Local Storage:")
-    //console.log($scope.$storage.param)
+    ////console.log("Local Storage:")
+    ////console.log($scope.$storage.param)
 
 	if ($scope.$storage.max===undefined)
 	{
@@ -24,7 +24,7 @@ console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	    // Web page
 		$scope.apiUrl = "../../ligne-server/";
 	}
-	//console.log($scope.apiUrl)
+	////console.log($scope.apiUrl)
 
     $scope.reloadRoute = function () {
         $route.reload();
@@ -35,7 +35,7 @@ console.log("Chargement du controller AppCtrl pour "+$scope.$id);
       $scope.localise = true;
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
       $scope.$storage.pos = $scope.pos;
-        console.log($scope.pos);
+        //console.log($scope.pos);
         //$scope.reloadRoute(); //Attention ! Bug !
     }
 
@@ -61,15 +61,13 @@ console.log("Chargement du controller AppCtrl pour "+$scope.$id);
     
 	$scope.hideOptions = function(index) {
 		$scope.GlobalOptions = false;
-		console.log($scope.GlobalOptions+"Chargement du callback pour "+$scope.$id);
 		//$scope.GlobalOptions = ! $scope.GlobalOptions;
-		console.log($scope.GlobalOptions);
 		$scope.$apply();
 	}
 	
 	//$scope.showOptions = function(){
 	$scope.slider = 'slider'+$scope.$id;
-	console.log(document.getElementById($scope.slider));
+	//console.log(document.getElementById($scope.slider));
 	//$scope.mySwipe = new Swipe(document.getElementById($scope.slider), {
 	$scope.mySwipe = new Swipe(document.getElementById('slider'), {
 	startSlide: 1,
@@ -77,8 +75,8 @@ console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	continuous: false,
 	disableScroll: false,
 	stopPropagation: true,
-	callback: function(index, elem){$scope.GlobalOptions=false;$scope.$apply();$scope.mySwipe.slide(1);},
-	transitionEnd: function(index, elem) {}
+	callback: function(index, elem){},
+	transitionEnd: function(index, elem) {if(index!=1){$scope.GlobalOptions=false;$scope.$apply();$scope.mySwipe.slide(1);}}
 	});
 	//}
 	
@@ -87,7 +85,7 @@ console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 
 function HorairesCtrl( $scope, LibGare, Param){
 
-console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
+//console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 if ($scope.$storage.param===undefined)
 {
@@ -96,15 +94,15 @@ if ($scope.$storage.param===undefined)
 
     $scope.param = $scope.$storage.param;
 
-    console.log($scope.param);
+    //console.log($scope.param);
  	
     $scope.gare = LibGare.func;
     $scope.ListeGares = LibGare.values;
     $scope.GareLoc = LibGare.gareloc;
-    //console.log("Gare :")
-    //console.log($scope.gare) 
-    //console.log("ListeGares :")
-    //console.log($scope.ListeGares) 
+    ////console.log("Gare :")
+    ////console.log($scope.gare) 
+    ////console.log("ListeGares :")
+    ////console.log($scope.ListeGares) 
 
     $scope.addTrajet = function(){
         $scope.param.trajet.push({'depart' : 'PSL' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"}});
@@ -114,7 +112,7 @@ if ($scope.$storage.param===undefined)
 }
 
 function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
-	console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
+	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 
 	// Recherche des gares
@@ -124,7 +122,7 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 		$scope.DepartList =  data;
 		$scope.autoShow = 1;
 		$scope.autoTR3A = '';
-		console.log(data);
+		//console.log(data);
 	}
 	
 	//Fonction pour merger les temps prévus et les temps réels
@@ -155,40 +153,40 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-		//console.log($scope.trajet.previ);
+		////console.log($scope.trajet.previ);
 		$scope.trajet.display = $scope.trajet.previ;
 		if($scope.dataSet!==undefined){
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
 		}
-		//console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
-        //console.log("dataSet : scop "+$scope.$id+".");
+		////console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
+        ////console.log("dataSet : scop "+$scope.$id+".");
     }
 
-         //console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
+         ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
     $scope.jsonSave = function(){DataSource.get($scope.saveData, $scope.apiUrl+"gtfs/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};
 
     $scope.jsonSave();
 	$scope.getprevi = Getprevi.get;
 	if($scope.trajet.save===undefined)
 	{
-		console.log('Aucune donnée en mémoire.');
+		//console.log('Aucune donnée en mémoire.');
 	}
 	else
 	{
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
 		$scope.trajet.display = $scope.trajet.previ;
-		console.log("Données mémorisées chargées controller "+$scope.$id);
-		//console.log($scope.trajet.previ);
+		//console.log("Données mémorisées chargées controller "+$scope.$id);
+		////console.log($scope.trajet.previ);
 	}
 	
 	    //This is the callback function
     $scope.setData = function(data) {
-		console.log('Données temps réel disponibles controller '+$scope.$id);
+		//console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.dataSet = data.passages;
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
     }
 
-         //console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
+         ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
     $scope.jsoncall = function(){DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
 
     $scope.jsoncall();

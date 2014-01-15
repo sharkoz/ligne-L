@@ -1,10 +1,12 @@
-<html ng-app="ligneL" >
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" >
  <head>
 <title>Transilien</title>
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
-<!--<link href="css/jquery.mobile-1.4.0.css" media="screen" rel="stylesheet" type="text/css">
-<script src="lib/jquery-2.0.3.min.js"></script>
-<script src="lib/jquery.mobile-1.4.0.min.js"></script>-->
+
+<!--[if lte IE 8]>
+      <script src="lib/json-3.min.js"></script>
+    <![endif]-->
 
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,19 +16,19 @@
  
  <div data-role="page">
  
- <div role="main" class="ui-content" id="ng-app" ng-controller="AppCtrl">
+ <div role="main" class="ui-content" ng-controller="AppCtrl">
  
  <div class="header">
 	<div class="width">
 		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions"> </span>
 		<h1>Horaires Transilien</h1>
-		<div class="corner_config" ng-click="hideOptions()">i</div>
+		<div class="corner_buttons"><input type="image" style="height:21px;width:12px;" src="./css/images/icons-png/location-white.png" onclick="doGeolocation();"></div>
 	</div>
  </div>
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
-	<<div id='slider' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>
+	<div id='slider' class='swipe cardswidth' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div class="cardswidth">
 	<div class="metacard card ng-cloak" ng-cloak  >
-			<h1>Parametres globaux</h1><div class="corner_config" ng-click="hideOptions()">x</div>
+			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
 			<i>Chemin : </i>{{apiUrl}}<br>
 			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
 			Trains max : 
@@ -34,8 +36,8 @@
 			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
 			</fieldset>
 		</div>
-	</div><div>b</div></div></div>
-<div ng-controller="HorairesCtrl" ng-cloak>
+	</div><div> .</div></div></div>
+<div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front {{cflip}}">
@@ -73,13 +75,13 @@
 	</div>
 </div>
 	<div class="footer">  </div>
-	<div class="menu">
+	<!--<div class="menu">
 		<table>
 			<td><input name="submit" type="submit" value="Localiser" ng-click="console.log('local'); $parent.local(); console.log('local')"/></td>
 			<td><input name="submit" type="submit" value="Ajouter" ng-click="addTrajet()"/></td>
 			<td><input name="submit" type="submit" value="Rafraichir" ng-click="HorairesCtrl( $scope, LibGare, Param); "/></td>
 		</table>
-	</div>
+	</div>-->
 </div>
 </div>
 

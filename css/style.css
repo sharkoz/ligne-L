@@ -63,6 +63,14 @@ margin-left: 30%;
 font-size: 16px;
 min-height: 1.1em;
 }
+.corner_buttons {
+	position:absolute;
+	top: 10px;
+	right: 10px;
+  cursor: pointer;    /* affiche un curseur adapté */  
+  display: inline-block;    
+  text-align: center;   
+} 
 .width{
 position: absolute;
 display:block;
@@ -80,10 +88,7 @@ left:0;
 .menubutton:before{content:''; height:4px; width:30px; background:grey; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px; display:block;
  position:absolute; top:5px; left:0; box-shadow:0 9px grey, 0 18px grey;-webkit-box-shadow:0 9px grey, 0 18px grey;-moz-box-shadow:0 9px grey, 0 18px grey;}
 
-@keyframes transition {
-0%   { opacity:0; max-height:0; transform: translate(-500px,500px); }
-100% { opacity:1; max-height:50%; transform: translate(0px);}
-}
+
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
@@ -153,8 +158,15 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
               perspective: 800px;
 }
 
+@keyframes transition {
+0%   { opacity:0; max-height:0; transform: translate(-500px,500px); }
+100% { opacity:1; max-height:50%; transform: translate(0px);}
+}
+
+.cardswidth{max-width:500px;margin-left: auto;margin-right: auto;}
+
 .card {
-    max-width: 470px;
+    max-width: 90%;
 	
     margin: 10px;
     margin-right: auto;
