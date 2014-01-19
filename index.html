@@ -22,7 +22,7 @@
 	<div class="width">
 		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions"> </span>
 		<h1>Horaires Transilien</h1>
-		<div class="corner_buttons"><input type="image" style="height:21px;width:12px;" src="./css/images/icons-png/location-white.png" onclick="doGeolocation();"></div>
+		<div class="corner_location"><input type="image" style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg" ng-click="$scope.local();"></div>
 	</div>
  </div>
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
@@ -41,8 +41,8 @@
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front {{cflip}}">
-					<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h1> <div class="corner_config" ng-click="cflip = 'flipped'">i</div>
-					<h2>Vers {{gare[trajet.arrivee]}}
+					<h2>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h2> <div class="corner_config" ng-click="cflip = 'flipped'">i</div>
+					<h3>Vers {{gare[trajet.arrivee]}}</h3>
 					<table class="horaires">
 						<tbody>
 							<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Voie</td></tr>
@@ -70,6 +70,13 @@
 						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); cflip = ''"/>
 						<input name="submit" type="submit" value="Supprimer trajet" ng-click="$parent.param.trajet.splice($index,1); options=!options"/>
 					</div>
+				</figure>
+			</div>
+	</div>
+	<div class="metacard">		
+			<div class="">
+				<figure class="card front" ng-click="addTrajet()">
+Ajouter une gare<input type="image" style="height:60px;width:60px;align:center;" src="./img/iconmonstr-plus-5-icon.svg" ng-click="$scope.local();">
 				</figure>
 			</div>
 	</div>
