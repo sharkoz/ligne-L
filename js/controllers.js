@@ -48,7 +48,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
     }
 	
     $scope.local = function(){
-		console.log('Localisation demandée');
+		console.log('Localisation demandÃ©e');
         Locate.doGeolocation($scope.setLoc);
     }
 	
@@ -130,7 +130,7 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 		//console.log(data);
 	}
 	
-	//Fonction pour merger les temps prévus et les temps réels
+	//Fonction pour merger les temps prÃ©vus et les temps rÃ©els
 	merge = function(live, previ){
 		var liv;
 		var pre;
@@ -154,7 +154,7 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 		return display;
 	}
 	
-    //Sauvegarde pour toute la journée
+    //Sauvegarde pour toute la journÃ©e
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
@@ -163,7 +163,7 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 		if($scope.dataSet!==undefined){
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
 		}
-		////console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
+		////console.log('Horaires prÃ©visionnels chargÃ©s.'+$scope.trajet.previ);
         ////console.log("dataSet : scop "+$scope.$id+".");
     }
 
@@ -174,19 +174,19 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	$scope.getprevi = Getprevi.get;
 	if($scope.trajet.save===undefined)
 	{
-		//console.log('Aucune donnée en mémoire.');
+		//console.log('Aucune donnÃ©e en mÃ©moire.');
 	}
 	else
 	{
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
 		$scope.trajet.display = $scope.trajet.previ;
-		//console.log("Données mémorisées chargées controller "+$scope.$id);
+		//console.log("DonnÃ©es mÃ©morisÃ©es chargÃ©es controller "+$scope.$id);
 		////console.log($scope.trajet.previ);
 	}
 	
 	    //This is the callback function
     $scope.setData = function(data) {
-		//console.log('Données temps réel disponibles controller '+$scope.$id);
+		//console.log('DonnÃ©es temps rÃ©el disponibles controller '+$scope.$id);
         $scope.dataSet = data.passages;
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
     }

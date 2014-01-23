@@ -41,8 +41,8 @@
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front {{cflip}}">
-					<h2>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h2> 
-					<div class="corner_refresh" ng-click="jsoncall()"><img style="height:16px;width:16px;" src="./img/iconmonstr-refresh-5-icon.svg"/></div>
+					<h2>{{gare[trajet.depart]}} Ã  <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h2> 
+					<div class="corner_refresh" ng-click="jsoncall()"><img style="height:18px;width:18px;" src="./img/iconmonstr-refresh-5-icon.svg"/></div>
 					<div class="corner_config" ng-click="cflip = 'flipped'">i</div>
 					<h3>Vers {{gare[trajet.arrivee]}}</h3>
 					<table class="horaires">
@@ -57,14 +57,14 @@
 					</table>
 				</figure>
 				<figure class="card back {{cflip}}">
-					Paramétrer la carte :<br>
+					ParamÃ©trer la carte :<br>
 					Depart : {{gare[trajet.depart]}}
 					<input type="text" ng-model="autoDepart" ng-change="getLocation()">
 					<div ng-show="autoShow">
 							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/{{im.idLigne}}.svg" height="22"></img></span></a></div>
 					</div>
 					<div ng-hide="autoShow">
-						<br/>Arrivée :
+						<br/>ArrivÃ©e :
 						<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">
 							<!--OPTION value="0">Toutes directions</OPTION>-->
 							<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
