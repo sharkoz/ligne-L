@@ -492,8 +492,8 @@ gareloc : {
 .service('Param', function(){
   return { 
     values : {trajet : [
-	{'depart' : 'PSL' , 'arrivee' : 'SNB', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"} },
-    {'depart' : 'BGV' , 'arrivee' : 'PSL', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.8753578", "longitude" : "2.3247332"} }
+	{'depart' : 'PSL' , 'arrivee' : 'SNB', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.8753578", "longitude" : "2.3247332"} },
+    {'depart' : 'BGV' , 'arrivee' : 'PSL', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.8542235", "longitude" : "2.1322404"} }
     ]}
   } 
 })
@@ -680,9 +680,10 @@ return {get : function(save, max){
 	
 	    this.doGeolocation = function(callback) {
       if (navigator.geolocation) {
+	  console.log('Localisation supportée');
         var loc = navigator.geolocation.getCurrentPosition(callback, self.positionError);
       } else {
-        //self.positionError(-1);
+        self.positionError(-1);
       }
     }
 

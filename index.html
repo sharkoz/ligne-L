@@ -7,7 +7,7 @@
 <!--[if lte IE 8]>
       <script src="lib/json-3.min.js"></script>
     <![endif]-->
-
+<meta charset="UTF-8">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -22,7 +22,7 @@
 	<div class="width">
 		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions"> </span>
 		<h1>Horaires Transilien</h1>
-		<div class="corner_location"><input type="image" style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg" ng-click="$scope.local();"></div>
+		<div class="corner_location" ng-click="local()"><img style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg"/></div>
 	</div>
  </div>
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
@@ -41,7 +41,9 @@
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front {{cflip}}">
-					<h2>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h2> <div class="corner_config" ng-click="cflip = 'flipped'">i</div>
+					<h2>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h2> 
+					<div class="corner_refresh" ng-click="jsoncall()"><img style="height:16px;width:16px;" src="./img/iconmonstr-refresh-5-icon.svg"/></div>
+					<div class="corner_config" ng-click="cflip = 'flipped'">i</div>
 					<h3>Vers {{gare[trajet.arrivee]}}</h3>
 					<table class="horaires">
 						<tbody>

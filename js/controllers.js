@@ -22,7 +22,7 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 		$scope.apiUrl = "http://rlier.fr/ligne-server/";
 	} else {
 	    // Web page
-		$scope.apiUrl = "../../ligne-server/";
+		$scope.apiUrl = "../ligne-server/";
 	}
 	////console.log($scope.apiUrl)
 
@@ -35,15 +35,20 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
       $scope.localise = true;
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
       $scope.$storage.pos = $scope.pos;
-        //console.log($scope.pos);
+        console.log($scope.pos);
+		console.log('https://maps.google.com/?q='+$scope.pos.latitude+','+$scope.pos.longitude)
         //$scope.reloadRoute(); //Attention ! Bug !
     }
 
     $scope.calculateDistance = function(geo1, geo2){
+		console.log("dist btw :");
+		console.log('https://maps.google.com/?q='+geo1.latitude+','+geo1.longitude);
+		console.log('https://maps.google.com/?q='+geo2.latitude+','+geo2.longitude);
         return Geomath.calculateDistance(geo1, geo2);
     }
 	
     $scope.local = function(){
+		console.log('Localisation demandée');
         Locate.doGeolocation($scope.setLoc);
     }
 	
@@ -105,7 +110,7 @@ if ($scope.$storage.param===undefined)
     ////console.log($scope.ListeGares) 
 
     $scope.addTrajet = function(){
-        $scope.param.trajet.push({'depart' : 'PSL' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"}});
+        $scope.param.trajet.push({'depart' : 'BGV' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"}});
         setTimeout(window.scrollTo(0,document.body.scrollHeight),500);
     }
 
