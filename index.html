@@ -1,5 +1,8 @@
-<!doctype html>
-<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" >
+<!DOCTYPE html>
+<!--
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" manifest="app.manifest">
+-->
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL">
  <head>
 <title>Transilien</title>
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
@@ -22,7 +25,7 @@
 	<div class="width">
 		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions"> </span>
 		<h1>Horaires Transilien</h1>
-		<div class="corner_location" ng-click="local()"><img style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg"/></div>
+		<div class="corner_location" ng-click="local()"><img class="{{gpsloading}}" style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg"/></div>
 	</div>
  </div>
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
@@ -40,10 +43,10 @@
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
-				<figure class="card front {{cflip}}">
+				<figure class="card front {{$scope.cflip}}">
 					<h2>{{gare[trajet.depart]}} à <strong ng-show"localise">{{calculateDistance(trajet.depart_pos,$parent.pos)}}</strong>m</h2> 
-					<div class="corner_refresh" ng-click="jsoncall()"><img style="height:18px;width:18px;" src="./img/iconmonstr-refresh-5-icon.svg"/></div>
-					<div class="corner_config" ng-click="cflip = 'flipped'">i</div>
+					<div class="corner_refresh {{jsonloading}}" ng-click="jsoncall()"><img style="height:18px;width:18px;" src="./img/iconmonstr-refresh-5-icon.svg" alt="MaJ"/></div>
+					<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>
 					<h3>Vers {{gare[trajet.arrivee]}}</h3>
 					<table class="horaires">
 						<tbody>
@@ -56,10 +59,10 @@
 						</tbody>
 					</table>
 				</figure>
-				<figure class="card back {{cflip}}">
+				<figure class="card back {{$scope.cflip}}">
 					Paramétrer la carte :<br>
 					Depart : {{gare[trajet.depart]}}
-					<input type="text" ng-model="autoDepart" ng-change="getLocation()">
+					<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
 					<div ng-show="autoShow">
 							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/{{im.idLigne}}.svg" height="22"></img></span></a></div>
 					</div>
@@ -69,7 +72,7 @@
 							<!--OPTION value="0">Toutes directions</OPTION>-->
 							<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
 						</SELECT>
-						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); cflip = ''"/>
+						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
 						<input name="submit" type="submit" value="Supprimer trajet" ng-click="$parent.param.trajet.splice($index,1); options=!options"/>
 					</div>
 				</figure>
@@ -78,7 +81,7 @@
 	<div class="metacard">		
 			<div class="">
 				<figure class="card front" ng-click="addTrajet()">
-Ajouter une gare<input type="image" style="height:60px;width:60px;align:center;" src="./img/iconmonstr-plus-5-icon.svg" ng-click="$scope.local();">
+<input type="image" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" src="./img/iconmonstr-plus-5-icon.svg" ng-click="$scope.local();" alt="Ajouter une gare">
 				</figure>
 			</div>
 	</div>

@@ -35,20 +35,25 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
       $scope.localise = true;
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
       $scope.$storage.pos = $scope.pos;
-        console.log($scope.pos);
-		console.log('https://maps.google.com/?q='+$scope.pos.latitude+','+$scope.pos.longitude)
+	  $scope.gpsloading = "";
+		console.log($scope.gpsloading);
+        console.log($scope.$id);
+		$scope.$apply();
+		//console.log('https://maps.google.com/?q='+$scope.pos.latitude+','+$scope.pos.longitude)
         //$scope.reloadRoute(); //Attention ! Bug !
     }
 
     $scope.calculateDistance = function(geo1, geo2){
-		console.log("dist btw :");
-		console.log('https://maps.google.com/?q='+geo1.latitude+','+geo1.longitude);
-		console.log('https://maps.google.com/?q='+geo2.latitude+','+geo2.longitude);
+		//console.log("dist btw :");
+		//console.log('https://maps.google.com/?q='+geo1.latitude+','+geo1.longitude);
+		//console.log('https://maps.google.com/?q='+geo2.latitude+','+geo2.longitude);
         return Geomath.calculateDistance(geo1, geo2);
     }
 	
     $scope.local = function(){
-		console.log('Localisation demandée');
+		$scope.gpsloading = "spin_image";
+				console.log($scope.gpsloading);
+        console.log($scope.$id);
         Locate.doGeolocation($scope.setLoc);
     }
 	
@@ -189,10 +194,11 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 		//console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.dataSet = data.passages;
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+		$scope.jsonloading = "";
     }
 
          ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
-    $scope.jsoncall = function(){DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
+    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
 
     $scope.jsoncall();
 	
