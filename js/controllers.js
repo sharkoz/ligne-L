@@ -35,9 +35,10 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
       $scope.localise = true;
       $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
       $scope.$storage.pos = $scope.pos;
+	  $scope.$broadcast('LocRefreshed');
 	  $scope.gpsloading = "";
-		console.log($scope.gpsloading);
-        console.log($scope.$id);
+		//console.log($scope.gpsloading);
+        //console.log($scope.$id);
 		$scope.$apply();
 		//console.log('https://maps.google.com/?q='+$scope.pos.latitude+','+$scope.pos.longitude)
         //$scope.reloadRoute(); //Attention ! Bug !
@@ -52,8 +53,8 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 	
     $scope.local = function(){
 		$scope.gpsloading = "spin_image";
-				console.log($scope.gpsloading);
-        console.log($scope.$id);
+		//console.log($scope.gpsloading);
+        //console.log($scope.$id);
         Locate.doGeolocation($scope.setLoc);
     }
 	
@@ -124,7 +125,11 @@ if ($scope.$storage.param===undefined)
 function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
-
+	$scope.$on('LocRefreshed', function() {
+     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
+	});
+	
+	
 	// Recherche des gares
 	$scope.getLocation = function(){DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);};
 	// Callback
@@ -192,10 +197,21 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	    //This is the callback function
     $scope.setData = function(data) {
 		//console.log('Données temps réel disponibles controller '+$scope.$id);
-        $scope.dataSet = data.passages;
-		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-		$scope.jsonloading = "";
-    }
+		if($scope.trajet.save===undefined)
+		{
+			//console.log('Aucune donnée en mémoire.');
+		}
+		else
+		{
+			$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+			$scope.trajet.display = $scope.trajet.previ;
+			//console.log("Données mémorisées chargées controller "+$scope.$id);
+			////console.log($scope.trajet.previ);
+		}
+			$scope.dataSet = data.passages;
+			$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+			$scope.jsonloading = "";
+		}
 
          ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
     $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};

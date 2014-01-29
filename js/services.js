@@ -625,7 +625,7 @@ return {get : function(save, max){
      */
     this.convertFromGoogle = function(llobjs) {
        llobjs.forEach( function(llo) {
-           console.log(llo)
+           //console.log(llo)
            if (llo.nb && llo.ob) {
                llo.latitude = llo.nb;
                llo.longitude = llo.ob;
@@ -680,7 +680,7 @@ return {get : function(save, max){
 	
 	    this.doGeolocation = function(callback) {
       if (navigator.geolocation) {
-	  console.log('Localisation supportée');
+	  //console.log('Localisation supportée');
         var loc = navigator.geolocation.getCurrentPosition(callback, self.positionError);
       } else {
         self.positionError(-1);
