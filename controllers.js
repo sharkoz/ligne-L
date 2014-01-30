@@ -8,11 +8,10 @@ function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		document.addEventListener("resume", onResume, false);
-	};
-	document.addEventListener("resume", onResume, false);
+	}
 	function onResume(){
 		$scope.$broadcast('Refresh');
-	};
+	}
 
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
@@ -136,16 +135,15 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 	$scope.$on('LocRefreshed', function() {
-		$scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
+     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 	});
 	$scope.$on('Refresh', function() {
-		//console.log('Bcast Refresh on '+$scope.$id);
-		$scope.jsoncall();
+     $scope.jsoncall();
 	});
 	
 	$scope.broadcastRefresh = function () {
-		//console.log('BcastRefresh from '+$scope.$id);
-		$scope.$parent.$parent.$broadcast('Refresh');
+		console.log('BcastRefresh');
+		$scope.$parent.$broadcast('Refresh');
 	}
 	
 	
