@@ -10,18 +10,3 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/view1'});
 }]);
 
-
-
-/*
-app.filter('toDictionaryArray', function () {
-    return function (obj) {
-        if (!(obj instanceof Object)) return obj;
-
-        var arr = [];
-        for (var cle in obj) {
-            arr.push({ key: cle, val: obj[cle] });
-        }
-        return arr;
-    }
-});
-*/

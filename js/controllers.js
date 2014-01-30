@@ -4,6 +4,15 @@
 
 function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
+
+	document.addEventListener("deviceready", onDeviceReady, false);
+	function onDeviceReady() {
+		document.addEventListener("resume", onResume, false);
+	}
+	function onResume(){
+		$scope.$broadcast('LocRefreshed');
+	}
+
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
     ////console.log("Local Storage:")
