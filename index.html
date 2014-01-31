@@ -30,7 +30,7 @@
  </div>
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
 	<div id='slider' class='swipe cardswidth' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div class="cardswidth">
-	<div class="metacard card ng-cloak" ng-cloak  >
+	<div id="top" class="metacard card ng-cloak" ng-cloak  >
 			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
 			<i>Chemin : </i>{{apiUrl}}<br>
 			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
