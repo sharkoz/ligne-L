@@ -150,6 +150,17 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	});
 	$scope.$on('Refresh', function() {
 		//console.log('Bcast Refresh on '+$scope.$id);
+      if($scope.trajet.save===undefined)
+		{
+			//console.log('Aucune donnée en mémoire.');
+		}
+		else
+		{
+			$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+			$scope.trajet.display = $scope.trajet.previ;
+			//console.log("Données mémorisées chargées controller "+$scope.$id);
+			////console.log($scope.trajet.previ);
+		}
 		$scope.jsoncall();
 	});
 	
