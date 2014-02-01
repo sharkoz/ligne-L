@@ -71,6 +71,14 @@ min-height: 1.1em;
   display: inline-block;    
   text-align: center;   
 } 
+
+.corner_network {
+	position:absolute;
+	top: 5px;
+	right: 50px;  
+  display: inline-block;    
+  text-align: center;   
+} 
 .corner_buttons {
 	position:absolute;
 	top: 10px;

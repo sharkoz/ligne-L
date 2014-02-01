@@ -2,16 +2,26 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $localStorage, $route, Geomath, Locate){
+function AppCtrl( $scope, $window, $localStorage, $route, Geomath, Locate){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 
-	document.addEventListener("deviceready", onDeviceReady, false);
-	function onDeviceReady() {
-		document.addEventListener("resume", onResume, false);
-	};
+	//document.addEventListener("deviceready", onDeviceReady, false);
+	//function onDeviceReady() {
+	//	document.addEventListener("resume", onResume, false);
+	//};
+	
+	// Phonegap event listener
 	document.addEventListener("resume", onResume, false);
+	// Desktop event listener
+	window.onfocus = function() {
+		onResume();
+	};
+	
+	//document.addEventListener("menubutton", function() {$scope.GlobalOptions =! $scope.GlobalOptions;}, false);
+	
 	function onResume(){
 		$scope.$broadcast('Refresh');
+		$scope.local();
 	};
 
 	// 1 - Get localstorage

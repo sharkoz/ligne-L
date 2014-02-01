@@ -23,8 +23,13 @@
  
  <div class="header">
 	<div class="width">
-		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions"> </span>
+		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions; network='online'; $scope.$apply()"> </span>
 		<h1>Horaires Transilien</h1>
+		<div class="corner_network">
+			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
+			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
+			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
+		</div>
 		<div class="corner_location" ng-click="local()"><img class="{{gpsloading}}" alt="GPS" style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg"/></div>
 	</div>
  </div>

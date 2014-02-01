@@ -536,6 +536,7 @@ return {get : function(save, max){
 					//console.log('moins');
 				}
 				else {
+					//console.log(j);
 					if(((j.valid.deb.replace(/-/g,"") <= day.replace(/-/g,"")) && (j.valid.fin.replace(/-/g,"") >= day.replace(/-/g,"")) && (j.valid.mask.indexOf(dow) > -1)) || (!!j.valid.plus && j.valid.plus.indexOf(day) > -1)){
 						take = 1;
 						//console.log('take');
@@ -548,6 +549,7 @@ return {get : function(save, max){
 					}
 					else{
 						i=i+1;
+						//console.log('not');
 						//console.log(j.valid.deb.replace(/-/g,"")+' <= '+day.replace(/-/g,"")+' :'+(j.valid.deb.replace(/-/g,"") <= day.replace(/-/g,""))+' && '+j.valid.fin.replace(/-/g,"")+' >= '+day.replace(/-/g,"")+' && '+j.valid.mask.indexOf(dow));
 					}
 				}
