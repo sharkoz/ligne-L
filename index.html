@@ -25,7 +25,7 @@
 	<div class="width">
 		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions; network='online'; $scope.$apply()"> </span>
 		<h1>Horaires Transilien</h1>
-		<div class="corner_network">
+		<div class="corner_network ng-cloak" ng-cloak>
 			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
 			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
 			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
@@ -41,7 +41,7 @@
 			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
 			Trains max : 
 			<fieldset data-role="controlgroup">
-			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
+			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">{{$storage.max}}
 			</fieldset>
 		</div>
 	</div><div> .</div></div></div>
@@ -57,9 +57,11 @@
 						<tbody>
 							<!--<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Voie</td></tr>-->
 							<tr ng-repeat="train in trajet.display">
-							<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
-							<td><i>Vers </i>{{gare[train.term]}}</td> 
-							<td>Voie {{train.voie}}<br/><i>{{train.num}}</i></td>
+								<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
+								<td><i></i>{{gare[train.term]}}</td> 
+								<td style="text-align:center;"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie">{{train.voie}}</div>
+									<div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -92,13 +94,6 @@
 	</div>
 </div>
 	<div class="footer">  </div>
-	<!--<div class="menu">
-		<table>
-			<td><input name="submit" type="submit" value="Localiser" ng-click="console.log('local'); $parent.local(); console.log('local')"/></td>
-			<td><input name="submit" type="submit" value="Ajouter" ng-click="addTrajet()"/></td>
-			<td><input name="submit" type="submit" value="Rafraichir" ng-click="HorairesCtrl( $scope, LibGare, Param); "/></td>
-		</table>
-	</div>-->
 </div>
 </div>
 

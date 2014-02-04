@@ -347,6 +347,15 @@ card:nth-child(n+3) {
 	border-bottom-width: 1px;
 }
 
+.voie{
+background: darkblue;
+  width: 25px; line-height: 25px; /* dim. de la case */  
+  border: 7px double white;  
+  color: white;
+  text-align: center;  
+  border-radius: 30%;
+}
+
 h1 {
   font-size:2rem;
   margin: 10px;
