@@ -352,7 +352,9 @@ background: darkblue;
   width: 25px; line-height: 25px; /* dim. de la case */  
   border: 7px double white;  
   color: white;
-  text-align: center;  
+  text-align: center;
+  margin-right: auto;
+  margin-left:auto;
   border-radius: 30%;
 }
 

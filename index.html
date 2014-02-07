@@ -6,7 +6,7 @@
  <head>
 <title>Transilien</title>
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
-
+<link href="css/metrodna.css" media="screen" rel="stylesheet" type="text/css">
 <!--[if lte IE 8]>
       <script src="lib/json-3.min.js"></script>
     <![endif]-->
@@ -71,7 +71,7 @@
 					Depart : {{gare[trajet.depart]}}
 					<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
 					<div ng-show="autoShow">
-							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><img ng-repeat="im in index.lignes" src="./img/{{im.idLigne}}.svg" height="22"></img></span></a></div>
+							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
 					</div>
 					<div ng-hide="autoShow">
 						<br/>Arrivée :
