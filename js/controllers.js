@@ -68,8 +68,22 @@ function AppCtrl( $scope, $window, $localStorage, $route, Geomath, Locate){
 		//console.log("dist btw :");
 		//console.log('https://maps.google.com/?q='+geo1.latitude+','+geo1.longitude);
 		//console.log('https://maps.google.com/?q='+geo2.latitude+','+geo2.longitude);
-        return Geomath.calculateDistance(geo1, geo2);
+        var dist = Geomath.calculateDistance(geo1, geo2);
+		return dist;
     }
+	
+	$scope.distDisplay=function(dist){
+		if(dist<100){
+			res = 'à <100m';
+		}
+		else if(dist<950){
+			res = 'à ~'+Math.round(dist/100)*100+'m';
+		}
+		else{
+			res = 'à ~'+Math.round(dist/100)/10+'km';
+		}
+		return res;
+	}
 	
     $scope.local = function(){
 		$scope.gpsloading = "spin_image";
@@ -136,7 +150,7 @@ if ($scope.$storage.param===undefined)
     ////console.log($scope.ListeGares) 
 
     $scope.addTrajet = function(){
-        $scope.param.trajet.push({'depart' : 'BGV' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"}});
+        $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "80", "longitude" : "80"}});
         setTimeout(window.scrollTo(0,document.body.scrollHeight),500);
     }
 

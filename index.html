@@ -49,7 +49,7 @@
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front {{$scope.cflip}}">
-					<h2>{{gare[trajet.depart]}} à <strong ng-show"localise">{{trajet.dist}}</strong>m</h2> 
+					<h2>{{gare[trajet.depart]}} <strong ng-show="localise">{{distDisplay(trajet.dist)}}</strong></h2> 
 					<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><img style="height:18px;width:18px;" src="./img/iconmonstr-refresh-5-icon.svg" alt="MaJ"/></div>
 					<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>
 					<h3>Vers {{gare[trajet.arrivee]}}</h3>
