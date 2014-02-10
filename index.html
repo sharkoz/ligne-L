@@ -30,7 +30,7 @@
 			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
 			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
 		</div>
-		<div class="corner_location" ng-click="local()"><img class="{{gpsloading}}" alt="GPS" style="height:30px;width:30px;" src="./img/iconmonstr-crosshair-6-icon.svg"/></div>
+		<div class="corner_location" ng-click="local()"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
 	</div>
  </div>
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
@@ -50,7 +50,7 @@
 			<div class="">
 				<figure class="card front {{$scope.cflip}}">
 					<h2>{{gare[trajet.depart]}} <strong ng-show="localise">{{distDisplay(trajet.dist)}}</strong></h2> 
-					<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><img style="height:18px;width:18px;" src="./img/iconmonstr-refresh-5-icon.svg" alt="MaJ"/></div>
+					<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh" style="height:18px;width:18px;">MaJ</span></div>
 					<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>
 					<h3>Vers {{gare[trajet.arrivee]}}</h3>
 					<table class="horaires">
@@ -88,7 +88,7 @@
 	<div class="metacard">		
 			<div class="">
 				<figure class="card front" ng-click="addTrajet()">
-<input type="image" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" src="./img/iconmonstr-plus-5-icon.svg" ng-click="$scope.local();" alt="Ajouter une gare">
+<span class="svg plus" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" ng-click="$scope.local();">Ajouter une gare</span>
 				</figure>
 			</div>
 	</div>
