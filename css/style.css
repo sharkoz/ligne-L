@@ -47,12 +47,19 @@ color: rgb(255, 255, 255);
 display: block;
 font-family: Helvetica, Arial, sans-serif;
 font-weight: bold;
-height: 42.390625px;
-overflow-x: hidden;
-overflow-y: hidden;
-position: relative;
+height: 40px;
+width: 100%;
+overflow-x: visible;
+overflow-y: visible;
 text-shadow: rgb(0, 0, 0) 0px -1px;
-
+position: fixed;
+    left: 0;
+    top: 0;
+	z-index:500;
+}
+.top{
+height:42px;
+width:100%;
 }
 .header h1{
 text-align: center; 
@@ -183,7 +190,7 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
 
 .card {
     max-width: 85%;
-	
+	min-height: 225px;
     margin: 10px;
     margin-right: auto;
     margin-left: auto;
@@ -230,11 +237,12 @@ div#splash-page.ng-cloak  /*<-- This has higher specificity so it can display a 
 
     .card .front {
 		  	width: 100%;
+			
     }
 
     .card.back {
 		position: absolute;
-		top: 0;
+		top: -10;
 		left: 0;
 		right: 0;
 		margin-right: auto;
@@ -370,6 +378,8 @@ strong {
 
 h2{
 	font-size:1.3rem;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 h3 {
   font-size:.9rem;
@@ -459,7 +469,9 @@ h3 {
   display: inline-block;
   background-size:100%;
   background-repeat: no-repeat;
-    text-indent: -5000px;
+  text-indent: 120%;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .svg.plus{
@@ -480,3 +492,120 @@ h3 {
 	background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCg0KPCEtLSBUaGUgaWNvbiBjYW4gYmUgdXNlZCBmcmVlbHkgaW4gYm90aCBwZXJzb25hbCBhbmQgY29tbWVyY2lhbCBwcm9qZWN0cyB3aXRoIG5vIGF0dHJpYnV0aW9uIHJlcXVpcmVkLCBidXQgYWx3YXlzIGFwcHJlY2lhdGVkLiANCllvdSBtYXkgTk9UIHN1Yi1saWNlbnNlLCByZXNlbGwsIHJlbnQsIHJlZGlzdHJpYnV0ZSBvciBvdGhlcndpc2UgdHJhbnNmZXIgdGhlIGljb24gd2l0aG91dCBleHByZXNzIHdyaXR0ZW4gcGVybWlzc2lvbiBmcm9tIGljb25tb25zdHIuY29tIC0tPg0KDQo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOndoaXRlOyIgaWQ9IndpcmVsZXNzLTYtaWNvbiIgZD0iTTUwLDE3OC41OTljNTIuNzItNTIuNzIsMTI1LjU1Mi04NS4zMjgsMjA2LTg1LjMyOGM4MC40NDgsMCwxNTMuMjgsMzIuNjA4LDIwNiw4NS4zMjhsLTM1LDM1DQoJYy00My43NjMtNDMuNzYzLTEwNC4yMjEtNzAuODMtMTcxLTcwLjgzYy02Ni43OCwwLTEyNy4yMzcsMjcuMDY3LTE3MSw3MC44M0w1MCwxNzguNTk5eiBNMTQ4LjE5NiwyNzYuNzk2DQoJYzI3LjU4OS0yNy41OSw2NS43MDQtNDQuNjU0LDEwNy44MDQtNDQuNjU0czgwLjIxNSwxNy4wNjQsMTA3LjgwNCw0NC42NTRsMzUuOTM1LTM1LjkzNg0KCWMtMzYuNzg1LTM2Ljc4Ny04Ny42MDQtNTkuNTM5LTE0My43MzgtNTkuNTM5cy0xMDYuOTUzLDIyLjc1Mi0xNDMuNzM4LDU5LjUzOUwxNDguMTk2LDI3Ni43OTZ6IE0yMTEsMzM5LjU5OQ0KCWMxMS41MTctMTEuNTE3LDI3LjQyNy0xOC42NCw0NS0xOC42NHMzMy40ODMsNy4xMjMsNDUsMTguNjRsMzUuMzEzLTM1LjMxMmMtMjAuNTU0LTIwLjU1NC00OC45NDktMzMuMjY5LTgwLjMxMy0zMy4yNjkNCglzLTU5Ljc2LDEyLjcxNS04MC4zMTMsMzMuMjY5TDIxMSwzMzkuNTk5eiBNMjU2LDM1Ni4xMzhjLTE3LjI4NCwwLTMxLjI5OSwxNC4wMS0zMS4yOTksMzEuMjk3DQoJYzAsMTcuMjg1LDE0LjAxNSwzMS4yOTUsMzEuMjk5LDMxLjI5NWMxNy4yODMsMCwzMS4yOTYtMTQuMDEsMzEuMjk2LTMxLjI5NUMyODcuMjk2LDM3MC4xNDcsMjczLjI4MywzNTYuMTM4LDI1NiwzNTYuMTM4eiIvPg0KPC9zdmc+DQo=);
 }
 
+
+/* CSS for menu */
+.position-menu{
+z-index:450;
+position: fixed;
+    left: 0;
+    top: 0;
+	  width:100%;
+  height:100%;
+}
+.ng-modal-menu-overlay {
+  /* A dark translucent div that covers the whole screen */
+  position:fixed;
+  z-index:400;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#000000;
+  opacity: 0.1;
+}
+.ng-modal-menu-dialog {
+  /* A centered div above the overlay with a box shadow. */
+  z-index:500;
+  position: absolute;
+  top: 42px;
+  left: 0;
+  background-color: rgb(17, 17, 17);
+  background-image: linear-gradient(rgb(60, 60, 60), rgb(17, 17, 17));
+  box-shadow: 4px 4px 80px #000;
+  border-bottom-left-radius:7px;
+  border-bottom-right-radius:7px;
+}
+.ng-modal-menu-dialog-content {
+  margin:0;
+  text-align: left;
+  text-shadow: rgb(0, 0, 0) 0px -1px;
+  color:white;
+}
+/*.ng-modal-menu-dialog-content p{
+z-index:550;
+margin:0;
+border-style:solid;
+border-width:1px;
+border-color:white;
+padding:14px;
+}*/
+.ng-modal-menu-dialog-content a{
+z-index:550;
+margin:0;
+border-style:solid;
+border-width:1px;
+border-color:white;
+padding:14px;
+display:block;
+text-decoration:none;
+  margin:0;
+  text-align: left;
+  text-shadow: rgb(0, 0, 0) 0px -1px;
+  color:white;
+}
+.ng-modal-menu-close {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 120%;
+  display: inline-block;
+  font-weight: bold;
+  font-family: 'arial', 'sans-serif';
+}
+
+
+/* CSS for modal */
+.ng-modal-overlay {
+  /* A dark translucent div that covers the whole screen */
+  position:absolute;
+  z-index:9999;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#000000;
+  opacity: 0.8;
+}
+.ng-modal-dialog {
+  /* A centered div above the overlay with a box shadow. */
+  z-index:10000;
+  position: absolute;
+  width: 50%; /* Default */
+
+  /* Center the dialog */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+
+  background-color: #fff;
+  box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+  padding:10px;
+  text-align: left;
+}
+.ng-modal-close {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 120%;
+  display: inline-block;
+  font-weight: bold;
+  font-family: 'arial', 'sans-serif';
+}

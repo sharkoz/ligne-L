@@ -3,13 +3,16 @@
 // Declare app level module which depends on filters, and services
 var app = angular.module('ligneL', [ 'ngRoute', 'ngResource', 'ngStorage' ]);
 
-/*
+
 app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl', route:'accueil'});
+  $routeProvider.when('/ajout', {templateUrl: 'partials/ajout.html', controller: ''});
+  $routeProvider.when('/aide', {templateUrl: 'partials/aide.html', controller: ''});
+  $routeProvider.when('/apropos', {templateUrl: 'partials/apropos.html', controller: ''});
+  $routeProvider.when('/options', {templateUrl: 'partials/options.html', controller: ''});
+  $routeProvider.otherwise({redirectTo: '/'});
 }]);
-*/
+
 
 app.directive('clock', function($timeout, dateFilter){
     return function(scope, element, attrs){
@@ -32,4 +35,48 @@ app.directive('clock', function($timeout, dateFilter){
  
       updateLater(); // kick off the UI update process.
     }
+});
+
+app.directive('modalmenu', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      show: '='
+    },
+    replace: true, // Replace with the template below
+    transclude: true, // we want to insert custom content inside the directive
+    link: function(scope, element, attrs) {
+      scope.dialogStyle = {};
+      if (attrs.width)
+        scope.dialogStyle.width = attrs.width;
+      if (attrs.height)
+        scope.dialogStyle.height = attrs.height;
+      scope.hideModal = function() {
+        scope.show = false;
+      };
+    },
+    template: "<div class='ng-modal-menu' ng-show='show'><div class='ng-modal-menu-overlay' ng-click='hideModal()'></div><div class='position-menu' ng-click='hideModal()'><div class='width'><div class='ng-modal-menu-dialog' ng-style='dialogStyle'><div class='ng-modal-menu-dialog-content' ng-transclude></div></div></div></div></div>"
+  };
+});
+
+app.directive('modalDialog', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      show: '='
+    },
+    replace: true, // Replace with the template below
+    transclude: true, // we want to insert custom content inside the directive
+    link: function(scope, element, attrs) {
+      scope.dialogStyle = {};
+      if (attrs.width)
+        scope.dialogStyle.width = attrs.width;
+      if (attrs.height)
+        scope.dialogStyle.height = attrs.height;
+      scope.hideModal = function() {
+        scope.show = false;
+      };
+    },
+    template: "<div class='ng-modal' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>"
+  };
 });

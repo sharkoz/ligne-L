@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $window, $localStorage, $route, Geomath, Locate){
+function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 
 	//document.addEventListener("deviceready", onDeviceReady, false);
@@ -23,7 +23,8 @@ function AppCtrl( $scope, $window, $localStorage, $route, Geomath, Locate){
 		$scope.$broadcast('Refresh');
 		$scope.local();
 	};
-
+	
+	
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
     ////console.log("Local Storage:")
@@ -77,10 +78,10 @@ function AppCtrl( $scope, $window, $localStorage, $route, Geomath, Locate){
 			res = 'à <100m';
 		}
 		else if(dist<950){
-			res = 'à ~'+Math.round(dist/100)*100+'m';
+			res = 'à '+Math.round(dist/100)*100+'m';
 		}
 		else{
-			res = 'à ~'+Math.round(dist/100)/10+'km';
+			res = 'à '+Math.round(dist/1000)+'km';
 		}
 		return res;
 	}
@@ -125,7 +126,11 @@ function AppCtrl( $scope, $window, $localStorage, $route, Geomath, Locate){
 	});
 	//}
 	
-	
+  $scope.modalShown = false;
+  $scope.toggleModal = function() {
+  console.log($route.current.loadedTemplateUrl);
+    $scope.modalShown = !$scope.modalShown;
+  };
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
@@ -273,3 +278,7 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
     $scope.jsoncall();
 	
 }
+
+
+
+

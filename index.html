@@ -15,24 +15,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
- <body>
- 
- <div data-role="page">
- 
- <div role="main" class="ui-content" ng-controller="AppCtrl">
- 
+ <body ng-controller="AppCtrl">
+  
  <div class="header">
 	<div class="width">
-		<span class="menubutton" ng-click="$scope.showOptions(); GlobalOptions =! GlobalOptions; network='online'; $scope.$apply()"> </span>
+		<span class="menubutton" ng-click="toggleModal();"> </span>
 		<h1>Transilien - <span clock></span></h1>
-		<div class="corner_network ng-cloak" ng-cloak>
+		<!--<div class="corner_network ng-cloak" ng-cloak>
 			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
 			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
 			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
-		</div>
+		</div>-->
 		<div class="corner_location" ng-click="local()"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
 	</div>
  </div>
+ <div class="top"></div>
+<div modalmenu show='modalShown' ng-cloak>
+		<a ng-click="toggleModal()" href="#/">Accueil</a>
+		<a ng-click="toggleModal()" href="#/ajout">Ajouter une gare</a>
+		<a ng-click="toggleModal()" href="#/options">Options</a>
+		<a ng-click="toggleModal()" href="#/aide">Aide</a>
+		<a ng-click="toggleModal()" href="#/apropos">A propos</a>
+  </div>
+
 	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
 	<div id='slider' class='swipe cardswidth' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div class="cardswidth">
 	<div id="top" class="metacard card ng-cloak" ng-cloak  >
@@ -45,59 +50,13 @@
 			</fieldset>
 		</div>
 	</div><div> .</div></div></div>
-<div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
-	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
-			<div class="">
-				<figure class="card front {{$scope.cflip}}">
-					<h2>{{gare[trajet.depart]}} <strong ng-show="localise">{{distDisplay(trajet.dist)}}</strong></h2> 
-					<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh" style="height:18px;width:18px;">MaJ</span></div>
-					<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>
-					<h3>Vers {{gare[trajet.arrivee]}}</h3>
-					<table class="horaires">
-						<tbody>
-							<!--<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Voie</td></tr>-->
-							<tr ng-repeat="train in trajet.display">
-								<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
-								<td><i></i>{{gare[train.term]}}</td> 
-								<td style="text-align:center;"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie">{{train.voie}}</div>
-									<div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</figure>
-				<figure class="card back {{$scope.cflip}}">
-					Paramétrer la carte :<br>
-					Depart : {{gare[trajet.depart]}}
-					<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
-					<div ng-show="autoShow">
-							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
-					</div>
-					<div ng-hide="autoShow">
-						<br/>Arrivée :
-						<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">
-							<!--OPTION value="0">Toutes directions</OPTION>-->
-							<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
-						</SELECT>
-						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
-						<input name="submit" type="submit" value="Supprimer trajet" ng-click="$scope.cflip = ''; $parent.param.trajet.splice($index,1); options=!options"/>
-					</div>
-				</figure>
-			</div>
+	
+	<div ng-view>
 	</div>
-	<div class="metacard">		
-			<div class="">
-				<figure class="card front" ng-click="addTrajet()">
-<span class="svg plus" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" ng-click="$scope.local();">Ajouter une gare</span>
-				</figure>
-			</div>
-	</div>
+	
 </div>
 	<div class="footer">  </div>
-</div>
-</div>
-
-  
+ 
   
   
   

@@ -1,69 +1,47 @@
-<div class="card" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">
-
-<h1>{{gare[trajet.depart]}} à <strong ng-show"localise">{{$parent.calculateDistance(GareLoc[trajet.depart],$parent.pos)}}</strong>m</h1> <div class="corner_config" ng-click="options = ! options">i</div>
-<h2>Vers {{gare[trajet.arrivee]}}<br/>URL : {{$parent.apiUrl+trajet.path+'/'+trajet.depart}}</h2>
-
-  <div class="animate-switch-container" ng-show="options">
-        Paramétrer la carte :
-        <br>Depart :
-  <SELECT name="nom" ng-model="trajet.depart" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.depart">{{index.value}} (m)</OPTION>
-  </SELECT>
-  <br>Arrivée :
-  <SELECT name="nom" ng-model="trajet.arrivee" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION value="0">Toutes directions</OPTION>
-	<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
-  </SELECT>
-     <!-- <br>Path :
-  <SELECT name="nom" ng-model="trajet.path" size="1" ng-change="jsoncall()" style="width:100%;max-width:50%;">
-    <OPTION>mobil</OPTION>
-    <OPTION>test</OPTION>
-    <OPTION>previ</OPTION>
-  </SELECT>-->
-        <input name="submit" type="submit" value="Sauvegarder" ng-click="jsonsave(); options=!options"/>
-        <br>
-        <input name="submit" type="submit" value="Supprimer trajet" ng-click="$parent.param.trajet.splice($index,1); options=!options"/>
-		
-	<input list="depart" type="text" id="choix_bieres" ng-model="autoDepart" ng-change="getLocation()">
-<datalist id="depart">
-  <select ng-model="autoDepart">
-  <option ng-repeat="index in DepartList" value="{{index.name}}" ng-selected="index.key==trajet.arrivee">{{index.codeTR3A}}</OPTION>
-	</select>
-  </datalist>
-		
-  </div>
-
-
-  <table class="horaires">
-   <tbody>
-    <!--<tr ng-repeat="train in dataSet.train |limitTo:$parent.$storage.max">
-     <td>{{train.date.mode}}</td>
-     <td>{{train.date.val | limitTo:-5}}</td>
-     <td>{{gare[train.term]}}</td> 
-     <td>{{train.miss}}</td>
-	 <td>{{train.num}}</td>
-    </tr>-->
-	<tr><td></td><td>Heure</td><td>Direction</td><td>Mission</td><td>Voie</td></tr>
-    <tr ng-repeat="train in trajet.display">
-     <td>{{train.delta}}</td>
-     <td>{{train.date.val | limitTo:-5}}</td>
-     <td>{{gare[train.term]}}</td> 
-     <td>{{train.miss}}</td>
-	 <!--<td>{{train.num}}</td>-->
-	 <td>{{train.voie}}</td>
-    </tr>
-   </tbody>
-  </table>
-  </div>
-</div>
-
-
-<div class="menu">
-  <table>
-    <td ng-click="$parent.local()">Localiser</td>
-    <td ng-click="addTrajet()">Ajouter</td>
-    <td ng-click="$parent.reloadRoute()">Rafraichir</td>
-  </table>
-
-</div>
-<div class="footer">  </div>
+<div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
+	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
+			<div class="">
+				<figure class="card front {{$scope.cflip}}">
+					<h2>{{gare[trajet.depart]}} <i ng-show="localise">{{distDisplay(trajet.dist)}}</i></h2> 
+					<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh" style="height:18px;width:18px;">MaJ</span></div>
+					<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>
+					<h3>Vers {{gare[trajet.arrivee]}}</h3>
+					<table class="horaires">
+						<tbody>
+							<!--<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Voie</td></tr>-->
+							<tr ng-repeat="train in trajet.display">
+								<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
+								<td><i></i>{{gare[train.term]}}</td> 
+								<td style="text-align:center;"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie">{{train.voie}}</div>
+									<div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</figure>
+				<figure class="card back {{$scope.cflip}}">
+					Paramétrer la carte :<br>
+					Depart : {{gare[trajet.depart]}}
+					<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
+					<div ng-show="autoShow">
+							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
+					</div>
+					<div ng-hide="autoShow">
+						<br/>Arrivée :
+						<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">
+							<!--OPTION value="0">Toutes directions</OPTION>-->
+							<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
+						</SELECT>
+						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
+						<input name="submit" type="submit" value="Supprimer trajet" ng-click="$scope.cflip = ''; $parent.param.trajet.splice($index,1); options=!options"/>
+					</div>
+				</figure>
+			</div>
+	</div>
+	<div class="metacard">		
+			<div class="" >
+				<figure class="card front" style="min-height:0;" >
+<span class="svg plus" ng-click="addTrajet()" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" ng-click="$scope.local();">Ajouter une gare</span>
+				</figure>
+			</div>
+	</div>
