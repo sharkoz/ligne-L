@@ -4,7 +4,7 @@
 
 function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
-
+	FastClick.attach(document.body);
 	//document.addEventListener("deviceready", onDeviceReady, false);
 	//function onDeviceReady() {
 	//	document.addEventListener("resume", onResume, false);
