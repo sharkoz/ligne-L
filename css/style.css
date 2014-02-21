@@ -546,9 +546,9 @@ padding:14px;
 .ng-modal-menu-dialog-content a{
 z-index:550;
 margin:0;
-border-style:solid;
-border-width:1px;
-border-color:white;
+border-top-style:solid;
+border-top-width:1px;
+border-top-color:darkgray;
 padding:14px;
 display:block;
 text-decoration:none;
