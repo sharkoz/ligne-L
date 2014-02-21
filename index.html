@@ -18,15 +18,15 @@
  <body ng-controller="AppCtrl">
   
  <div class="header">
-	<div class="width">
-		<span class="menubutton" ng-click="toggleModal();"> </span>
+	<div class="">
+		<div class="corner_location" ng-click="local()"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
 		<h1>Transilien - <span clock></span></h1>
 		<!--<div class="corner_network ng-cloak" ng-cloak>
 			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
 			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
 			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
 		</div>-->
-		<div class="corner_location" ng-click="local()"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
+		<span class="corner_menu" ng-click="toggleModal();"><span class="menubutton"> </span> </span>
 	</div>
  </div>
  <div class="top"></div>
@@ -38,7 +38,7 @@
 		<a ng-click="toggleModal()" href="#/apropos">A propos</a>
   </div>
 
-	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>-->
+	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>
 	<div id='slider' class='swipe cardswidth' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div class="cardswidth">
 	<div id="top" class="metacard card ng-cloak" ng-cloak  >
 			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
@@ -49,7 +49,7 @@
 			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">{{$storage.max}}
 			</fieldset>
 		</div>
-	</div><div> .</div></div></div>
+	</div><div> .</div></div></div>-->
 	
 	<div ng-view>
 	</div>

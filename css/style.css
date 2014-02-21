@@ -51,7 +51,7 @@ color: rgb(255, 255, 255);
 display: block;
 font-family: Helvetica, Arial, sans-serif;
 font-weight: bold;
-height: 40px;
+height: 50px;
 width: 100%;
 overflow-x: visible;
 overflow-y: visible;
@@ -62,7 +62,7 @@ position: fixed;
 	z-index:500;
 }
 .top{
-height:42px;
+height:52px;
 width:100%;
 }
 .header h1{
@@ -71,13 +71,13 @@ margin-top: 0.6em;
 margin-right: 30%;
 margin-bottom: 0.8em;
 margin-left: 30%;
-font-size: 16px;
+font-size: 20px;
 min-height: 1.1em;
 }
 .corner_location {
 	position:absolute;
-	top: 5px;
-	right: 15px;
+	top: 10px;
+	right: 65px;
   cursor: pointer;    /* affiche un curseur adapté */  
   display: inline-block;    
   text-align: center;   
@@ -111,10 +111,19 @@ top:0;
 right:0;
 left:0;
 }
-.menubutton{ cursor: pointer;  vertical-align:middle; display:block;  position:absolute;margin-left:15px; margin-top:5px; margin-bottom:auto; width:30px; height:30px;}
-.menubutton:before{content:''; height:4px; width:30px; background:grey; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px; display:block;
- position:absolute; top:5px; left:0; box-shadow:0 9px grey, 0 18px grey;-webkit-box-shadow:0 9px grey, 0 18px grey;-moz-box-shadow:0 9px grey, 0 18px grey;}
-
+.menubutton{ cursor: pointer;  vertical-align:middle; display:block;   width:35px; height:35px; position:absolute; top: 5px; right: 15px;}
+.menubutton:before{content:''; height:4px; width:35px; background:grey; border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px; display:block;
+ position:absolute; top:7px; left:0; box-shadow:0 10px grey, 0 20px grey;-webkit-box-shadow:0 10px grey, 0 20px grey;-moz-box-shadow:0 10px grey, 0 20px grey;}
+.corner_menu {
+	position:absolute;
+	top: 0px;
+	right: 0px;
+  cursor: pointer;    /* affiche un curseur adapté */  
+  display: inline-block;    
+  text-align: center;   
+  height:50px;
+  width:60px;
+} 
 
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -331,6 +340,13 @@ card:nth-child(n+3) {
 	top:1px;
 }
 
+.card h2{
+	font-size:1.3rem;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 60px;
+}
+
 .card table {
   border-collapse: collapse;
 	border-top-width: 0px;
@@ -520,14 +536,13 @@ position: fixed;
 .ng-modal-menu-dialog {
   /* A centered div above the overlay with a box shadow. */
   z-index:500;
-  position: absolute;
+  position: fixed;
   top: 42px;
-  left: 0;
+  right: 0;
   background-color: rgb(17, 17, 17);
   background-image: linear-gradient(rgb(60, 60, 60), rgb(17, 17, 17));
   box-shadow: 4px 4px 80px #000;
   border-bottom-left-radius:7px;
-  border-bottom-right-radius:7px;
 }
 .ng-modal-menu-dialog-content {
   margin:0;

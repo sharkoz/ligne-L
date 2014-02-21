@@ -55,7 +55,7 @@ app.directive('modalmenu', function() {
         scope.show = false;
       };
     },
-    template: "<div class='ng-modal-menu' ng-show='show'><div class='ng-modal-menu-overlay' ng-click='hideModal()'></div><div class='position-menu' ng-click='hideModal()'><div class='width'><div class='ng-modal-menu-dialog' ng-style='dialogStyle'><div class='ng-modal-menu-dialog-content' ng-transclude></div></div></div></div></div>"
+    template: "<div class='ng-modal-menu' ng-show='show'><div class='ng-modal-menu-overlay' ng-click='hideModal()'></div><div class='ng-modal-menu-dialog' ng-style='dialogStyle'><div class='ng-modal-menu-dialog-content' ng-transclude></div></div></div>"
   };
 });
 
