@@ -17,8 +17,8 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		onResume();
 	};
 	
-	document.addEventListener("menubutton", $scope.toggleModal, false);
-	document.addEventListener("menubutton", $scope.toggleModal, true);
+	//document.addEventListener("menubutton", $scope.toggleModal, false);
+	//document.addEventListener("menubutton", $scope.toggleModal, true);
 	
 	function onResume(){
 		$scope.$broadcast('Refresh');
