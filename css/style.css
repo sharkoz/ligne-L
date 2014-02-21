@@ -537,7 +537,7 @@ position: fixed;
   /* A centered div above the overlay with a box shadow. */
   z-index:500;
   position: fixed;
-  top: 42px;
+  top: 52px;
   right: 0;
   background-color: rgb(17, 17, 17);
   background-image: linear-gradient(rgb(60, 60, 60), rgb(17, 17, 17));
