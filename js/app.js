@@ -6,7 +6,7 @@ var app = angular.module('ligneL', [ 'ngRoute', 'ngResource', 'ngStorage' ]);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl', route:'accueil'});
-  $routeProvider.when('/ajout', {templateUrl: 'partials/ajout.html', controller: ''});
+  $routeProvider.when('/ajout', {templateUrl: 'partials/ajout.html', controller: 'HorairesCtrl'});
   $routeProvider.when('/aide', {templateUrl: 'partials/aide.html', controller: ''});
   $routeProvider.when('/apropos', {templateUrl: 'partials/apropos.html', controller: ''});
   $routeProvider.when('/options', {templateUrl: 'partials/options.html', controller: ''});

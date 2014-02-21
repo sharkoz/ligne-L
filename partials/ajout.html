@@ -1,1 +1,24 @@
-<div class="cardswidth" ng-cloak>Page d'ajout</div>
+<div class="cardswidth" ng-cloak>
+
+<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
+			<div class="">
+				<figure class="card front">
+					Paramétrer la carte :<br>
+					Depart : {{gare[trajet.depart]}}
+					<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
+					<div ng-show="autoShow">
+							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
+					</div>
+					<div ng-hide="autoShow">
+						<br/>Arrivée :
+						<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">
+							<!--OPTION value="0">Toutes directions</OPTION>-->
+							<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
+						</SELECT>
+						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
+						<input name="submit" type="submit" value="Supprimer trajet" ng-click="$scope.cflip = ''; $parent.param.trajet.splice($index,1); options=!options"/>
+					</div>
+				</figure>
+			</div>
+	</div>
+</div>
