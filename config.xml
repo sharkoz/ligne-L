@@ -3,17 +3,20 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "fr.rlier.ligne-L"
+        id        = "fr.rlier.next"
         version   = "1.0.0">
 
-    <name>Ligne-L</name>
+    <name>Next</name>
 
     <description>
-Ligne L    
+A quelle heure part le prochain train ?
+Pour vos trajets quotidiens, Next vous permet de consulter les prochains départs des trains de vos gares habituelles.
+Next peut fonctionner hors ligne, pour vous donner les horaires théoriques de départ même au fond du métro.
+Quand le réseau est revenu, Next récupère également les informations de retard et de voie en temps réel pour que vous ne ratiez plus jamais le train !
 </description>
 
-    <author href="http://phonegap.com" email="cosme.ch@rlier.fr">
-        SharkoZ
+    <author href="http://phonegap.com" email="charlier.corp@gmail.com">
+        Charlier Corp
     </author>
 
     <!--
@@ -43,7 +46,7 @@ Ligne L
     <preference name="show-splash-screen-spinner" value="true" />           <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
     <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
     <preference name="disable-cursor"             value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
-    <preference name="android-minSdkVersion"      value="7" />              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+    <preference name="android-minSdkVersion"      value="11" />              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
     <!-- Plugins can also be added here. -->
@@ -53,33 +56,33 @@ Ligne L
     -->
 
     <!-- Define app icon for each platform. -->
-    <icon src="L.gif" />
-    <icon src="L.gif" gap:platform="android"    gap:density="ldpi" />
-    <icon src="L.gif" gap:platform="android"    gap:density="mdpi" />
-    <icon src="L.gif" gap:platform="android"    gap:density="hdpi" />
-    <icon src="L.gif" gap:platform="android"    gap:density="xhdpi" />
-    <icon src="L.gif" gap:platform="blackberry" />
-    <icon src="L.gif" gap:platform="blackberry" gap:state="hover"/>
-    <icon src="L.gif" gap:platform="ios"        width="57" height="57" />
-    <icon src="L.gif" gap:platform="ios"        width="72" height="72" />
-    <icon src="L.gif" gap:platform="ios"        width="114" height="114" />
-    <icon src="L.gif" gap:platform="ios"        width="144" height="144" />
-    <icon src="L.gif" gap:platform="webos" />
-    <icon src="L.gif" gap:platform="winphone" />
-    <icon src="L.gif" gap:platform="winphone"   gap:role="background" />
+    <icon src="next.png" />
+    <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
+    <icon src="next.png" gap:platform="android"    gap:density="mdpi" />
+    <icon src="next.png" gap:platform="android"    gap:density="hdpi" />
+    <icon src="next.png" gap:platform="android"    gap:density="xhdpi" />
+    <icon src="next.png" gap:platform="blackberry" />
+    <icon src="next.png" gap:platform="blackberry" gap:state="hover"/>
+    <icon src="next.png" gap:platform="ios"        width="57" height="57" />
+    <icon src="next.png" gap:platform="ios"        width="72" height="72" />
+    <icon src="next.png" gap:platform="ios"        width="114" height="114" />
+    <icon src="next.png" gap:platform="ios"        width="144" height="144" />
+    <icon src="next.png" gap:platform="webos" />
+    <icon src="next.png" gap:platform="winphone" />
+    <icon src="next.png" gap:platform="winphone"   gap:role="background" />
 
     <!-- Define app splash screen for each platform. -->
-	<preference name="splash-screen-duration" value="3000"/>
-    <gap:splash src="splash.png"  gap:platform="android" gap:density="ldpi" />
-    <gap:splash src="splash.png"  gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="splash.png"  gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="splash.png"  gap:platform="android" gap:density="xhdpi" />
-    <gap:splash src="splash.png"  gap:platform="blackberry" />
-    <gap:splash src="splash.png"  gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="splash.png"  gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="splash.png"  gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="splash.png"  gap:platform="ios"     width="1024" height="768" />
-    <gap:splash src="splash.png"  gap:platform="winphone" />
+	<preference name="splash-screen-duration" value="1000"/>
+    <gap:splash src="next.png"  gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="next.png"  gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="next.png"  gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="next.png"  gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="next.png"  gap:platform="blackberry" />
+    <gap:splash src="next.png"  gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="next.png"  gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="next.png"  gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="next.png"  gap:platform="ios"     width="1024" height="768" />
+    <gap:splash src="next.png"  gap:platform="winphone" />
 
     <!--
         Define access to external domains.

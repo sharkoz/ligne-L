@@ -74,6 +74,14 @@ margin-left: 30%;
 font-size: 20px;
 min-height: 1.1em;
 }
+.apptitle{
+	position:absolute;
+	top: 10px;
+	left: 15px;
+font-size: 20px;
+min-height: 1.1em;
+vertical-align:middle;
+}
 .corner_location {
 	position:absolute;
 	top: 10px;
