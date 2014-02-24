@@ -3,9 +3,10 @@
 			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
 			<i>Chemin : </i>{{apiUrl}}<br>
 			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
-			Trains max : 
-			<fieldset data-role="controlgroup">
-			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">{{$storage.max}}
-			</fieldset>
+		Nombre de trains affiches par gare : {{$storage.max}}
+			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
+		<br/>
+		Désactiver la geolocalisation : [ ]<br/>
+		
 	</div>
 </div>

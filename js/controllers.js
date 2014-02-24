@@ -35,7 +35,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	{
 		$scope.$storage.max = 5;
 	}
-	$scope.max = $scope.$storage.max;
+	$scope.max = 15; //$scope.$storage.max;
 	
 	// 2 - Check if accessed via web or via PhoneGap app and change api URL accordingly
     var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;

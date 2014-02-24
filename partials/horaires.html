@@ -9,7 +9,7 @@
 					<table class="horaires">
 						<tbody>
 							<!--<tr><td style="text-align:center;">Heure</td><td>Direction</td><td>Voie</td></tr>-->
-							<tr ng-repeat="train in trajet.display">
+							<tr ng-repeat="train in trajet.display | limitTo: $storage.max">
 								<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
 								<td><i></i>{{gare[train.term]}}</td> 
 								<td style="text-align:center;"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie">{{train.voie}}</div>
