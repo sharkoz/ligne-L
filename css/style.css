@@ -298,8 +298,10 @@ card:nth-child(n+3) {
 }
 
 	
-	.card.back input,.card.back select {
+	.card input,.card select {
 		width : 100%;
+		height: 40px;
+		margin-top:10px;
 	}
 
 	.card.back  .autocomplete{
