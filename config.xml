@@ -71,7 +71,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
     <icon src="next.png" gap:platform="winphone" />
     <icon src="next.png" gap:platform="winphone"   gap:role="background" />
 
-    <!-- Define app splash screen for each platform. -->
+    <!-- Define app splash screen for each platform. 
 	<preference name="splash-screen-duration" value="1000"/>
     <gap:splash src="next.png"  gap:platform="android" gap:density="ldpi" />
     <gap:splash src="next.png"  gap:platform="android" gap:density="mdpi" />
@@ -83,7 +83,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
     <gap:splash src="next.png"  gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="next.png"  gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="next.png"  gap:platform="winphone" />
-
+	-->
     <!--
         Define access to external domains.
 

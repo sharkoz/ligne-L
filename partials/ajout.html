@@ -3,20 +3,30 @@
 <div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front">
-					Paramétrer la carte :<br>
-					Depart : {{gare[trajet.depart]}}
-					<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
+					<h2>{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
+					<div class="jelly-form">
+						<label>Depart : </label>
+						<div style="position: relative;">
+							<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
+							<a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" ng-show="autoShow" tabindex="-1" ng-click="autoDepart='';autoShow=0;" class="clear_button">×</a>
+						</div>
+					</div>
 					<div ng-show="autoShow">
-							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = '{{index.name}}'; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
+							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = ''; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
 					</div>
 					<div ng-hide="autoShow">
-						<br/>Arrivée :
-						<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">
-							<!--OPTION value="0">Toutes directions</OPTION>-->
-							<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
-						</SELECT>
-						<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
-						<input name="submit" type="submit" value="Supprimer trajet" ng-click="$scope.cflip = ''; $parent.param.trajet.splice($index,1); options=!options"/>
+						<div class="jelly-form">
+							<label>Arrivée : </label>
+							<div>
+								<SELECT ng-model="trajet.arrivee" ng-change="jsoncall()">
+									<OPTION ng-repeat="index in ListeGares | orderBy:'value'" value="{{index.key}}" ng-selected="index.key==trajet.arrivee">{{index.value}} {{$scope.calculateDistance($scope.GareLoc[index.key],$scope.pos)}}(m)</OPTION>
+								</SELECT>
+							</div>
+						</div>
+						<div class="jelly-form">
+							<input name="submit" type="submit" value="Supprimer trajet" ng-click="$scope.cflip = ''; $parent.param.trajet.splice($index,1); options=!options"/>
+							<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
+						</div>
 					</div>
 				</figure>
 			</div>
