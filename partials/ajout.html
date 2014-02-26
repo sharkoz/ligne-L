@@ -1,9 +1,18 @@
 <div class="cardswidth" ng-cloak>
 
+<div class="metacard">		
+			<div class="" >
+				<figure class="card front" style="min-height:0;" >
+<span class="svg plus" ng-click="addTrajet()" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" ng-click="$scope.local();">Ajouter une gare</span>
+				</figure>
+			</div>
+	</div>
+
 <div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<figure class="card front">
-					<h2>{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
+					<h2>{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}} <span ng-click="collapse = !collapse"><</span></h2>
+				<div class="collapsible" ng-show="collapse">
 					<div class="jelly-form">
 						<label>Depart : </label>
 						<div style="position: relative;">
@@ -28,6 +37,7 @@
 							<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
 						</div>
 					</div>
+				</div>
 				</figure>
 			</div>
 	</div>

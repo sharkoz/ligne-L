@@ -179,7 +179,7 @@ z-index:99999;
 
 .card {
     max-width: 85%;
-	min-height: 225px;
+/*	min-height: 225px;*/
     margin: 10px;
     margin-right: auto;
     margin-left: auto;
