@@ -160,7 +160,7 @@ z-index:99999;
 
 
 .metacard{
-    opacity:0;	
+
    animation: transition 0.5s ease-out 0s forwards;
        position: center;
 	   display: block;

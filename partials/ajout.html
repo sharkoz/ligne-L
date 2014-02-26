@@ -33,7 +33,7 @@
 							</div>
 						</div>
 						<div class="jelly-form">
-							<input name="submit" type="submit" value="Supprimer trajet" ng-click="if($window.confirm('Voulez vou supprimer ?')) {$scope.cflip = ''; $parent.param.trajet.splice($index,1); options=!options;}"/>
+							<input name="submit" type="submit" value="Supprimer trajet" ng-click="rmTrajet(trajet);"/>
 							<input name="submit" type="submit" value="Sauvegarder" ng-click="jsonSave(); jsonCall(); $scope.cflip = ''"/>
 						</div>
 					</div>

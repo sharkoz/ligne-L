@@ -209,6 +209,15 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		//console.log(data);
 	}
 	
+	$scope.rmTrajet = function(trajet){
+		if($window.confirm('Voulez vous supprimer ?'))
+		{
+			$scope.cflip = ''; 
+			$scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1); 
+			$scope.options=!$scope.options;
+		}
+	}
+	
 	//Fonction pour merger les temps prévus et les temps réels
 	merge = function(live, previ){
 		var liv;

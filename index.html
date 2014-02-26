@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<!--
-<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" manifest="app.manifest">
--->
-<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL">
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" class="ng-app:ligneL">
  <head>
 <title>Transilien</title>
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
@@ -10,6 +7,20 @@
 <!--[if lte IE 8]>
       <script src="lib/json-3.min.js"></script>
     <![endif]-->
+	 <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lte IE 8]>
+      <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+      </script>
+    <![endif]-->
+
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,22 +49,7 @@
 		<a ng-click="toggleModal()" href="#/aide">Aide</a>
 		<a ng-click="toggleModal()" href="#/apropos">A propos</a>
   </div>
-
-	<!--<div id='slider{{$id}}' class='swipe {{GlobalOptions}}' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div>
-	<div id='slider' class='swipe cardswidth' ng-show="GlobalOptions"><div class='swipe-wrap'><div>a</div><div class="cardswidth">
-	<div id="top" class="metacard card ng-cloak" ng-cloak  >
-			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
-			<i>Chemin : </i>{{apiUrl}}<br>
-			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
-			Trains max : 
-			<fieldset data-role="controlgroup">
-			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">{{$storage.max}}
-			</fieldset>
-		</div>
-	</div><div> .</div></div></div>-->
-	
-	<div ng-view>
-	</div>
+	<div ng-view></div>
 </div>
 
 <script>
