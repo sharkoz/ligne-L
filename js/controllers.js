@@ -193,7 +193,9 @@ function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
 	// Recherche des gares
 	$scope.getLocation = function(){
 		if($scope.autoDepart.length > 0){
-			DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
+		$scope.DepartList =  {'name': 'Chargement ...'};
+		$scope.autoShow = 1;
+		$scope.autoTR3A = ''; 	DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
 		}
 		else{
 			$scope.autoShow = 0;
