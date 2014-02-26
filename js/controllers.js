@@ -162,7 +162,7 @@ if ($scope.$storage.param===undefined)
 
 }
 
-function TrajetCtrl( $scope, DataSource, Getprevi, $http ){
+function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 	$scope.$on('LocRefreshed', function() {
