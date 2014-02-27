@@ -210,7 +210,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	}
 	
 	$scope.rmTrajet = function(trajet){
-		if($window.confirm('Voulez vous supprimer ?'))
+		if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
 		{
 			$scope.cflip = ''; 
 			$scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1); 
