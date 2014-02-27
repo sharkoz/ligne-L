@@ -248,7 +248,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
 		////console.log($scope.trajet.previ);
 		$scope.trajet.display = $scope.trajet.previ;
-		if($scope.dataSet!==undefined){
+		if($scope.dataSet!==undefined && $scope.trajet.previ!==undefined){
 		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
 		}
 		////console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
@@ -285,10 +285,11 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 			$scope.trajet.display = $scope.trajet.previ;
 			//console.log("Données mémorisées chargées controller "+$scope.$id);
 			////console.log($scope.trajet.previ);
-		}
+		
 			$scope.dataSet = data.passages;
 			$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
 			$scope.jsonloading = "";
+		}
 		}
 
          ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
