@@ -37,7 +37,7 @@
 			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
 			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
 		</div>-->
-		<div class="corner_location" ng-click="local()"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
+		<div class="corner_location" ng-click="local()" ng-hide="$storage.nogeoloc"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
 		<span class="corner_menu" ng-click="toggleModal();"><span class="menubutton"> </span> </span>
 	</div>
  </div>

@@ -88,10 +88,13 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	}
 	
     $scope.local = function(){
+    if($scope.$storage.nogeoloc){}
+    else{
 		$scope.gpsloading = "spin_image";
 		//console.log($scope.gpsloading);
         //console.log($scope.$id);
         Locate.doGeolocation($scope.setLoc);
+    }
     }
 	
 	// At init, coordinates are not refreshed
