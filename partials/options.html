@@ -6,7 +6,7 @@
 		Nombre de trains affiches par gare : {{$storage.max}}
 			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
 		<br/>
-		Désactiver la geolocalisation : <input type="checkbox" ng-model="$storage.nogeoloc" ng-click='localise="false";$storage.pos = { "latitude" : 48.8753578, "longitude" : 2.3247332};'/><br/>
+		Désactiver la geolocalisation : <input type="checkbox" ng-model="$storage.nogeoloc" ng-click='$parent.localise="false";$storage.pos = { "latitude" : 48.8753578, "longitude" : 2.3247332};'/><br/>
 		
 	</div>
 </div>
