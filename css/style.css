@@ -2,6 +2,18 @@
     -webkit-tap-highlight-color:rgba(0,0,0,0);/* prevent tap highlight color / shadow */
 }
 
+html{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+	touch-callout: none;
+    user-select: none;
+	}
+input {
+    -webkit-user-select: auto !important;
+	user-select: auto !important;
+}	
+
+
 body {
     background: #f3f3f3;
     font-family: 'Roboto', sans-serif;
