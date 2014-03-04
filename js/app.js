@@ -59,9 +59,9 @@ app.directive('modalmenu', function() {
   };
 });
 
-app.directive('modalDialog', function() {
+app.directive('modaldialog', function() {
   return {
-    restrict: 'E',
+    restrict: 'A',
     scope: {
       show: '='
     },

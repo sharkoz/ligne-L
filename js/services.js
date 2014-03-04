@@ -524,6 +524,7 @@ return {get : function(save, max){
 				take=take+1
 			}
 			j = save.train[i];
+			j.date.day = day;
 			//console.log(j);
 			if(j.date.val.replace(":","") < time && take==0){
 				i=i+1;

@@ -115,6 +115,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.$apply();
 	}
 	
+	/* A SUPPRIMER : SLIDER
 	//$scope.showOptions = function(){
 	$scope.slider = 'slider'+$scope.$id;
 	//console.log(document.getElementById($scope.slider));
@@ -129,6 +130,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	transitionEnd: function(index, elem) {if(index!=1){$scope.GlobalOptions=false;$scope.$apply();$scope.mySwipe.slide(1);}}
 	});
 	//}
+	*/
 	
   $scope.modalShown = false;
   $scope.toggleModal = function() {
@@ -211,6 +213,18 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.autoTR3A = '';
 		//console.log(data);
 	}
+	
+	// Recherche des dessertes
+	$scope.getDessertes = function(){
+		DataSource.get($scope.refreshDessertes, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
+	};
+	// Callback
+	$scope.refreshDessertes = function(data) {
+		$scope.ListeDessertes = data;
+		//console.log(data);
+	}
+	
+	
 	
 	$scope.rmTrajet = function(trajet){
 		if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
