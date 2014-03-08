@@ -169,12 +169,37 @@ if ($scope.$storage.param===undefined)
 
 function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
+
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
+
+    $scope.getprevi = Getprevi.get;
+
 	$scope.$on('LocRefreshed', function() {
 		$scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 	});
+
 	$scope.$on('Refresh', function() {
 		//console.log('Bcast Refresh on '+$scope.$id);
+        // On anime le spin loader
+        $scope.jsonloading = "spin_image";
+        // Si les prévisions existent, on rafraichit asap
+        if ($scope.trajet.save !== undefined) {
+            $scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+            // Si rien n'est affiché on affiche les prévisions
+            if ($scope.trajet.display === undefined) $scope.trajet.display = $scope.trajet.previ;
+            // On affiche ensuite la fusion entre l'affichage précédent (si il y avait du live) et les prévisions
+            $scope.trajet.display = merge($scope.trajet.display, $scope.trajet.previ);
+        }
+
+        if (new Date().toDateString() == $scope.trajet.savedate) {
+            // Si les prévisions sont à jour on récupère juste le live
+            $scope.jsoncall();
+        }
+        else {
+            // Si le gtfs n'est pas à jour on le telecharge
+            DataSource.get($scope.saveData, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+        }
+    /*
       if($scope.trajet.save===undefined)
 		{
 			//console.log('Aucune donnée en mémoire.');
@@ -186,7 +211,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 			//console.log("Données mémorisées chargées controller "+$scope.$id);
 			////console.log($scope.trajet.previ);
 		}
-		$scope.jsoncall();
+		$scope.jsoncall();*/
 	});
 	
 	$scope.broadcastRefresh = function () {
@@ -223,9 +248,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.ListeDessertes = data;
 		//console.log(data);
 	}
-	
-	
-	
+
 	$scope.rmTrajet = function(trajet){
 		if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
 		{
@@ -239,7 +262,8 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	merge = function(live, previ) {
 		var liv;
 		var pre;
-		var display = previ;
+        var display;
+        display = angular.copy(previ);
 		for(liv=0; liv<live.length; ++liv){
 			for(pre=0; pre<previ.length; ++pre){
 				if(live[liv].num == previ[pre].num){
@@ -258,29 +282,28 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		}
 		return display;
 	}
-	
-    //Sauvegarde pour toute la journée
+
+    // Callback fonction pour récupérer les horaires prévisionnels de la gare
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
         $scope.trajet.savedate = new Date().toDateString();
-		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+		/*$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
 		////console.log($scope.trajet.previ);
 		$scope.trajet.display = $scope.trajet.previ;
 		if($scope.dataSet!==undefined && $scope.trajet.previ!==undefined){
-		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-		}
-		////console.log('Horaires prévisionnels chargés.'+$scope.trajet.previ);
-        ////console.log("dataSet : scop "+$scope.$id+".");
+		    $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+		}*/
+        $scope.jsoncall();
     }
 
-    // Fonction pour récupérer les horaires prévisionnels de la gare
+    /*// Fonction pour récupérer les horaires prévisionnels de la gare => Integré au $on.Refresh
     $scope.jsonSave = function() {
         // Updates only once a day
         if (new Date().toDateString() != $scope.trajet.savedate) DataSource.get($scope.saveData, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
     };
 
-    $scope.jsonSave();
-	$scope.getprevi = Getprevi.get;
+    //$scope.jsonSave();
+
 	if($scope.trajet.save===undefined)
 	{
 		//console.log('Aucune donnée en mémoire.');
@@ -289,35 +312,21 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	{
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
 		$scope.trajet.display = $scope.trajet.previ;
-		//console.log("Données mémorisées chargées controller "+$scope.$id);
-		////console.log($scope.trajet.previ);
-	}
+	}*/
 	
-	    //This is the callback function
+	    // Callback function pour les horaires en live
     $scope.setData = function(data) {
 		//console.log('Données temps réel disponibles controller '+$scope.$id);
-		if($scope.trajet.save===undefined)
-		{
-			//console.log('Aucune donnée en mémoire.');
-		}
-		else
-		{
-			$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-			$scope.trajet.display = $scope.trajet.previ;
-			//console.log("Données mémorisées chargées controller "+$scope.$id);
-			////console.log($scope.trajet.previ);
-		
-			$scope.dataSet = data.passages;
-			$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-			$scope.jsonloading = "";
-		}
-		}
+		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+		$scope.dataSet = data.passages;
+		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+		$scope.jsonloading = "";
+	}
 
-         ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
     $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
 
-    $scope.jsoncall();
-	
+    //$scope.jsoncall();
+    $scope.$parent.$broadcast('Refresh');
 }
 
 
