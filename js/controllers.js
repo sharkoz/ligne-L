@@ -115,7 +115,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.$apply();
 	}
 	
-	/* A SUPPRIMER : SLIDER
+	/* TODO: A SUPPRIMER : SLIDER
 	//$scope.showOptions = function(){
 	$scope.slider = 'slider'+$scope.$id;
 	//console.log(document.getElementById($scope.slider));
@@ -236,7 +236,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	}
 	
 	//Fonction pour merger les temps prévus et les temps réels
-	merge = function(live, previ){
+	merge = function(live, previ) {
 		var liv;
 		var pre;
 		var display = previ;
@@ -262,6 +262,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
     //Sauvegarde pour toute la journée
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
+        $scope.trajet.savedate = new Date().toDateString();
 		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
 		////console.log($scope.trajet.previ);
 		$scope.trajet.display = $scope.trajet.previ;
@@ -272,8 +273,11 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
         ////console.log("dataSet : scop "+$scope.$id+".");
     }
 
-         ////console.log($scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);
-    $scope.jsonSave = function(){DataSource.get($scope.saveData, $scope.apiUrl+"gtfs/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};
+    // Fonction pour récupérer les horaires prévisionnels de la gare
+    $scope.jsonSave = function() {
+        // Updates only once a day
+        if (new Date().toDateString() != $scope.trajet.savedate) DataSource.get($scope.saveData, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+    };
 
     $scope.jsonSave();
 	$scope.getprevi = Getprevi.get;
