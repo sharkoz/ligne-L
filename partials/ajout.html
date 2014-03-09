@@ -11,7 +11,14 @@
 <div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<div class="card front">
-					<div class="title"><h2 ng-click="getDessertes();collapse = !collapse; " >{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2> <div class="corner_config" ng-click="collapse = !collapse">i</div> </div>
+					<div class="title">
+                        <span ng-click="getDessertes();collapse = !collapse; " >
+                            <span ng-show="collapse">&#9660;</span>
+                            <span ng-hide="collapse">&#9654;</span>
+                            {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}
+                        </span>
+                        <!--<div class="corner_config" ng-click="collapse = !collapse">i</div>-->
+                    </div>
 				<div class="collapsible" ng-show="collapse">
 					<div class="jelly-form">
 						<label>Depart : </label>
