@@ -21,17 +21,21 @@
 						</div>
 					</div>
 					<div ng-show="autoShow">
-							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="getDessertes();$parent.autoDepart = ''; $parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $scope.trajet.savedate = '';broadcastRefresh();$parent.autoShow = 0;"><a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a></div>
+							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = ''; $parent.trajet.depart = '{{index.codeTR3A}}'; getDessertes(); $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $scope.trajet.savedate = '';broadcastRefresh();$parent.autoShow = 0;">
+                                <a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a>
+                            </div>
 					</div>
 					<div ng-hide="autoShow">
 						<div class="jelly-form">
 							<label>Arrivée :</label>
 							<div>
-								<SELECT ng-model="trajet.arrivee" ng-change="$scope.trajet.savedate = '';broadcastRefresh()">
-									<OPTION value='{{trajet.arrivee}}' ng-show="angular.isDefined(ListeDessertes)">{{gare[trajet.arrivee]}}</OPTION>
-									<OPTION value='0' ng-hide="angular.isDefined(ListeDessertes)">Toutes directions</OPTION>
+								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$scope.trajet.savedate = '';broadcastRefresh()">
+									<OPTION value='0' >Toutes directions</OPTION>
 									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
 								</SELECT>
+                                <div ng-hide="ListeDessertes" ng-click="getDessertes();">
+                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
+                                </div>
 							</div>
 						</div>
 						<div class="jelly-form">

@@ -185,10 +185,13 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
         // Si les prévisions existent, on rafraichit asap
         if ($scope.trajet.save !== undefined) {
             $scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-            // Si rien n'est affiché on affiche les prévisions
-            if ($scope.trajet.display === undefined) $scope.trajet.display = $scope.trajet.previ;
-            // On affiche ensuite la fusion entre l'affichage précédent (si il y avait du live) et les prévisions
-            $scope.trajet.display = merge($scope.trajet.display, $scope.trajet.previ);
+            // Si aucun live n'est dispo on affiche les prévisions, sinon on
+            if($scope.dataSet === undefined) {
+                $scope.trajet.display = $scope.trajet.previ;
+            }
+            else {
+                $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+            }
         }
 
         if (new Date().toDateString() == $scope.trajet.savedate) {
@@ -236,7 +239,6 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.DepartList =  data;
 		$scope.autoShow = 1;
 		$scope.autoTR3A = '';
-		//console.log(data);
 	}
 	
 	// Recherche des dessertes
@@ -269,10 +271,10 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 				if(live[liv].num == previ[pre].num){
 					display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
 					if(display[pre].delta == "0"){
-						display[pre].message = "A l'heure";
+						display[pre].message = "OK";
 					}
 					else{
-						display[pre].message = "+ "+display[pre].delta+"min";
+						display[pre].message = "+ "+display[pre].delta+"m";
 					}
 					display[pre].date.mode='R';
 					display[pre].date.val=live[liv].date.val;

@@ -8,28 +8,14 @@
 					<table class="horaires">
 						<tbody>
 							<tr ng-repeat="train in trajet.display | limitTo: $storage.max">
-								<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
+								<td style="text-align:center;width:1px"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
 								<td><i></i>{{gare[train.term]}}</td> 
-								<td style="text-align:center;"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie">{{train.voie}}</div>
+								<td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
 									<div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<!--<div ng-click="detail=true">Detail</div>
-				</div>
-				<div modaldialog show='detail' style="position:fixed;left:0;top:0;width:100%;height:100%;" ng-cloak>
-<table class="horaires">
-						<tbody>
-							<tr ng-repeat="train in trajet.display">
-								<td style="text-align:center;"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
-								<td><i></i>{{gare[train.term]}}</td> 
-								<td style="text-align:center;"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie">{{train.voie}}</div>
-									<div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>-->
 				</div>
 	</div>
 </div>
