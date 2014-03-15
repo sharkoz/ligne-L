@@ -140,46 +140,32 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
-
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
-
-if ($scope.$storage.param===undefined)
-{
-    $scope.$storage.param = Param.values;
-}
-
+    if ($scope.$storage.param===undefined) {
+        $scope.$storage.param = Param.values;
+    }
     $scope.param = $scope.$storage.param;
-
-    //console.log($scope.param);
- 	
     $scope.gare = LibGare.func;
     $scope.ListeGares = LibGare.values;
     $scope.GareLoc = LibGare.gareloc;
-    ////console.log("Gare :")
-    ////console.log($scope.gare) 
-    ////console.log("ListeGares :")
-    ////console.log($scope.ListeGares) 
 
     $scope.addTrajet = function(){
         $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "80", "longitude" : "80"}});
         setTimeout(window.scrollTo(0,document.body.scrollHeight),500);
     }
-
 }
 
 function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
 
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
-
-    $scope.getprevi = Getprevi.get;
-
 	$scope.$on('LocRefreshed', function() {
 		$scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
 	});
 
+    $scope.getprevi = Getprevi.get;
+
 	$scope.$on('Refresh', function() {
-		//console.log('Bcast Refresh on '+$scope.$id);
         // On anime le spin loader
         $scope.jsonloading = "spin_image";
         // Si les prévisions existent, on rafraichit asap
@@ -193,7 +179,6 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
                 $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
             }
         }
-
         if (new Date().toDateString() == $scope.trajet.savedate) {
             // Si les prévisions sont à jour on récupère juste le live
             $scope.jsoncall();
@@ -202,39 +187,73 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
             // Si le gtfs n'est pas à jour on le telecharge
             DataSource.get($scope.saveData, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
         }
-    /*
-      if($scope.trajet.save===undefined)
-		{
-			//console.log('Aucune donnée en mémoire.');
-		}
-		else
-		{
-			$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-			$scope.trajet.display = $scope.trajet.previ;
-			//console.log("Données mémorisées chargées controller "+$scope.$id);
-			////console.log($scope.trajet.previ);
-		}
-		$scope.jsoncall();*/
 	});
-	
+
+    //Fonction pour merger les temps prévus et les temps réels
+    merge = function(live, previ) {
+        var liv;
+        var pre;
+        var display;
+        display = angular.copy(previ);
+        for(liv=0; liv<live.length; ++liv){
+            for(pre=0; pre<previ.length; ++pre){
+                if(live[liv].num == previ[pre].num){
+                    display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
+                    if(display[pre].delta == "0"){
+                        display[pre].message = "OK";
+                    }
+                    else{
+                        display[pre].message = "+ "+display[pre].delta+"m";
+                    }
+                    display[pre].date.mode='R';
+                    display[pre].date.val=live[liv].date.val;
+                    display[pre].voie=live[liv].voie;
+                }
+            }
+        }
+        return display;
+    }
+
+    // Callback fonction pour récupérer les horaires prévisionnels de la gare
+    $scope.saveData = function(data) {
+        $scope.trajet.save = data.passages;
+        $scope.trajet.savedate = new Date().toDateString();
+        // Une fois que les horaires prévisionnels sont récupérés on récupère les horaires en temps réel
+        $scope.jsoncall();
+    }
+
+    // Callback function pour les horaires en live
+    $scope.setData = function(data) {
+        //console.log('Données temps réel disponibles controller '+$scope.$id);
+        $scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+        $scope.dataSet = data.passages;
+        $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
+        $scope.jsonloading = "";
+    }
+
+    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
+
+    //Chaque trajet se rafraichit lui même
+    $scope.$parent.$broadcast('Refresh');
+
+	// Rafraichir tous les trajets
 	$scope.broadcastRefresh = function () {
-		//console.log('BcastRefresh from '+$scope.$id);
 		$scope.$parent.$parent.$broadcast('Refresh');
 	}
-	
-	
+
 	// Recherche des gares
 	$scope.getLocation = function(){
 		if($scope.autoDepart.length > 0){
 		$scope.DepartList =  {'name': 'Chargement ...'};
 		$scope.autoShow = 1;
-		$scope.autoTR3A = ''; 	DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
+		$scope.autoTR3A = '';
+        DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
 		}
 		else{
 			$scope.autoShow = 0;
 		}
 	};
-	// Callback
+	// Callback recherche de gares
 	$scope.refreshDepart = function(data) {
 		$scope.DepartList =  data;
 		$scope.autoShow = 1;
@@ -245,12 +264,13 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 	$scope.getDessertes = function(){
 		DataSource.get($scope.refreshDessertes, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
 	};
-	// Callback
+	// Callback dessertes
 	$scope.refreshDessertes = function(data) {
 		$scope.ListeDessertes = data;
 		//console.log(data);
 	}
 
+    // Supprimer un trajet
 	$scope.rmTrajet = function(trajet){
 		if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
 		{
@@ -259,76 +279,6 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 			$scope.options=!$scope.options;
 		}
 	}
-	
-	//Fonction pour merger les temps prévus et les temps réels
-	merge = function(live, previ) {
-		var liv;
-		var pre;
-        var display;
-        display = angular.copy(previ);
-		for(liv=0; liv<live.length; ++liv){
-			for(pre=0; pre<previ.length; ++pre){
-				if(live[liv].num == previ[pre].num){
-					display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
-					if(display[pre].delta == "0"){
-						display[pre].message = "OK";
-					}
-					else{
-						display[pre].message = "+ "+display[pre].delta+"m";
-					}
-					display[pre].date.mode='R';
-					display[pre].date.val=live[liv].date.val;
-					display[pre].voie=live[liv].voie;
-				}
-			}
-		}
-		return display;
-	}
-
-    // Callback fonction pour récupérer les horaires prévisionnels de la gare
-    $scope.saveData = function(data) {
-        $scope.trajet.save = data.passages;
-        $scope.trajet.savedate = new Date().toDateString();
-		/*$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-		////console.log($scope.trajet.previ);
-		$scope.trajet.display = $scope.trajet.previ;
-		if($scope.dataSet!==undefined && $scope.trajet.previ!==undefined){
-		    $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-		}*/
-        $scope.jsoncall();
-    }
-
-    /*// Fonction pour récupérer les horaires prévisionnels de la gare => Integré au $on.Refresh
-    $scope.jsonSave = function() {
-        // Updates only once a day
-        if (new Date().toDateString() != $scope.trajet.savedate) DataSource.get($scope.saveData, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
-    };
-
-    //$scope.jsonSave();
-
-	if($scope.trajet.save===undefined)
-	{
-		//console.log('Aucune donnée en mémoire.');
-	}
-	else
-	{
-		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-		$scope.trajet.display = $scope.trajet.previ;
-	}*/
-	
-	    // Callback function pour les horaires en live
-    $scope.setData = function(data) {
-		//console.log('Données temps réel disponibles controller '+$scope.$id);
-		$scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
-		$scope.dataSet = data.passages;
-		$scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-		$scope.jsonloading = "";
-	}
-
-    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
-
-    //$scope.jsoncall();
-    $scope.$parent.$broadcast('Refresh');
 }
 
 

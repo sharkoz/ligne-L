@@ -28,7 +28,7 @@
 						</div>
 					</div>
 					<div ng-show="autoShow">
-							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = ''; $parent.trajet.depart = '{{index.codeTR3A}}'; getDessertes(); $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $scope.trajet.savedate = '';broadcastRefresh();$parent.autoShow = 0;">
+							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = ''; $parent.trajet.depart = '{{index.codeTR3A}}'; getDessertes(); $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; $parent.trajet.savedate = '';broadcastRefresh();$parent.autoShow = 0;">
                                 <a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a>
                             </div>
 					</div>
@@ -36,7 +36,7 @@
 						<div class="jelly-form">
 							<label>Arrivée :</label>
 							<div>
-								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$scope.trajet.savedate = '';broadcastRefresh()">
+								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$parent.trajet.savedate = '';broadcastRefresh()">
 									<OPTION value='0' >Toutes directions</OPTION>
 									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
 								</SELECT>

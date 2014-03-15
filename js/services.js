@@ -510,6 +510,9 @@ return {get : function(save, max){
 		var j;
 		var res = new Array;
 		var s=save.train.length;
+
+        // Si aucun trajet on sort pour ne pas avoir d'erreur
+        if(s==0){return;}
 		//console.log('Init : long: '+s+' Time : '+time+' // day : '+day);
 		
 		while(n<max && take<3){
