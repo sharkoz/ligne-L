@@ -150,8 +150,7 @@ function HorairesCtrl( $scope, LibGare, Param){
     $scope.GareLoc = LibGare.gareloc;
 
     $scope.addTrajet = function(){
-        $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':{"latitude" : "80", "longitude" : "80"}});
-        setTimeout(window.scrollTo(0,document.body.scrollHeight),500);
+        $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
     }
 }
 
