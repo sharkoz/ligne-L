@@ -234,7 +234,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
         $scope.jsonloading = "";
     }
     $scope.setDataError = function(data) {
-        console.log(data);
+        console.log("Erreur recuperation des horaires en live");
         $scope.jsonloading = "";
     }
 
@@ -279,6 +279,8 @@ function TrajetModif( $scope, $window, DataSource ){
        $scope.DepartList =  data;
        $scope.autoShow = 1;
        $scope.autoTR3A = '';
+       //$scope.trajet = '';
+       //$scope.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
    }
    $scope.refreshDepartError = function(data) {
        $scope.autoShow = 0;
@@ -287,7 +289,7 @@ function TrajetModif( $scope, $window, DataSource ){
 
    // Recherche des dessertes
    $scope.getDessertes = function(){
-       DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
+       DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.trajet.depart);
    };
    // Callback dessertes
    $scope.refreshDessertes = function(data) {
