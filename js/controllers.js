@@ -154,7 +154,7 @@ function HorairesCtrl( $scope, LibGare, Param){
     }
 }
 
-function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
+function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
 
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
@@ -248,42 +248,6 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.$parent.$parent.$broadcast('Refresh');
 	}
 
-	// Recherche des gares
-	$scope.getLocation = function(){
-		if($scope.autoDepart.length > 0){
-		$scope.DepartList =  {'name': 'Chargement ...'};
-		$scope.autoShow = 1;
-		$scope.autoTR3A = '';
-        DataSource.get($scope.refreshDepart,$scope.refreshDepartError, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
-		}
-		else{
-			$scope.autoShow = 0;
-		}
-	};
-	// Callback recherche de gares
-	$scope.refreshDepart = function(data) {
-		$scope.DepartList =  data;
-		$scope.autoShow = 1;
-		$scope.autoTR3A = '';
-	}
-    $scope.refreshDepartError = function(data) {
-        $scope.autoShow = 0;
-        //$scope.autoTR3A = '';
-    }
-	
-	// Recherche des dessertes
-	$scope.getDessertes = function(){
-		DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
-	};
-	// Callback dessertes
-	$scope.refreshDessertes = function(data) {
-        $scope.ListeDessertes = data;
-        //console.log(data);
-    }
-    $scope.refreshDessertes = function(data) {
-        console.log(data);
-    }
-
     // Supprimer un trajet
 	$scope.rmTrajet = function(trajet){
 		if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
@@ -297,4 +261,55 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 
 
 
+function TrajetModif( $scope, $window, DataSource ){
+   // Recherche des gares
+   $scope.getLocation = function(){
+       if($scope.autoDepart.length > 0){
+           $scope.DepartList =  {'name': 'Chargement ...'};
+           $scope.autoShow = 1;
+           $scope.autoTR3A = '';
+           DataSource.get($scope.refreshDepart,$scope.refreshDepartError, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
+       }
+       else{
+           $scope.autoShow = 0;
+       }
+   };
+   // Callback recherche de gares
+   $scope.refreshDepart = function(data) {
+       $scope.DepartList =  data;
+       $scope.autoShow = 1;
+       $scope.autoTR3A = '';
+   }
+   $scope.refreshDepartError = function(data) {
+       $scope.autoShow = 0;
+       //$scope.autoTR3A = '';
+   }
 
+   // Recherche des dessertes
+   $scope.getDessertes = function(){
+       DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
+   };
+   // Callback dessertes
+   $scope.refreshDessertes = function(data) {
+       $scope.ListeDessertes = data;
+       //console.log(data);
+   }
+   $scope.refreshDessertesError = function(data) {
+       console.log(data);
+   }
+
+    // Rafraichir tous les trajets
+    $scope.broadcastRefresh = function () {
+        $scope.$parent.$parent.$broadcast('Refresh');
+    }
+
+    // Supprimer un trajet
+    $scope.rmTrajet = function(trajet){
+        if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
+        {
+            $scope.cflip = '';
+            $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
+            $scope.options=!$scope.options;
+        }
+    }
+}

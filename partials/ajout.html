@@ -1,14 +1,44 @@
 <div class="cardswidth" ng-cloak>
 
-<div class="metacard">		
-			<div class="" >
-				<figure class="card front" style="min-height:0;" >
-<span class="svg plus" ng-click="addTrajet();$scope.local();" style="height:60px;width:60px;display: block;margin-left: auto;margin-right: auto;" >Ajouter une gare</span>
-				</figure>
-			</div>
-	</div>
+    <div class="metacard" ng-controller="TrajetModif">
+        <div class="">
+            <div class="card front">
+                    <div class="jelly-form" style="margin-top:0;">
+                        <div style="position: relative;">
+                            <input type="text" ng-model="autoDepart"  placeholder="Ajouter une nouvelle gare" ng-change="getLocation()">
+                            <a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" ng-show="autoShow" tabindex="-1" ng-click="autoDepart='';autoShow=0;" class="clear_button">×</a>
+                        </div>
+                    </div>
+                    <div ng-show="autoShow">
+                        <div class="autocomplete" ng-repeat="index in DepartList" ng-click="$scope.depart = '{{index.codeTR3A}}'; getDessertes(); depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; savedate = '';broadcastRefresh();autoShow = 0;">
+                            <a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a>
+                        </div>
+                    </div>
+                <div class="collapsible" ng-show="collapse">
+                    <div ng-hide="autoShow">
+                        <div class="jelly-form">
+                            <label>Arrivée :</label>
+                            <div>
+                                <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="trajet.savedate = '';broadcastRefresh()">
+                                    <OPTION value='0' >Toutes directions</OPTION>
+                                    <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
+                                </SELECT>
+                                <div ng-hide="ListeDessertes" ng-click="getDessertes();">
+                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jelly-form">
+                            <input name="submit" type="submit" value="Supprimer trajet" ng-click="rmTrajet(trajet);"/>
+                            <input name="submit" type="submit" value="Terminé" ng-click="broadcastRefresh(); collapse = 'false'"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
+<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetModif">
 			<div class="">
 				<div class="card front">
 					<div class="title" ng-click="getDessertes();collapse = !collapse; " ng-swipe-left="rmTrajet(trajet);">
