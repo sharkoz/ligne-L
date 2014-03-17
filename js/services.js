@@ -1,16 +1,13 @@
 app.factory('DataSource', ['$http',function($http){
   return {
-    get: function(callback, url){
-      $http.get(
-      url
-      ).success(function(data, status) {
-        // send the converted data back
-        // to the callback function
-        callback(data);
-        })
-      }
+    get: function(callback,errorcallback, url){
+      $http
+          .get(url, {timeout:7000})
+          .success(function(data, status) { callback(data);  })
+          .error(function(data, status) { errorcallback(data);  })
     }
-  }])
+  }
+ }])
 
 
 .service('LibGare', function(){

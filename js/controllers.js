@@ -4,7 +4,7 @@
 
 function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
-	FastClick.attach(document.body);
+	//FastClick.attach(document.body);
 	//document.addEventListener("deviceready", onDeviceReady, false);
 	//function onDeviceReady() {
 	//	document.addEventListener("resume", onResume, false);
@@ -184,7 +184,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
         }
         else {
             // Si le gtfs n'est pas à jour on le telecharge
-            DataSource.get($scope.saveData, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+            DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
         }
 	});
 
@@ -220,6 +220,10 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
         // Une fois que les horaires prévisionnels sont récupérés on récupère les horaires en temps réel
         $scope.jsoncall();
     }
+    $scope.saveDataError = function(data) {
+        console.log(data);
+        $scope.jsonloading = "";
+    }
 
     // Callback function pour les horaires en live
     $scope.setData = function(data) {
@@ -229,8 +233,12 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
         $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
         $scope.jsonloading = "";
     }
+    $scope.setDataError = function(data) {
+        console.log(data);
+        $scope.jsonloading = "";
+    }
 
-    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
+    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
 
     //Chaque trajet se rafraichit lui même
     $scope.$parent.$broadcast('Refresh');
@@ -246,7 +254,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.DepartList =  {'name': 'Chargement ...'};
 		$scope.autoShow = 1;
 		$scope.autoTR3A = '';
-        DataSource.get($scope.refreshDepart, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
+        DataSource.get($scope.refreshDepart,$scope.refreshDepartError, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
 		}
 		else{
 			$scope.autoShow = 0;
@@ -258,16 +266,23 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi, $http ){
 		$scope.autoShow = 1;
 		$scope.autoTR3A = '';
 	}
+    $scope.refreshDepartError = function(data) {
+        $scope.autoShow = 0;
+        //$scope.autoTR3A = '';
+    }
 	
 	// Recherche des dessertes
 	$scope.getDessertes = function(){
-		DataSource.get($scope.refreshDessertes, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
+		DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.$parent.trajet.depart);
 	};
 	// Callback dessertes
 	$scope.refreshDessertes = function(data) {
-		$scope.ListeDessertes = data;
-		//console.log(data);
-	}
+        $scope.ListeDessertes = data;
+        //console.log(data);
+    }
+    $scope.refreshDessertes = function(data) {
+        console.log(data);
+    }
 
     // Supprimer un trajet
 	$scope.rmTrajet = function(trajet){

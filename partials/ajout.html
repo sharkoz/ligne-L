@@ -11,8 +11,8 @@
 <div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
 			<div class="">
 				<div class="card front">
-					<div class="title">
-                        <span ng-click="getDessertes();collapse = !collapse; " >
+					<div class="title" ng-click="getDessertes();collapse = !collapse; " ng-swipe-left="rmTrajet(trajet);">
+                        <span>
                             <span ng-show="collapse">&#9660;</span>
                             <span ng-hide="collapse">&#9654;</span>
                             {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}
