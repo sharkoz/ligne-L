@@ -4,6 +4,7 @@
 <title>Transilien</title>
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/metrodna.css" media="screen" rel="stylesheet" type="text/css">
+<link href="css/angular-carousel.css" rel="stylesheet" type="text/css" />
 <!--[if lte IE 8]>
       <script src="lib/json-3.min.js"></script>
     <![endif]-->
@@ -26,7 +27,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
- <body ng-controller="AppCtrl">
+ <body ng-controller="AppCtrl"  style="min-height: 100%;">
   
  <div class="header">
 	<div class="">
@@ -49,7 +50,7 @@
 		<a ng-click="toggleModal()" href="#/aide">Aide</a>
 		<a ng-click="toggleModal()" href="#/apropos">A propos</a>
   </div>
-	<div ng-view></div>
+	<div ng-view class="view"></div>
 
 
 <script>
@@ -68,6 +69,7 @@
 <script src="lib/angular-route.min.js"></script>
 <script src="lib/angular-touch.min.js"></script>
 <script src="lib/ngStorage.min.js"></script>
+ <script src="lib/angular-carousel.min.js"></script>
 
 <script src="phonegap.js"></script>
 <script src="js/app.js"></script>

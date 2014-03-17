@@ -30,7 +30,7 @@
                         </div>
                         <div class="jelly-form">
                             <input name="submit" type="submit" value="Annuler" ng-click="autoDepart='';collapse=0;"/>
-                            <input name="submit" type="submit" value="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;"/>
+                            <input name="submit" type="submit" value="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();"/>
                         </div>
                     </div>
                 </div>
