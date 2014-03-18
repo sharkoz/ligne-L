@@ -26,7 +26,11 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	};
 
 
-    $scope.$on('$routeChangeStart', function() {$scope.modalShown=false;});
+    $scope.$on('$routeChangeSuccess', function(event, next, current) {
+		// Cacher le menu
+		$scope.modalShown=false;
+		$scope.route = next.route;
+	});
 
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
@@ -117,22 +121,12 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.$apply();
 	}
 	
-	/* TODO: A SUPPRIMER : SLIDER
-	//$scope.showOptions = function(){
-	$scope.slider = 'slider'+$scope.$id;
-	//console.log(document.getElementById($scope.slider));
-	//$scope.mySwipe = new Swipe(document.getElementById($scope.slider), {
-	$scope.mySwipe = new Swipe(document.getElementById('slider'), {
-	startSlide: 1,
-	speed: 400,
-	continuous: false,
-	disableScroll: false,
-	stopPropagation: true,
-	callback: function(index, elem){},
-	transitionEnd: function(index, elem) {if(index!=1){$scope.GlobalOptions=false;$scope.$apply();$scope.mySwipe.slide(1);}}
-	});
-	//}
-	*/
+	$scope.purge = function() {
+		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
+			$scope.$storage.$reset();
+			$scope.$storage.max = 5;
+		};
+	};
 	
   $scope.modalShown = false;
   $scope.toggleModal = function() {

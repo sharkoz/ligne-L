@@ -1,5 +1,5 @@
 <div class="cardswidth" ng-cloak>
-	<div class="metacard card ng-cloak" ng-cloak  >
+	<!--<div class="metacard card ng-cloak" ng-cloak  >
 			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
 			<i>Chemin : </i>{{apiUrl}}<br>
 			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
@@ -7,6 +7,30 @@
 			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
 		<br/>
 		Désactiver la geolocalisation : <input type="checkbox" ng-model="$storage.nogeoloc" ng-click='$parent.localise="false";$storage.pos = { "latitude" : 48.8753578, "longitude" : 2.3247332};'/><br/>
-		
+	</div>-->
+	<div class="settings">
+		<table>
+			<tr><td>
+				<h2>Désactiver la localisation</h2>
+				<h3 ng-show="$storage.nogeoloc">La géolocalisation est désactivée</h3>
+				<h3 ng-hide="$storage.nogeoloc">La géolocalisation est activée</h3>
+				<input class="right" type="checkbox" ng-model="$storage.nogeoloc" ng-click='$parent.localise="false";$storage.pos = { "latitude" : 48.8753578, "longitude" : 2.3247332};'/>
+			</td></tr>
+			<tr><td>
+				<h2>Trains affichés par gare : {{$storage.max}}</h2>
+				<h3>1 <input type="range" ng-model="$storage.max" min="1" max="15" value="5" style="width:80%;"> 15</h3>
+			</td></tr>
+			<tr><td>
+				<h2>Masquer l'heure</h2>
+				<h3 ng-show="$storage.noclock">L'heure n'est pas affichée</h3>
+				<h3 ng-hide="$storage.noclock">L'heure est affichée</h3>
+				<input class="right" type="checkbox" ng-model="$storage.noclock" ng-click=''/>
+			</td></tr>
+			<tr><td>
+				<h2>Réinitialiser l'application</h2>
+				<h3>Attention, cela supprimera toutes vos gares</h3>
+				<input class="right" name="submit" type="submit" value="Purge" ng-click="purge()"/>
+			</td></tr>
+		</table>
 	</div>
 </div>

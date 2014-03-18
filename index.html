@@ -31,20 +31,22 @@
   
  <div class="header">
 	<div class="">
-		<span class="apptitle"><a href="#/"><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</a></span>
-		<h1><span clock></span></h1>
+		<span class="apptitle" style="display: table-cell; vertical-align: middle;">
+			<span ng-show="route =='Accueil'"><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</span>
+			<a href="#/" ng-hide="route =='Accueil'" ng-cloak> <span class="svg back"><</span> {{route}} </a>
+		</span>
+		<h1><span clock ng-hide="$storage.noclock"></span></h1>
 		<!--<div class="corner_network ng-cloak" ng-cloak>
 			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
 			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
 			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
 		</div>-->
-		<div class="corner_location" ng-click="local()" ng-hide="$storage.nogeoloc"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
-		<span class="corner_menu" ng-click="toggleModal();"><span class="menubutton"> </span> </span>
+		<div ng-show="" class="corner_location" ng-click="local()" ng-hide="$storage.nogeoloc || route !='Accueil'"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
+		<span ng-show="route =='Accueil'" class="corner_menu" ng-click="toggleModal();"><span class="menubutton"> </span> </span>
 	</div>
  </div>
  <div class="top"></div>
 <div modalmenu show='modalShown' ng-cloak >
-		<a href="#"         >Accueil</a>
 		<a href="#/ajout"    >Gérer les gares</a>
 		<a href="#/options"  >Options</a>
 		<a href="#/aide"     >Aide</a>
