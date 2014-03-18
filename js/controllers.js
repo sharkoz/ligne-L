@@ -24,8 +24,10 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.$broadcast('Refresh');
 		$scope.local();
 	};
-	
-	
+
+
+    $scope.$on('$routeChangeStart', function() {$scope.modalShown=false;});
+
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
     ////console.log("Local Storage:")
