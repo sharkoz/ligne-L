@@ -32,6 +32,15 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.route = next.route;
 	});
 
+	var gaPlugin;
+
+	function analytics() {
+    gaPlugin = window.plugins.gaPlugin;
+    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+	};
+	
+	
+	
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
     ////console.log("Local Storage:")
@@ -48,6 +57,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	if ( nativeapp ) {
 	    // PhoneGap application
 		$scope.apiUrl = "http://rlier.fr/ligne-server/";
+		analytics();
 	} else {
 	    // Web page
 		$scope.apiUrl = "../ligne-server/";

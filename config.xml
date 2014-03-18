@@ -54,7 +54,8 @@ Quand le réseau est revenu, Next récupère également les informations de reta
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
-
+		<gap:plugin name="com.adobe.plugins.gaplugin" />
+		
     <!-- Define app icon for each platform. -->
     <icon src="next.png" />
     <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
