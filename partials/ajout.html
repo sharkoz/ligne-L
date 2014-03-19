@@ -87,12 +87,12 @@
 	
 	    <div class="metacard" ng-show="debug">
             <div class="card front">
-                    <div>{{debug}}</div>
-					<div>{{phonegap}}</div>
-					<div ng-click='gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);'>Test event</div>
-					<div ng-click='$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);'>Test event</div>
-					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, $scope.route);">Test page</div>
-					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, route);">Test page2</div>
+                    <div>Debug : {{debug}}</div>
+					<div>Phonegap : {{phonegap}}</div>
+					<div ng-click='gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);alert("OK");'>Test event</div>
+					<div ng-click='$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);alert("OK");'>Test event</div>
+					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, $scope.route);alert('OK');">Test page</div>
+					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, route);alert('OK');">Test page2</div>
 			</div>
 		</div>
 	

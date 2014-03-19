@@ -7,8 +7,20 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	FastClick.attach(document.body);
 	
 	// Commenter pour passer en prod
-	var $scope.debug = true;
+	$scope.debug = true;
 
+	/**
+	* Debugging Tools
+	*
+	* Allows you to execute debug functions from the view
+	*/
+	$scope.log = function(variable) {
+		console.log(variable);
+	};
+	$scope.alert = function(text) {
+		alert(text);
+	};
+	
 	function analytics() {
 	var gaPlugin;
     gaPlugin = window.plugins.gaPlugin;
