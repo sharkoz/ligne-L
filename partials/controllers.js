@@ -50,6 +50,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	function errorHandler() {return};
 	
 	
+	
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
     ////console.log("Local Storage:")
