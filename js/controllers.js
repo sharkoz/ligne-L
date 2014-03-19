@@ -6,7 +6,8 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
 	
-	
+	// Commenter pour passer en prod
+	var $scope.debug = true;
 
 	function analytics() {
 	var gaPlugin;
