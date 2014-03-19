@@ -59,8 +59,12 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	});
 
 	// Fonctions succes et erreur pour le plugin analytics
-	function successHandler() {return};
-	function errorHandler() {return};
+	function successHandler(result) {
+		console.log('anaytics success : '+result);
+	};
+	function errorHandler(error) {
+		console.log('anaytics error : '+error);
+	};
 	
 	
 	// 1 - Get localstorage
