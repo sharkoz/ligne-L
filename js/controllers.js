@@ -23,7 +23,9 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 
 	function analytics() {
         alert('loading analytics');
-	$scope.gaPlugin = window.plugins.gaPlugin;
+    var gaPlugin;
+    gaPlugin = window.plugins.gaPlugin;
+	$scope.gaPlugin = gaPlugin;
     $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	};
