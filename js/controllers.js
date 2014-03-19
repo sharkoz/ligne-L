@@ -20,10 +20,11 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	$scope.alert = function(text) {
 		alert(text);
 	};
-	
+
+    var gaPlugin;
+
 	function analytics() {
-	var gaPlugin;
-    gaPlugin = window.plugins.gaPlugin;
+	gaPlugin = window.plugins.gaPlugin;
     gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	};
