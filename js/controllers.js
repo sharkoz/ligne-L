@@ -22,7 +22,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	};
 
 	function analytics() {
-        alert('loading analytics');
+       // alert('loading analytics');
     var gaPlugin;
     gaPlugin = window.plugins.gaPlugin;
     //    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
