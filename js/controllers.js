@@ -21,12 +21,10 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		alert(text);
 	};
 
-    var gaPlugin;
-
 	function analytics() {
-	gaPlugin = window.plugins.gaPlugin;
-    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
-	gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
+	$scope.gaPlugin = window.plugins.gaPlugin;
+    $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	};
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -48,7 +46,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	function onResume(){
 		$scope.$broadcast('Refresh');
 		$scope.local();
-		if ($scope.phonegap) {gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
+		if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
 	};
 
 
@@ -56,7 +54,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		// Cacher le menu
 		$scope.modalShown=false;
 		$scope.route = next.route;
-		if ($scope.phonegap) {gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
+		if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
 	});
 
 	// Fonctions succes et erreur pour le plugin analytics
