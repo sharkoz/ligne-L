@@ -32,8 +32,8 @@
  <div class="header">
 	<div class="">
 		<span class="apptitle" style="display: table-cell; vertical-align: middle;">
-			<span ng-show="route =='Accueil'"><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</span>
-			<a href="#/" ng-hide="route =='Accueil'" ng-cloak> <span class="svg back"><</span> {{route}} </a>
+			<span ng-hide="route !='Accueil'"><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</span>
+			<a href="#/" ng-show="route !='Accueil'" ng-cloak> <span class="svg back"><</span> {{route}} </a>
 		</span>
 		<h1><span clock ng-hide="$storage.noclock"></span></h1>
 		<!--<div class="corner_network ng-cloak" ng-cloak>

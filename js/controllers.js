@@ -6,11 +6,13 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
 	
-	var gaPlugin;
+	
 
 	function analytics() {
+	var gaPlugin;
     gaPlugin = window.plugins.gaPlugin;
     gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+	gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	};
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -32,6 +34,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	function onResume(){
 		$scope.$broadcast('Refresh');
 		$scope.local();
+		if (typeof gaPlugin !== "undefined") {gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
 	};
 
 
@@ -39,6 +42,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		// Cacher le menu
 		$scope.modalShown=false;
 		$scope.route = next.route;
+		if (typeof gaPlugin !== "undefined") {gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
 	});
 
 	
