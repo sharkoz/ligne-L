@@ -7,7 +7,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	FastClick.attach(document.body);
 	
 	// Commenter pour passer en prod
-	$scope.debug = true;
+	//$scope.debug = true;
 
 	/**
 	* Debugging Tools
