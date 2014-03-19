@@ -34,7 +34,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	function onResume(){
 		$scope.$broadcast('Refresh');
 		$scope.local();
-		if (typeof gaPlugin !== "undefined") {gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
+		if ($scope.phonegap) {gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
 	};
 
 
@@ -42,7 +42,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		// Cacher le menu
 		$scope.modalShown=false;
 		$scope.route = next.route;
-		if (typeof gaPlugin !== "undefined") {gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
+		if ($scope.phonegap) {gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
 	});
 
 	// Fonctions succes et erreur pour le plugin analytics
@@ -66,10 +66,10 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	if ( nativeapp ) {
 	    // PhoneGap application
 		$scope.apiUrl = "http://rlier.fr/ligne-server/";
-		
+		$scope.phonegap = true;		
 	} else {
 	    // Web page
-		$scope.apiUrl = "../ligne-server/";
+		$scope.apiUrl = "../ligne-server/";	
 	}
 	////console.log($scope.apiUrl)
 
