@@ -25,11 +25,12 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
         alert('loading analytics');
     var gaPlugin;
     gaPlugin = window.plugins.gaPlugin;
-        gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
-        gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
+    //    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+    //    gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	$scope.gaPlugin = gaPlugin;
     $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
+	$scope.gaPlugin.trackPage(successHandler, errorHandler, 'Accueil');
 	};
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -64,10 +65,10 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 
 	// Fonctions succes et erreur pour le plugin analytics
 	function successHandler(result) {
-		alert('anaytics success : '+result);
+		//alert('anaytics success : '+result);
 	};
 	function errorHandler(error) {
-		alert('anaytics error : '+error);
+		//alert('anaytics error : '+error);
 	};
 	
 	
