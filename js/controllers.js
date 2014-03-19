@@ -5,10 +5,19 @@
 function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
-	//document.addEventListener("deviceready", onDeviceReady, false);
-	//function onDeviceReady() {
+	
+	var gaPlugin;
+
+	function analytics() {
+    gaPlugin = window.plugins.gaPlugin;
+    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+	};
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
+	function onDeviceReady() {
+		analytics();
 	//	document.addEventListener("resume", onResume, false);
-	//};
+	};
 	
 	// Phonegap event listener
 	document.addEventListener("resume", onResume, false);
@@ -32,12 +41,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.route = next.route;
 	});
 
-	var gaPlugin;
-
-	function analytics() {
-    gaPlugin = window.plugins.gaPlugin;
-    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
-	};
+	
 	
 	
 	
@@ -57,7 +61,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	if ( nativeapp ) {
 	    // PhoneGap application
 		$scope.apiUrl = "http://rlier.fr/ligne-server/";
-		analytics();
+		
 	} else {
 	    // Web page
 		$scope.apiUrl = "../ligne-server/";
