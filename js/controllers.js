@@ -22,6 +22,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	};
 
 	function analytics() {
+        alert('loading analytics');
 	$scope.gaPlugin = window.plugins.gaPlugin;
     $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
@@ -59,10 +60,10 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 
 	// Fonctions succes et erreur pour le plugin analytics
 	function successHandler(result) {
-		console.log('anaytics success : '+result);
+		alert('anaytics success : '+result);
 	};
 	function errorHandler(error) {
-		console.log('anaytics error : '+error);
+		alert('anaytics error : '+error);
 	};
 	
 	
