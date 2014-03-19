@@ -25,6 +25,8 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
         alert('loading analytics');
     var gaPlugin;
     gaPlugin = window.plugins.gaPlugin;
+        gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+        gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	$scope.gaPlugin = gaPlugin;
     $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
