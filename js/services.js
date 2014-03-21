@@ -500,7 +500,7 @@ return {get : function(save, max){
 		var i=0;
 		var n=0;
 		var take=0;
-		var now = new Date(Date.now());
+		var now = new Date(Date.now() - 1800000);
 		var time=('0'+now.getHours()).substr(-2)+''+('0'+now.getMinutes()).substr(-2);
 		var day = now.getFullYear()+'-'+('0'+(now.getMonth()+1)).substr(-2)+'-'+('0'+now.getDate()).substr(-2);
 		var dow = now.getDay();
@@ -525,6 +525,7 @@ return {get : function(save, max){
 			}
 			j = save.train[i];
 			j.date.day = day;
+			j.date.jsdate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), j.date.val.substr(0,2), j.date.val.substr(3,2)).getTime();
 			//console.log(j);
 			if(j.date.val.replace(":","") < time && take==0){
 				i=i+1;
@@ -544,6 +545,7 @@ return {get : function(save, max){
 						if(j.date.val>'23:59'){
 							j.date.val = j.date.val.substr(0,2)-24 + j.date.val.substr(2,3);
 						}
+						//console.log(j);
 						res.push(j);
 						n=n+1;
 						i=i+1;

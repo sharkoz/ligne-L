@@ -243,6 +243,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
                     }
                     display[pre].date.mode='R';
                     display[pre].date.val=live[liv].date.val;
+					display[pre].date.jsdate=live[liv].date.jsdate;
                     display[pre].voie=live[liv].voie;
                 }
             }

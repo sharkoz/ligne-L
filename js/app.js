@@ -13,6 +13,21 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
 }]);
 
+app.filter('future', function() {
+	return function(collection) {
+		var res = new Array;
+		var now = new Date(Date.now()).getTime();
+		
+		for (var i=0, len=collection.length; i<len; i++) {
+			if (collection[i]['date']['jsdate'] >= now) {
+				res.push(collection[i]);
+				//console.log("true");
+			}
+			//console.log("i : "+i+" len : " + len + " var : " +collection[i]['date']['jsdate'] + " / now : " +now);
+		}
+     return res;
+   };
+});
 
 app.directive('clock', function($timeout, dateFilter){
     return function(scope, element, attrs){

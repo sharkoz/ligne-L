@@ -7,7 +7,7 @@
 					<h3>Vers {{gare[trajet.arrivee]}}</h3>
 					<table class="horaires">
 						<tbody>
-							<tr ng-repeat="train in trajet.display | limitTo: $storage.max">
+							<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max">
 								<td style="text-align:center;width:1px"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
 								<td><i></i>{{gare[train.term]}}</td> 
 								<td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
