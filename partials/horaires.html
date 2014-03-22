@@ -1,21 +1,22 @@
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetCtrl">		
-				<div class="card front">
-					<h2 ng-swipe-left="rmTrajet(trajet);">{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
-					<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh" style="height:18px;width:18px;">MaJ</span></div>
-					<!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
-					<h3>Vers {{gare[trajet.arrivee]}}</h3>
-					<table class="horaires">
-						<tbody>
-							<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max">
-								<td style="text-align:center;width:1px"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
-								<td><i></i>{{gare[train.term]}}</td> 
-								<td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
-									<div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+        <div class="card front" ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);">
+            <h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
+            <div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
+            <!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
+            <h3>Vers {{gare[trajet.arrivee]}}</h3>
+            <table class="horaires">
+                <tbody>
+                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max">
+                        <td style="text-align:center;width:1px"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
+                        <td style="text-align:center;width:1px" ng-hide="$storage.noline"><span class="rer transilien ligne{{train.ligne}}" style="width:30px;height:30px">{{train.ligne}}</span></td>
+                        <td>{{gare[train.term]}}</td>
+                        <td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
+                            <div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 	</div>
 </div>

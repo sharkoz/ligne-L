@@ -93,8 +93,9 @@ min-height: 1.1em;
 }
 .apptitle{
 	position:absolute;
-	top: 10px;
-	left: 15px;
+	top: 0px;
+	left: 0px;
+    height: 50px;
 font-size: 20px;
 min-height: 1.1em;
 vertical-align:middle;
@@ -471,7 +472,7 @@ h3 {
 	right: 10px;
   cursor: pointer;    /* affiche un curseur adapté */  
   display: inline-block;    
-  width: 16px; line-height: 16px; /* dim. de la case */  
+  width: 16px; line-height: 16px; /* dim. de la case */
   border: 1px solid grey;  
   color: grey;
   text-align: center;  
@@ -480,11 +481,13 @@ h3 {
 
 .corner_refresh {
 	position:absolute;
-	top: 10px;
-	right: 10px;
+	top: 0px;
+	right: 0px;
+    padding:10px;
   cursor: pointer;    /* affiche un curseur adapté */  
   display: inline-block;    
-  width: 16px; line-height: 16px; /* dim. de la case */    
+  width: 25px;
+  height: 25px; /* dim. de la case */
   color: grey;
   text-align: center;  
 }  
@@ -579,6 +582,11 @@ position: relative;
   text-align: center;  
 }
 
+.settings input[type="checkbox"]{
+width:30px;
+height:30px;
+}
+
 
 .svg{
   position: relative;
@@ -602,6 +610,8 @@ position: relative;
 
 .svg.refresh{
 	background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KCgo8IS0tIFRoZSBpY29uIGNhbiBiZSB1c2VkIGZyZWVseSBpbiBib3RoIHBlcnNvbmFsIGFuZCBjb21tZXJjaWFsIHByb2plY3RzIHdpdGggbm8gYXR0cmlidXRpb24gcmVxdWlyZWQsIGJ1dCBhbHdheXMgYXBwcmVjaWF0ZWQuIApZb3UgbWF5IE5PVCBzdWItbGljZW5zZSwgcmVzZWxsLCByZW50LCByZWRpc3RyaWJ1dGUgb3Igb3RoZXJ3aXNlIHRyYW5zZmVyIHRoZSBpY29uIHdpdGhvdXQgZXhwcmVzcyB3cml0dGVuIHBlcm1pc3Npb24gZnJvbSBpY29ubW9uc3RyLmNvbSAtLT4KCgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgoKPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoKCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KCjxwYXRoIGlkPSJyZWZyZXNoLTUtaWNvbiIgZD0iTTE4OS42OTEsMjc1LjU5OWgzNy44MTJsLTg4Ljc1Myw4OC45MDRMNTAsMjc1LjU5OWgzNy44MTJjMCwwLTAuMDUyLTE4MC44OTksMjEzLTE5My4zMjIKCglDMTY2LjAyNCwxNDAuMDQzLDE4OS42OTEsMjc1LjU5OSwxODkuNjkxLDI3NS41OTl6IE0yMTEuMTg4LDQyOS43MjRjMjEzLjA1Mi0xMi40MjQsMjEzLTE5My4zMjIsMjEzLTE5My4zMjJINDYybC04OC43NTEtODguOTA0CgoJbC04OC43NTMsODguOTA0aDM3LjgxMkMzMjIuMzA5LDIzNi40MDEsMzQ1Ljk3NiwzNzEuOTU3LDIxMS4xODgsNDI5LjcyNHoiLz4KCjwvc3ZnPgoK);
+    height:25px;
+    width:25px;
 }
 
 .svg.crosshair{

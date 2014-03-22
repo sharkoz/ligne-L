@@ -245,6 +245,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
                     display[pre].date.val=live[liv].date.val;
 					display[pre].date.jsdate=live[liv].date.jsdate;
                     display[pre].voie=live[liv].voie;
+                    display[pre].ligne=live[liv].ligne;
                 }
             }
         }

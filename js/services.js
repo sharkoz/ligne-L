@@ -512,7 +512,7 @@ return {get : function(save, max){
         if(s==0){return;}
 		//console.log('Init : long: '+s+' Time : '+time+' // day : '+day);
 		
-		while(n<max && take<3){
+		while(n<max+15 && take<3){
 		//while(i<s-3){
 			//console.log('reboot : i='+i+' , n='+n+' ,take='+take);
 			if(i>s-1){

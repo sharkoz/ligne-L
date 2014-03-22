@@ -31,10 +31,32 @@
   
  <div class="header">
 	<div class="">
-		<span class="apptitle" style="display: table-cell; vertical-align: middle;">
-			<span ng-hide="route !='Accueil'"><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</span>
-			<a href="#/" ng-show="route !='Accueil'" ng-cloak> <span class="svg back"><</span> {{route}} </a>
-		</span>
+        <a href="#/">
+		<table class="apptitle" style="display: table-cell; vertical-align: middle;border-spacing: 0px;"><tbody style="height:50px;border-spacing: 0px;">
+            <tr style="height:50px;border-spacing: 0px;">
+                <td style="height:50px;width:10px;">
+                &nbsp;
+                </td>
+                <td ng-hide="route !='Accueil'" style="height:50px">
+			        <span ><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</span>
+                </td>
+                <td ng-show="route !='Accueil'" style="height:50px">
+                    <span class="svg back" style="vertical-align: middle;"><</span>
+                </td>
+                <td ng-show="route !='Accueil'" style="height:50px">
+                    <span style="vertical-align: middle;">{{route}} </span>
+                </td>
+                <td style="height:50px;width:10px;">
+                    &nbsp;
+                </td>
+			       <!-- <a href="#/" ng-show="route !='Accueil'" style="height:50px;vertical-align: middle;" ng-cloak>
+                      <span class="svg back" style="vertical-align: middle;"><</span>
+                      <span style="vertical-align: middle;">{{route}} </span>
+                    </a>-->
+            </tr>
+        </tbody>
+		</table>
+        </a>
 		<!--<h1><span clock ng-hide="$storage.noclock"></span></h1>
 		<!--<div class="corner_network ng-cloak" ng-cloak>
 			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
@@ -84,6 +106,6 @@
 <script>
 gremlins.createHorde().unleash();
 </script>
--->
+<!---->
   </body>
 </html>
