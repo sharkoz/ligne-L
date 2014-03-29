@@ -277,7 +277,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
         $scope.jsonloading = "";
     }
 
-    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart);};
+    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};
 
     //Chaque trajet se rafraichit lui même
     $scope.$parent.$broadcast('Refresh');
