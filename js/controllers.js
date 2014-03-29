@@ -351,6 +351,7 @@ function TrajetModif( $scope, $window, DataSource ){
             $scope.cflip = '';
             $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
             $scope.options=!$scope.options;
+            if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "Trajet", "Delete", "Delete", 1);};
         }
     }
 }
