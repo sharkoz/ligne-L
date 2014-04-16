@@ -171,9 +171,16 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	
   $scope.modalShown = false;
   $scope.toggleModal = function() {
-  console.log($route.current.loadedTemplateUrl);
+  //console.log($route.current.loadedTemplateUrl);
     $scope.modalShown = !$scope.modalShown;
   };
+  
+	$scope.modal = false;
+	$scope.newModal = function(title, content) {
+		$scope.modal = true;
+		$scope.title = title;
+		$scope.content = content;
+	};
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
@@ -239,12 +246,13 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
                         display[pre].message = "OK";
                     }
                     else{
-                        display[pre].message = "+ "+display[pre].delta+"m";
+                        display[pre].message = live[liv].date.val;
                     }
                     display[pre].date.mode='R';
-                    display[pre].date.val=live[liv].date.val;
+                    display[pre].date.reel=live[liv].date.val;
 					display[pre].date.jsdate=live[liv].date.jsdate;
                     display[pre].voie=live[liv].voie;
+					if(live[liv].voie=='BL') {display[pre].voie='?';}
                     display[pre].ligne=live[liv].ligne;
                 }
             }

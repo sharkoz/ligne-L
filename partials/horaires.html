@@ -7,9 +7,21 @@
             <h3>Vers {{gare[trajet.arrivee]}}</h3>
             <table class="horaires">
                 <tbody>
-                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max">
-                        <td style="text-align:center;width:1px"><b>{{train.date.val | limitTo:-5}}</b><br/><span class='retard c{{train.delta}}'>{{train.message}}</span></td>
-                        <td style="text-align:center;width:1px" ng-hide="$storage.noline"><span class="rer transilien ligne{{train.ligne}}" style="width:30px;height:30px">{{train.ligne}}</span></td>
+                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train.term,train.num)">
+                        <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
+							<b>{{train.date.val | limitTo:-5}}</b>
+							<br/>
+							<span class='retard c{{train.delta}}'>{{train.message}}</span>
+						</td>
+						<td style="text-align:center;width:1px" ng-show="train.message!='OK' && train.date.mode=='R'">
+							<b>{{train.message}}</b>
+							<br/>
+							<strike>{{train.date.val | limitTo:-5}}</strike>
+						</td>
+						<td style="text-align:center;width:1px" ng-show="train.date.mode!='R'">
+							<b>{{train.date.val | limitTo:-5}}</b>
+						</td>
+						<td style="text-align:center;width:1px" ng-hide="$storage.noline"><span class="rer transilien ligne{{train.ligne}}" style="width:30px;height:30px">{{train.ligne}}</span></td>
                         <td>{{gare[train.term]}}</td>
                         <td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
                             <div title="{{train.num}}" ng-hide="train.voie != '-'">-</div>

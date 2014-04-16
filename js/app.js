@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'ngRoute', 'ngResource', 'ngTouch', 'ngStorage', 'angular-carousel' ]);
+var app = angular.module('ligneL', [ 'ngRoute', 'ngResource', 'ngTouch', 'ngStorage', 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
 
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -17,13 +17,17 @@ app.filter('future', function() {
 	return function(collection) {
 		var res = new Array;
 		var now = new Date(Date.now()).getTime();
-		
-		for (var i=0, len=collection.length; i<len; i++) {
-			if (collection[i]['date']['jsdate'] >= now) {
-				res.push(collection[i]);
-				//console.log("true");
+		if (collection===undefined) {
+			return ;
+		}
+		else {
+			for (var i=0, len=collection.length; i<len; i++) {
+				if (collection[i]['date']['jsdate'] >= now) {
+					res.push(collection[i]);
+					//console.log("true");
+				}
+				//console.log("i : "+i+" len : " + len + " var : " +collection[i]['date']['jsdate'] + " / now : " +now);
 			}
-			//console.log("i : "+i+" len : " + len + " var : " +collection[i]['date']['jsdate'] + " / now : " +now);
 		}
      return res;
    };
@@ -92,6 +96,6 @@ app.directive('modaldialog', function() {
         scope.show = false;
       };
     },
-    template: "<div class='ng-modal' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle'><div class='ng-modal-close' ng-click='hideModal()'>X</div><div class='ng-modal-dialog-content' ng-transclude></div></div></div>"
+    template: "<div class='ng-modal-di' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle' ng-transclude></div></div>"
   };
 });
