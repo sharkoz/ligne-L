@@ -7,7 +7,7 @@
             <h3>Vers {{gare[trajet.arrivee]}}</h3>
             <table class="horaires">
                 <tbody>
-                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train.term,train.num)">
+                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
                         <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
 							<b>{{train.date.val | limitTo:-5}}</b>
 							<br/>
@@ -16,7 +16,7 @@
 						<td style="text-align:center;width:1px" ng-show="train.message!='OK' && train.date.mode=='R'">
 							<b>{{train.message}}</b>
 							<br/>
-							<strike>{{train.date.val | limitTo:-5}}</strike>
+							<span style="text-decoration: line-through;">{{train.date.val | limitTo:-5}}</span>
 						</td>
 						<td style="text-align:center;width:1px" ng-show="train.date.mode!='R'">
 							<b>{{train.date.val | limitTo:-5}}</b>

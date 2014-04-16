@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate){
+function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate, LibGare, DataSource){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
 	
@@ -21,6 +21,8 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		alert(text);
 	};
 
+
+    /** Fonctions pour le tracking google analytics */
 	function analytics() {
        // alert('loading analytics');
     var gaPlugin;
@@ -32,7 +34,16 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	$scope.gaPlugin.trackPage(successHandler, errorHandler, 'Accueil');
 	};
-	
+
+    // Fonctions succes et erreur pour le plugin analytics
+    function successHandler(result) {
+        //alert('anaytics success : '+result);
+    };
+    function errorHandler(error) {
+        //alert('anaytics error : '+error);
+    };
+
+    /** Lancer les analytics après le deviceReady */
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		analytics();
@@ -63,19 +74,11 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
 	});
 
-	// Fonctions succes et erreur pour le plugin analytics
-	function successHandler(result) {
-		//alert('anaytics success : '+result);
-	};
-	function errorHandler(error) {
-		//alert('anaytics error : '+error);
-	};
+
 	
 	
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
-    ////console.log("Local Storage:")
-    ////console.log($scope.$storage.param)
 
 	if ($scope.$storage.max===undefined)
 	{
@@ -93,7 +96,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	    // Web page
 		$scope.apiUrl = "../ligne-server/";	
 	}
-	////console.log($scope.apiUrl)
+	//console.log($scope.apiUrl)
 
     $scope.reloadRoute = function () {
         $route.reload();
@@ -113,6 +116,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
         //$scope.reloadRoute(); //Attention ! Bug !
     }
 
+    // Calculate distance btw 2 positions
     $scope.calculateDistance = function(geo1, geo2){
 		//console.log("dist btw :");
 		//console.log('https://maps.google.com/?q='+geo1.latitude+','+geo1.longitude);
@@ -120,7 +124,8 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
         var dist = Geomath.calculateDistance(geo1, geo2);
 		return dist;
     }
-	
+
+    // User friendly display of distances
 	$scope.distDisplay=function(dist){
 		if(dist<100){
 			res = 'à <100m';
@@ -133,7 +138,8 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		}
 		return res;
 	}
-	
+
+    // Geolocate the user
     $scope.local = function(){
     if($scope.$storage.nogeoloc){}
     else{
@@ -161,26 +167,50 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		//$scope.GlobalOptions = ! $scope.GlobalOptions;
 		$scope.$apply();
 	}
-	
+
+    // Function to clear the local storage
 	$scope.purge = function() {
 		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
 			$scope.$storage.$reset();
 			$scope.$storage.max = 5;
 		};
 	};
-	
-  $scope.modalShown = false;
-  $scope.toggleModal = function() {
-  //console.log($route.current.loadedTemplateUrl);
-    $scope.modalShown = !$scope.modalShown;
-  };
-  
-	$scope.modal = false;
-	$scope.newModal = function(title, content) {
-		$scope.modal = true;
-		$scope.title = title;
-		$scope.content = content;
-	};
+
+    /** Gestion des Modals */
+    // Modal du menu caché par défaut
+    $scope.modalShown = false;
+    // Fonction pour toggle l'affichage du Modal du menu
+    $scope.toggleModal = function() {
+    //console.log($route.current.loadedTemplateUrl);
+      $scope.modalShown = !$scope.modalShown;
+    };
+
+    // Modal de détail du train caché par défaut
+  	$scope.modal = false;
+    // Fonction pour toggle l'affichage du Modal de détail du train
+  	$scope.newModal = function(train, dest) {
+  		$scope.modal = true;
+  		$scope.train = train;
+        $scope.dest = dest;
+        // get détail
+        $scope.detailloading = "loading";
+        DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
+  	};
+    // Ajout de la transco des gares pour le modal
+    $scope.gare = LibGare.func;
+
+    $scope.getDetail = function(data){
+        //console.log('Données temps réel disponibles controller '+$scope.$id);
+        $scope.detail = data;
+        $scope.detailloading = "";
+    }
+    $scope.getDetailError = function(err){
+        console.log("Erreur recuperation des horaires en live");
+        $scope.detailloading = "";
+    }
+
+
+      /** Fin gestion des Modals */
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
