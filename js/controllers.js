@@ -199,13 +199,20 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
     // Ajout de la transco des gares pour le modal
     $scope.gare = LibGare.func;
 
+    $scope.closeModal = function(){
+        $scope.modal = false;
+        $scope.train = undefined;
+        $scope.dest = undefined;
+        $scope.detail = undefined;
+    }
+
     $scope.getDetail = function(data){
         //console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.detail = data;
         $scope.detailloading = "";
     }
     $scope.getDetailError = function(err){
-        console.log("Erreur recuperation des horaires en live");
+        console.log("Erreur recuperation des details en live");
         $scope.detailloading = "";
     }
 

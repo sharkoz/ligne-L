@@ -96,6 +96,6 @@ app.directive('modaldialog', function() {
         scope.show = false;
       };
     },
-    template: "<div class='ng-modal-di' ng-show='show'><div class='ng-modal-overlay' ng-click='hideModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle' ng-transclude></div></div>"
+    template: "<div class='ng-modal-di' ng-show='show'><div class='ng-modal-overlay' ng-click='closeModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle' ng-transclude></div></div>"
   };
 });

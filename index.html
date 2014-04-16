@@ -77,7 +77,7 @@
   
 <div modaldialog show='modal' ng-cloak >
 		<div class='modal-header'>
-			<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3><button type='button' class='ng-modal-close' ng-click='modal = false'>&times;</button>
+			<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3><button type='button' class='ng-modal-close' ng-click='closeModal()'>&times;</button>
             Vers {{gare[train.term]}} - Ligne {{train.ligne}}
 		</div>
 		<div class='modal-body'>
@@ -86,10 +86,10 @@
             <h3>Dessertes</h3>
             <table class="detail">
                 <tbody>
-                <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span>
+                <span class="svg refresh spin_image" style="height:18px;width:18px;" ng-hide="detail">MaJ</span>
                 <tr ng-repeat="arret in detail">
                     <td>{{gare[arret.name]}}</td>
-                    <td>{{arret.time}}</td>
+                    <td>{{arret.time | limitTo:5}}</td>
                 </tr>
                 </tbody>
             </table>
