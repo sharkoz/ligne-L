@@ -33,22 +33,22 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
     $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
 	$scope.gaPlugin.trackPage(successHandler, errorHandler, 'Accueil');
-	};
+	}
 
     // Fonctions succes et erreur pour le plugin analytics
     function successHandler(result) {
         //alert('anaytics success : '+result);
-    };
+    }
     function errorHandler(error) {
         //alert('anaytics error : '+error);
-    };
+    }
 
     /** Lancer les analytics après le deviceReady */
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		analytics();
 	//	document.addEventListener("resume", onResume, false);
-	};
+	}
 	
 	// Phonegap event listener
 	document.addEventListener("resume", onResume, false);
@@ -62,6 +62,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	
 	function onResume(){
 		$scope.$broadcast('Refresh');
+        $scope.jsnow=Date.now();
 		$scope.local();
 		if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
 	};
@@ -114,7 +115,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.$apply();
 		//console.log('https://maps.google.com/?q='+$scope.pos.latitude+','+$scope.pos.longitude)
         //$scope.reloadRoute(); //Attention ! Bug !
-    }
+    };
 
     // Calculate distance btw 2 positions
     $scope.calculateDistance = function(geo1, geo2){
@@ -123,7 +124,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		//console.log('https://maps.google.com/?q='+geo2.latitude+','+geo2.longitude);
         var dist = Geomath.calculateDistance(geo1, geo2);
 		return dist;
-    }
+    };
 
     // User friendly display of distances
 	$scope.distDisplay=function(dist){
@@ -137,7 +138,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 			res = 'à '+Math.round(dist/1000)+'km';
 		}
 		return res;
-	}
+	};
 
     // Geolocate the user
     $scope.local = function(){
@@ -166,7 +167,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.GlobalOptions = false;
 		//$scope.GlobalOptions = ! $scope.GlobalOptions;
 		$scope.$apply();
-	}
+	};
 
     // Function to clear the local storage
 	$scope.purge = function() {
@@ -204,17 +205,17 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
         $scope.train = undefined;
         $scope.dest = undefined;
         $scope.detail = undefined;
-    }
+    };
 
     $scope.getDetail = function(data){
         //console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.detail = data;
         $scope.detailloading = "";
-    }
+    };
     $scope.getDetailError = function(err){
         console.log("Erreur recuperation des details en live");
         $scope.detailloading = "";
-    }
+    };
 
 
       /** Fin gestion des Modals */

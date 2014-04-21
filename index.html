@@ -32,8 +32,8 @@
  <div class="header">
 	<div class="">
         <a href="#/">
-		<table class="apptitle" style="display: table-cell; vertical-align: middle;border-spacing: 0px;"><tbody style="height:50px;border-spacing: 0px;">
-            <tr style="height:50px;border-spacing: 0px;">
+		<table class="apptitle" style="display: table-cell; vertical-align: middle;border-spacing: 0;"><tbody style="height:50px;border-spacing: 0;">
+            <tr style="height:50px;border-spacing: 0;">
                 <td style="height:50px;width:10px;">
                 &nbsp;
                 </td>
@@ -81,21 +81,23 @@
             Vers {{gare[train.term]}} - Ligne {{train.ligne}}
 		</div>
 		<div class='modal-body'>
-			<div>Retard actuel : {{train.delta}} minutes</div>
-            <div>Arrivée prévue à {{gare[dest]}} : *h*</div>
+			<div ng-show="train.date.mode=='R'">Retard actuel : {{train.delta}} minutes</div>
+            <div ng-show="train.date.mode=='R'">Arrivée prévue à {{gare[dest]}} : *h*</div>
             <h3>Dessertes</h3>
+            <span class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</span>
             <table class="detail">
                 <tbody>
-                <span class="svg refresh spin_image" style="height:18px;width:18px;" ng-hide="detail">MaJ</span>
                 <tr ng-repeat="arret in detail">
+                    <td class="time">{{arret.time | limitTo:5}}</td>
+                    <td class="stop {{train.date.jsdate}} {{jsnow}} {{train.date.jsdate<jsnow}}">•</td>
                     <td>{{gare[arret.name]}}</td>
-                    <td>{{arret.time | limitTo:5}}</td>
                 </tr>
                 </tbody>
             </table>
 		</div>
 </div>  
-  
+
+
 	<div ng-view class="view"></div>
 
 

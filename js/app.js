@@ -95,6 +95,12 @@ app.directive('modaldialog', function() {
       scope.hideModal = function() {
         scope.show = false;
       };
+        scope.closeModal = function(){
+            scope.$parent.modal = false;
+            scope.$parent.train = undefined;
+            scope.$parent.dest = undefined;
+            scope.$parent.detail = undefined;
+        };
     },
     template: "<div class='ng-modal-di' ng-show='show'><div class='ng-modal-overlay' ng-click='closeModal()'></div><div class='ng-modal-dialog' ng-style='dialogStyle' ng-transclude></div></div>"
   };

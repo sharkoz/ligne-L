@@ -773,3 +773,61 @@ text-decoration:none;
 .modal-footer .btn+.btn{margin-left:5px;margin-bottom:0;}
 .modal-footer .btn-group .btn+.btn{margin-left:-1px;}
 .modal-footer .btn-block+.btn-block{margin-left:0;}
+
+
+.detail
+{
+    border:0px solid black;
+    border-collapse:collapse;
+    border-spacing: 0;
+}
+
+.detail .time
+{
+    width:1px;
+    padding-right:10px;
+}
+
+.detail .stop {
+    width:3px;
+    background-color:darkblue;
+    color:white;
+    text-align:center;
+}
+
+.detail .stop.past{
+    background-color:grey;
+}
+
+
+.detail tr:last-child .stop {
+    background: linear-gradient(0deg,  white 0%,white 50%,darkblue 51%,darkblue 100%);
+    color:white;
+    text-align:center;
+    font-weight:bold;
+    text-stroke-width: 1px;
+    text-stroke-color: black;
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+}
+
+.detail tr:first-child .stop {
+    background: linear-gradient(0deg,  darkblue 0%,darkblue 50%,white 51%,white 100%);
+    color:white;
+    font-weight:bold;
+    text-stroke-width: 1px;
+    text-stroke-color: black;
+    text-align:center;
+    text-shadow:
+        -1px -1px 0 black,
+        1px -1px 0 black,
+        -1px 1px 0 black,
+        1px 1px 0 black;
+}
+
+.detail tr:first-child .stop.past {
+    background: linear-gradient(0deg,  grey 0%,grey 50%,white 51%,white 100%);
+}
