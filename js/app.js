@@ -10,6 +10,7 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/aide', {templateUrl: 'partials/aide.html', controller: '', route:'Aide'});
   $routeProvider.when('/apropos', {templateUrl: 'partials/apropos.html', controller: '', route:'A propos'});
   $routeProvider.when('/options', {templateUrl: 'partials/options.html', controller: '', route:'Options'});
+  $routeProvider.when('/agenda', {templateUrl: 'partials/agenda.html', controller: 'AgendaCtrl', route:'Agenda'});
   $routeProvider.otherwise({redirectTo: '/'});
 }]);
 

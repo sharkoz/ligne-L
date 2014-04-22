@@ -219,6 +219,15 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 
 
       /** Fin gestion des Modals */
+	
+
+	/** Gestion de l'agenda par trajet */
+	
+	$scope.setAgenda = function (trajet) {
+		$scope.trajet = trajet;
+		console.log("Agenda set on scope "+$scope.$id);
+	}
+	  
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
@@ -234,6 +243,20 @@ function HorairesCtrl( $scope, LibGare, Param){
     $scope.addTrajet = function(){
         $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
     }
+}
+
+function AgendaCtrl( $scope, LibGare, Param){
+//console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
+	//if($scope.trajet==undefined){
+	//	$scope.trajet = $scope.$storage.trajet;
+	//};
+	    if ($scope.$storage.param===undefined) {
+        $scope.$storage.param = Param.values;
+    }
+	    $scope.param = $scope.$storage.param;
+    $scope.gare = LibGare.func;
+    $scope.ListeGares = LibGare.values;
+    $scope.GareLoc = LibGare.gareloc;
 }
 
 function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
@@ -342,6 +365,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
 			$scope.options=!$scope.options;
 		}
 	}
+	
 }
 
 

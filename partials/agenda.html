@@ -1,0 +1,31 @@
+<div class="cardswidth">
+	<div ng-show="trajet==undefined">
+	<div style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Choisir le trajet :<br/></div>
+		<div class="card front" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-click="setAgenda(trajet)">
+		<h2>{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
+		</div>
+	</div>
+	<div ng-hide="trajet==undefined">
+		<h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i>
+		</h2>
+		<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()">
+			<span class="svg refresh">MaJ</span>
+		</div>
+		<!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
+		<h3>Vers {{gare[trajet.arrivee]}}</h3>
+		Journée du 
+		<table class="horaires">
+			<tbody>
+				<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
+					<td style="text-align:center;width:1px">
+						<b>{{train.date.val | limitTo:-5}}</b>
+					</td>
+					<td style="text-align:center;width:1px" ng-hide="$storage.noline">
+						<span class="rer transilien ligne{{train.ligne}}" style="width:30px;height:30px">{{train.ligne}}</span>
+					</td>
+					<td>{{gare[train.term]}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
