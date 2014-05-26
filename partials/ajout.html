@@ -30,7 +30,7 @@
                         </div>
                         <div class="jelly-form">
                             <input name="submit" type="submit" value="Annuler" ng-click="autoDepart='';collapse=0;"/>
-                            <input name="submit" type="submit" value="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();"/>
+                            <input name="submit" type="submit" value="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();"/>
 							<input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click="trajet.path='mobil';trajet2.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet2={};trajet2.depart=trajet.arrivee;trajet2.arrivee=trajet.depart;$parent.param.trajet.push(trajet2);trajet={};trajet2={};$route.reload();"/>
                         </div>
                     </div>
