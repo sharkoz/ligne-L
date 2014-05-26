@@ -3,12 +3,12 @@
         <div class="card front" ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);">
             <h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
             <div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
-			<div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>
+            <!--<div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>-->
             <!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
             <h3>Vers {{gare[trajet.arrivee]}}</h3>
             <table class="horaires">
                 <tbody>
-                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
+                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
                         <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
 							<b>{{train.date.val | limitTo:-5}}</b>
 							<br/>

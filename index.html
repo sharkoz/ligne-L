@@ -76,13 +76,24 @@
   </div>
   
 <div modaldialog show='modal' ng-cloak >
+        <div class="ng-modal-ligne"><span class="rer transilien ligne{{train.ligne}}" style="width:40px;height:40px;">{{train.ligne}}</span></div>
 		<div class='modal-header'>
 			<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3><button type='button' class='ng-modal-close' ng-click='closeModal()'>&times;</button>
-            Vers {{gare[train.term]}} - Ligne {{train.ligne}}
+            Vers {{gare[train.term]}}
 		</div>
 		<div class='modal-body'>
-			<div ng-show="train.date.mode=='R'">Retard actuel : {{train.delta}} minutes</div>
-            <div ng-show="train.date.mode=='R'">Arrivée prévue à {{gare[dest]}} : *h*</div>
+			<div ng-show="train.date.mode=='R' && train.delta!='0'">
+                Retard actuel : {{train.delta}} minutes<br/>
+                Départ prévu de {{gare[dep]}} à : {{train.message}}
+            </div>
+            <div ng-show="train.date.mode=='R' && train.delta=='0'">
+                Retard actuel : Aucun<br/>
+                Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
+            </div>
+            <div ng-show="train.date.mode!='R'">
+                Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
+            </div>
+            <div ng-show="dest!='0' && 1==0">Arrivée prévue à {{gare[dest]}} : *h*</div>
             <h3>Dessertes</h3>
             <span class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</span>
             <table class="detail">

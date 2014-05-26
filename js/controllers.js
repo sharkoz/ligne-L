@@ -189,10 +189,11 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
     // Modal de détail du train caché par défaut
   	$scope.modal = false;
     // Fonction pour toggle l'affichage du Modal de détail du train
-  	$scope.newModal = function(train, dest) {
+  	$scope.newModal = function(train, dest, dep) {
   		$scope.modal = true;
   		$scope.train = train;
         $scope.dest = dest;
+        $scope.dep = dep;
         // get détail
         $scope.detailloading = "loading";
         DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
