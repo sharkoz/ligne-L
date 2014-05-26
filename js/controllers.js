@@ -42,6 +42,12 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
     function errorHandler(error) {
         //alert('anaytics error : '+error);
     }
+    $scope.successHandler = function (result) {
+        //alert('anaytics success : '+result);
+    }
+    $scope.errorHandler = function (error) {
+        //alert('anaytics error : '+error);
+    }
 
     /** Lancer les analytics après le deviceReady */
 	document.addEventListener("deviceready", onDeviceReady, false);
@@ -197,6 +203,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
         // get détail
         $scope.detailloading = "loading";
         DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
+        if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
   	};
     // Ajout de la transco des gares pour le modal
     $scope.gare = LibGare.func;
@@ -364,6 +371,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
 			$scope.cflip = ''; 
 			$scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1); 
 			$scope.options=!$scope.options;
+            if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from Accueil", 1);};
 		}
 	}
 	
@@ -415,6 +423,11 @@ function TrajetModif( $scope, $window, DataSource ){
         $scope.$parent.$parent.$broadcast('Refresh');
     }
 
+    // Ajouter un trajet #TODO
+    $scope.addTrajet = function(){
+        if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Add", "Trajet added", $scope.$parent.param.trajet.length);};
+    }
+
     // Supprimer un trajet
     $scope.rmTrajet = function(trajet){
         if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
@@ -422,7 +435,7 @@ function TrajetModif( $scope, $window, DataSource ){
             $scope.cflip = '';
             $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
             $scope.options=!$scope.options;
-            if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "Trajet", "Delete", "Delete", 1);};
+            if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from config", $scope.$parent.param.trajet.length);};
         }
     }
 }
