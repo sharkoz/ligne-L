@@ -1,4 +1,4 @@
-
+﻿
 /* Controllers */
 
 
@@ -101,7 +101,12 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.phonegap = true;		
 	} else {
 	    // Web page
+            if(document.URL.indexOf( 'localhost' ) !== -1) {
+		$scope.apiUrl = "http://rlier.fr/ligne-server/";
+            }
+	    else {
 		$scope.apiUrl = "../ligne-server/";	
+            }
 	}
 	//console.log($scope.apiUrl)
 
