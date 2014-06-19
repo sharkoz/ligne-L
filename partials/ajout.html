@@ -98,13 +98,14 @@
 		</div>
 	-->
 	
-	<div ui-tree>
-  <ol ui-tree-nodes="" ng-model="list">
-    <li ng-repeat="trajet in param.trajet" ui-tree-node>
-      <div ui-tree-handle>
-        {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}
-      </div>
-    </li>
-  </ol>
-</div>
+	<div ui-tree="trips">
+	<ol ui-tree-nodes="trips" ng-model="list">
+		<li ng-repeat="trajet in param.trajet" ui-tree-node="trips">
+		<div class="card">
+			{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}
+			<div ui-tree-handle>X</div>
+		</div>
+		</li>
+	</ol>
+	</div>
 </div>
