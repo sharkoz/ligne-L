@@ -228,7 +228,23 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 
       /** Fin gestion des Modals */
 	
-
+	/** Récupération de la dernière date de MaJ de la bdd gtfs **/
+	
+	if ($scope.$storage.gtfs===undefined) {
+        $scope.$storage.gtfs = "1405015264";
+    }
+   // Recherche des dessertes
+   $scope.GtfsDate = function(){
+       DataSource.get($scope.refreshGtfsDate,$scope.refreshDessertesError, $scope.apiUrl+"refresh.txt");
+   };
+   // Callback dessertes
+   $scope.refreshGtfsDate = function(data) {
+       $scope.$storage.gtfs = data;
+       console.log("refreshdate : "+data);
+   }
+   
+   $scope.GtfsDate ();
+   
 	/** Gestion de l'agenda par trajet */
 	
 	$scope.setAgenda = function (trajet) {
@@ -291,13 +307,13 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
                 $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
             }
         }
-        if (new Date().toDateString() == $scope.trajet.savedate) {
-            // Si les prévisions sont à jour on récupère juste le live
-            $scope.jsoncall();
-        }
-        else {
+        if ($scope.$storage.gtfs > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
             // Si le gtfs n'est pas à jour on le telecharge
             DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+        }
+        else {
+            // Si les prévisions sont à jour on récupère juste le live
+            $scope.jsoncall();
         }
 	});
 
@@ -332,7 +348,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
     // Callback fonction pour récupérer les horaires prévisionnels de la gare
     $scope.saveData = function(data) {
         $scope.trajet.save = data.passages;
-        $scope.trajet.savedate = new Date().toDateString();
+        $scope.trajet.savedate = Math.floor(new Date().getTime()/1000);
         // Une fois que les horaires prévisionnels sont récupérés on récupère les horaires en temps réel
         $scope.jsoncall();
     }
