@@ -96,28 +96,5 @@
 					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, route);alert('OK');">Test page2</div>
 			</div>
 		</div>
-	
-	
-<<<<<<< HEAD
-	<div ui-tree>
-  <ol ui-tree-nodes="" ng-model="list">
-    <li ng-repeat="trajet in param.trajet" ui-tree-node>
-      <div ui-tree-handle>
-        {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}
-      </div>
-    </li>
-  </ol>
-</div> -->
-=======
-	<div ui-tree="trips">
-	<ol ui-tree-nodes="trips" ng-model="list">
-		<li ng-repeat="trajet in param.trajet" ui-tree-node="trips">
-		<div class="card">
-			{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}
-			<div ui-tree-handle>X</div>
-		</div>
-		</li>
-	</ol>
-	</div>
->>>>>>> c7d47dfc6c4c74c9d7674f08cc1bcbf75c9fd875
+	-->
 </div>
