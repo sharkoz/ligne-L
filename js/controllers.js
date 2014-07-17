@@ -274,7 +274,7 @@ function HorairesCtrl( $scope, LibGare, Param){
     }
 }
 
-function AgendaCtrl( $scope, LibGare, Param){
+function AgendaCtrl( $scope, $timeout, LibGare, Param){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 	//if($scope.trajet==undefined){
 	//	$scope.trajet = $scope.$storage.trajet;
@@ -286,6 +286,15 @@ function AgendaCtrl( $scope, LibGare, Param){
     $scope.gare = LibGare.func;
     $scope.ListeGares = LibGare.values;
     $scope.GareLoc = LibGare.gareloc;
+    $scope.slideIndex=2;
+    console.log('init scope '+$scope.$id);
+   $scope.$watch('slideIndex', function(newVal, oldVal, scope){
+       if(newVal==3){
+           $timeout(function(scope){ scope.slideIndex=2; })
+           //#TODO : faire marcher le timeout, peut etre en faisant tourner le carouselIndicatorArray
+       }
+       console.log('changed scope '+scope.$id);
+   }, true);
 }
 
 function TrajetCtrl( $scope, $window, DataSource, Getprevi ){

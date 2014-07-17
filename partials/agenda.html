@@ -6,26 +6,28 @@
 		</div>
 	</div>
 	<div ng-hide="trajet==undefined">
-		<h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i>
-		</h2>
-		<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()">
-			<span class="svg refresh">MaJ</span>
-		</div>
-		<!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
-		<h3>Vers {{gare[trajet.arrivee]}}</h3>
-		Journée du 
-		<table class="horaires">
-			<tbody>
-				<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
-					<td style="text-align:center;width:1px">
-						<b>{{train.date.val | limitTo:-5}}</b>
-					</td>
-					<td style="text-align:center;width:1px" ng-hide="$storage.noline">
-						<span class="rer transilien ligne{{train.ligne}}" style="width:30px;height:30px">{{train.ligne}}</span>
-					</td>
-					<td>{{gare[train.term]}}</td>
-				</tr>
-			</tbody>
-		</table>
+		<h2>Trajet de {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
+		 <h3>Horaires théoriques pour la journée du {{slideIndex}}</h3>
+        <button class="button grey" ng-click="slideIndex=slideIndex+1"  >next</button>
+        <ul rn-carousel rn-carousel-control rn-carousel-index="slideIndex">
+            <li>Previous</li>
+            <li>Previous2</li>
+            <li>
+		        <table class="horaires">
+		        	<tbody>
+		        		<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
+		        			<td style="text-align:center;width:1px">
+		        				<b>{{train.date.val | limitTo:-5}}</b>
+		        			</td>
+		        			<td style="text-align:center;width:1px" ng-hide="$storage.noline">
+		        				<span class="rer transilien ligne{{train.ligne}}" style="width:30px;height:30px">{{train.ligne}}</span>
+		        			</td>
+		        			<td>{{gare[train.term]}}</td>
+		        		</tr>
+		        	</tbody>
+		        </table>
+            </li>
+            <li>Next</li>
+            <li>Next2</li>
 	</div>
 </div>
