@@ -50,8 +50,8 @@
     transition: opacity 0.2s ease-out;
     font-size: 30px;
     position: absolute;
-    top: 50%;
-    margin-top: -35px;
+    top: 0;
+    margin-top: 0px;
     opacity: 0.75;
     cursor: pointer; }
 .rn-carousel-control:hover {

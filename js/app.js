@@ -34,6 +34,38 @@ app.filter('future', function() {
    };
 });
 
+app.filter('daily', function() {
+	return function(input, day) {
+		var res = new Array;
+		if (input===undefined) {
+			return ;
+		}
+		else {
+			for (var i=0, len=input.length; i<len; i++) {
+				if (input[i]['valid']['deb'] <= day && input[i]['valid']['fin'] >= day) {
+					res.push(input[i]);
+				}
+			}
+		}
+     return res;
+   };
+});
+
+app.filter('toDay', function() {
+	return function(input) {
+     return Math.floor(new Date(input).getTime()/86400000);
+   };
+});
+
+app.filter('formatAddDate', function() {
+return function(input) {
+	var date = new Date();
+	var result = new Date(date);
+	result.setDate(date.getDate() + input);
+	return result.getFullYear()+'-'+('0'+(result.getMonth()+1)).substr(-2)+'-'+('0'+result.getDate()).substr(-2);
+	}
+});
+
 app.directive('clock', function($timeout, dateFilter){
     return function(scope, element, attrs){
        var timeoutId; // timeoutId, so that we can cancel the time updates

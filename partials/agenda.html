@@ -7,14 +7,14 @@
 	</div>
 	<div ng-hide="trajet==undefined">
 		<h2>Trajet de {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
-		 <h3>Horaires théoriques pour la journée du {{slideIndex}}</h3>
+		 <h3>Horaires théoriques pour la journée du {{ addDays(slideIndex) }}</h3>
         <!--<button class="button grey" ng-click="slideIndex=slideIndex+1"  >next</button>-->
-        <ul rn-carousel rn-carousel-control rn-carousel-buffered rn-carousel-index="slideIndex">
+        <ul rn-carousel rn-carousel-control rn-carousel-buffered rn-carousel-index="slideIndex" style="scroll:auto; bottom:0px;height:100%;">
             <li ng-repeat="slide in slides">
-			{{ slide.label }} / {{ slides.length }}
+			 <br />
 		        <table class="horaires">
 		        	<tbody>
-		        		<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
+		        		<tr ng-repeat="train in trajet.save.train" ng-click="newModal(train, trajet.arrivee)" ng-hide="(train.valid.deb | toDay) >today+slideIndex || (train.valid.fin | toDay) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf((slideIndex | formatAddDate)))>-1">
 		        			<td style="text-align:center;width:1px">
 		        				<b>{{train.date.val | limitTo:-5}}</b>
 		        			</td>

@@ -250,14 +250,14 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
    
    $scope.GtfsDate ();
    
-	/** Gestion de l'agenda par trajet *
+	/** Gestion de l'agenda par trajet */
 	
 	$scope.setAgenda = function (trajet) {
 		$scope.trajet = trajet;
 		console.log("Agenda set on scope "+$scope.$id);
 		$scope.slideIndex = 0;
 	}
-	  */
+	  
 }
 
 function HorairesCtrl( $scope, LibGare, Param){
@@ -293,25 +293,26 @@ function AgendaCtrl( $scope, $timeout, LibGare, Param){
 		console.log("Agenda set on scope "+$scope.$id);
 		$scope.slideIndex = 0;
 		$scope.slides=[];
-		$scope.addSlides($scope.slides	, 'people', 2);
+		$scope.addSlides($scope.slides	, '', 2);
 	}
 	
     console.log('init scope '+$scope.$id);
    $scope.$watch('slideIndex', function(newVal, oldVal, scope){
-       if(newVal>$scope.slides.length-2){
-           $scope.addSlide($scope.slides,'people');
+       if(newVal>$scope.slides.length-3){
+           $scope.addSlide($scope.slides,'');
 		   console.log('Added slide '+scope.slides.length);
 		   }
-           //#TODO : faire marcher le timeout, peut etre en faisant tourner le carouselIndicatorArray
        console.log('changed scope '+scope.$id);
    }, true);
    
     $scope.addSlide = function (target, style) {
 		var i = target.length;
+		var date = new Date();
+		var result = new Date(date);
+		result.setDate(date.getDate() + i);
 		target.push({
 			label: 'slide #' + (i + 1),
-			img: 'http://lorempixel.com/450/300/' + style + '/' + (i % 10) ,
-			odd: (i % 2 === 0)
+			currDay: result.getFullYear()+'-'+('0'+(result.getMonth()+1)).substr(-2)+'-'+('0'+result.getDate()).substr(-2)
 		});
 		console.log(target);
 	}
@@ -322,9 +323,17 @@ function AgendaCtrl( $scope, $timeout, LibGare, Param){
         }
 	}
 	
+	$scope.addDays = function (days) {
+		var date = new Date();
+		var result = new Date(date);
+		result.setDate(date.getDate() + days);
+		return result.toLocaleDateString();
+	}
+	
 	$scope.slides=[];
-	$scope.addSlides($scope.slides	, 'people', 2);
+	$scope.addSlides($scope.slides	, '', 2);
 	$scope.slideIndex = 0;
+	$scope.today=Math.floor(new Date().getTime()/86400000);
 	//$scope.$apply;
 }
 
