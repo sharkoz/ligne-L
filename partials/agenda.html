@@ -8,11 +8,10 @@
 	<div ng-hide="trajet==undefined">
 		<h2>Trajet de {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
 		 <h3>Horaires théoriques pour la journée du {{slideIndex}}</h3>
-        <button class="button grey" ng-click="slideIndex=slideIndex+1"  >next</button>
-        <ul rn-carousel rn-carousel-control rn-carousel-index="slideIndex">
-            <li>Previous</li>
-            <li>Previous2</li>
-            <li>
+        <!--<button class="button grey" ng-click="slideIndex=slideIndex+1"  >next</button>-->
+        <ul rn-carousel rn-carousel-control rn-carousel-buffered rn-carousel-index="slideIndex">
+            <li ng-repeat="slide in slides">
+			{{ slide.label }} / {{ slides.length }}
 		        <table class="horaires">
 		        	<tbody>
 		        		<tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee)">
@@ -27,7 +26,5 @@
 		        	</tbody>
 		        </table>
             </li>
-            <li>Next</li>
-            <li>Next2</li>
 	</div>
 </div>
