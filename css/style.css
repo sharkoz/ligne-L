@@ -397,7 +397,7 @@ overflow:hidden;
 	font-size:1.3rem;
 	margin-top: 0;
 	margin-bottom: 0;
-	margin-right: 60px;
+	margin-right: 75px;
 }
 
 .card table {
@@ -496,8 +496,8 @@ h3 {
 	position:absolute;
 	top: 0px;
 	right: 0px;
-	padding-top:10px;
-    padding-right:45px;
+	padding:10px;
+    padding-right:55px;
   cursor: pointer;    /* affiche un curseur adapté */  
   display: inline-block;    
   width: 25px;
