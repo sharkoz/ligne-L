@@ -245,7 +245,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
    // Callback dessertes
    $scope.refreshGtfsDate = function(data) {
        $scope.$storage.gtfs = data;
-       console.log("refreshdate : "+data);
+       //console.log("refreshdate : "+data);
    }
    
    $scope.GtfsDate ();
@@ -254,7 +254,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 	
 	$scope.setAgenda = function (trajet) {
 		$scope.trajet = trajet;
-		console.log("Agenda set on scope "+$scope.$id);
+		//console.log("Agenda set on scope "+$scope.$id);
 		$scope.slideIndex = 0;
 	}
 	  
@@ -290,19 +290,19 @@ function AgendaCtrl( $scope, $timeout, LibGare, Param){
 
 	$scope.setAgenda = function (trajet) {
 		$scope.trajet = trajet;
-		console.log("Agenda set on scope "+$scope.$id);
+		//console.log("Agenda set on scope "+$scope.$id);
 		$scope.slideIndex = 0;
 		$scope.slides=[];
 		$scope.addSlides($scope.slides	, '', 2);
 	}
 	
-    console.log('init scope '+$scope.$id);
+    //console.log('init scope '+$scope.$id);
    $scope.$watch('slideIndex', function(newVal, oldVal, scope){
        if(newVal>$scope.slides.length-3){
            $scope.addSlide($scope.slides,'');
-		   console.log('Added slide '+scope.slides.length);
+		   //console.log('Added slide '+scope.slides.length);
 		   }
-       console.log('changed scope '+scope.$id);
+       //console.log('changed scope '+scope.$id);
    }, true);
    
     $scope.addSlide = function (target, style) {
@@ -368,6 +368,7 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
         else {
             // Si les prévisions sont à jour on récupère juste le live
             $scope.jsoncall();
+			//console.log("gtfs : "+$scope.$storage.gtfs+" < "+$scope.trajet.savedate);
         }
 	});
 
