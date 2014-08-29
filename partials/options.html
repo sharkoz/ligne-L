@@ -24,7 +24,7 @@
                 <h2>Masquer les nom de lignes</h2>
                 <h3 ng-show="$storage.noline">Les noms de lignes ne sont pas affichés</h3>
                 <h3 ng-hide="$storage.noline">Les noms de lignes sont affichés</h3>
-                <input class="right" type="checkbox" ng-model="$storage.noline"/>
+                <paper-toggle-button class="right" {{$storage.noline}}></paper-toggle-button>
             </td></tr>
 			<!--<tr><td>
 				<h2>Masquer l'heure</h2>
