@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Locate, LibGare, DataSource){
+app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $route, Geomath, Locate, LibGare, DataSource){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
 	
@@ -258,9 +258,9 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
 		$scope.slideIndex = 0;
 	}
 	  
-}
+});
 
-function HorairesCtrl( $scope, LibGare, Param){
+app.controller('HorairesCtrl',function( $scope, LibGare, Param){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
     if ($scope.$storage.param===undefined) {
         $scope.$storage.param = Param.values;
@@ -273,13 +273,12 @@ function HorairesCtrl( $scope, LibGare, Param){
     $scope.addTrajet = function(){
         $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
     }
-}
+})
 
-function AgendaCtrl( $scope, $timeout, LibGare, Param){
+
+app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
-	//if($scope.trajet==undefined){
-	//	$scope.trajet = $scope.$storage.trajet;
-	//};
+
 	    if ($scope.$storage.param===undefined) {
         $scope.$storage.param = Param.values;
     }
@@ -335,9 +334,10 @@ function AgendaCtrl( $scope, $timeout, LibGare, Param){
 	$scope.slideIndex = 0;
 	$scope.today=Math.floor(new Date().getTime()/86400000);
 	//$scope.$apply;
-}
+})
 
-function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
+
+app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
 
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
@@ -446,11 +446,12 @@ function TrajetCtrl( $scope, $window, DataSource, Getprevi ){
 		}
 	}
 	
-}
+})
 
 
 
-function TrajetModif( $scope, $window, DataSource ){
+
+app.controller('TrajetModif',function( $scope, $window, DataSource ){
    // Recherche des gares
    $scope.getLocation = function(){
        if($scope.autoDepart.length > 0){
@@ -509,4 +510,4 @@ function TrajetModif( $scope, $window, DataSource ){
             if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from config", $scope.$parent.param.trajet.length);};
         }
     }
-}
+})
