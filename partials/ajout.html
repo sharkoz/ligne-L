@@ -1,11 +1,11 @@
 <div class="cardswidth" ng-cloak>
-
+<!--
     <div class="metacard" ng-controller="TrajetModif">
         <div class="">
             <div class="card front">
                     <div class="jelly-form" style="margin-top:0;">
-                        <div style="position: relative;">
-                            <input type="text" ng-model="autoDepart"  placeholder="Gare de départ" ng-change="getLocation()">
+                        <div style="position: relative;"> 
+							<paper-input  label="Gare de départ" ng-model="autoDepart"></paper-input>
                             <a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" ng-show="autoShow" tabindex="-1" ng-click="autoDepart='';autoShow=0;" class="clear_button">×</a>
                         </div>
                     </div>
@@ -37,8 +37,45 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
+	<div class="metacard" ng-controller="TrajetModif">
+        <div class="">
+            <div class="card front">
+                        <div style="position: relative;"> 
+							<paper-input floatinglabel label="Gare de départ :" placeholder="Gare de départ" ng-model="autoDepart"></paper-input>
+                            <a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" ng-show="autoShow" tabindex="-1" ng-click="autoDepart='';autoShow=0;" class="clear_button">×</a>
+                        </div>
+                    <div ng-show="autoShow">
+                        <div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = gare[index.codeTR3A];$parent.trajet.depart = '{{index.codeTR3A}}'; $parent.trajet.arrivee = '0';getDessertes(); $parent.trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; trajet.savedate = '';broadcastRefresh();$parent.autoShow = 0;$parent.collapse=1">
+                            <a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a>
+                        </div>
+                    </div>
+                <div class="collapsible" ng-show="collapse">
+                    <div ng-hide="autoShow">
+                        <div>
+                            <label>Arrivée :</label>
+                            <div>
+                                <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="trajet.savedate = '';broadcastRefresh()">
+                                    <OPTION value='0' >Toutes directions</OPTION>
+                                    <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
+                                </SELECT>
+                                <div ng-hide="ListeDessertes" ng-click="getDessertes();">
+                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input name="submit" type="submit" value="Annuler" ng-click="autoDepart='';collapse=0;"/>
+                            <input name="submit" type="submit" value="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();"/>
+							<input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click="trajet.path='mobil';trajet2.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet2={};trajet2.depart=trajet.arrivee;trajet2.arrivee=trajet.depart;$parent.param.trajet.push(trajet2);trajet={};trajet2={};$route.reload();"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
 <div class="metacard" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-controller="TrajetModif">
 			<div class="">
 				<div class="card front">

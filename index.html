@@ -2,7 +2,6 @@
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" class="ng-app:ligneL">
  <head>
 <title>Transilien</title>
-<link href="css/angular-material.css" rel="stylesheet" type="text/css" />
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/metrodna.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/angular-carousel.css" rel="stylesheet" type="text/css" />
@@ -48,22 +47,27 @@
   href="components/paper-toggle-button/paper-toggle-button.html">
     <link rel="import" 
   href="components/paper-slider/paper-slider.html">
+      <link rel="import" 
+  href="components/paper-fab/paper-fab.html">
+      <link rel="import" 
+  href="components/paper-dropdown/paper-dropdown.html">  
+  
 </head>
 
  <body ng-controller="AppCtrl" unresolved>
    
-<core-scaffold>
+<core-scaffold responsiveWidth="800px">
 
   <core-header-panel navigation flex>
     <core-toolbar id="navheader">
       <span>Menu</span>
     </core-toolbar>
     <core-menu>
-		<a href="#/"    ><core-item label="Accueil"></core-item></a>
-	  	<a href="#/ajout"    ><core-item label="Gérer les gares"></core-item></a>
-		<a href="#/options"  ><core-item label="Options"></core-item></a>
+		<a href="#/"><core-item label="Accueil"></core-item></a>
+	  	<a href="#/ajout"><core-item label="Gérer les gares"></core-item></a>
+		<a href="#/options"><core-item label="Options"></core-item></a>
 		<!--<a href="#/aide"     >Aide</a>-->
-		<a href="#/apropos"  ><core-item label="A propos"></core-item></a>
+		<a href="#/apropos"><core-item label="A propos"></core-item></a>
     </core-menu>
   </core-header-panel>
   
@@ -169,7 +173,7 @@
                 Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
             </div>
             <div ng-show="dest!='0' && 1==0">Arrivée prévue à {{gare[dest]}} : *h*</div>
-            <h3>Dessertes théoriques :</h3>
+            <h3>Arrivées théoriques :</h3>
             <span class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</span>
             <table class="detail">
                 <tbody>
@@ -215,7 +219,6 @@
 <script src="lib/angular-carousel.min.js"></script>
 <script src="lib/angular-strap-modal.js"></script>
 <script src="lib/angular-ui-tree.min.js"></script>
-<script src="lib/angular-material.min.js"></script>
 <script src="lib/ng-polymer-elements.min.js"></script>
 
 <script src="phonegap.js"></script>

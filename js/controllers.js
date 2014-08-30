@@ -454,7 +454,8 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 app.controller('TrajetModif',function( $scope, $window, DataSource ){
    // Recherche des gares
    $scope.getLocation = function(){
-       if($scope.autoDepart.length > 0){
+		console.log('entered');
+       if($scope.autoDepart && $scope.autoDepart.length > 0){
            $scope.DepartList =  {'name': 'Chargement ...'};
            $scope.autoShow = 1;
            $scope.autoTR3A = '';
@@ -499,7 +500,11 @@ app.controller('TrajetModif',function( $scope, $window, DataSource ){
     $scope.addTrajet = function(){
         if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Add", "Trajet added", $scope.$parent.param.trajet.length);};
     }
-
+	
+	// Listener sur le champ de saisie de la gare de départ
+	$scope.$watch('autoDepart', function(){$scope.getLocation();});
+   
+   
     // Supprimer un trajet
     $scope.rmTrajet = function(trajet){
         if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
