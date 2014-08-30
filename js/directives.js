@@ -22,13 +22,10 @@ angular.module('ligneL')
             if(Math.abs(delta) < max) {
               translateX(delta, ele);
             }
-            console.log('move')
           },
           'end': function(coords) {
             var delta = coords.x - startX;
-            console.log('end')
             if(Math.abs(delta) > min) {
-              console.log('doIt')
               scope.action();
             }
             else {
@@ -45,6 +42,6 @@ angular.module('ligneL')
     function translateX(val, ele) {
       ele.css('-webkit-transform', 'translateX(' + val + 'px)');
       ele.css('transform', 'translateX(' + val + 'px)');
-      ele.css('opacity', 1-Math.abs(val)/(2*max));
+      ele.css('opacity', 1-Math.abs(val)/(1.5*max));
     }
 }]);
