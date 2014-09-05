@@ -445,6 +445,8 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 			$scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1); 
 			$scope.options=!$scope.options;
             if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from Accueil", 1);};
+			document.querySelector('#Suppr').show();
+			$scope.$apply();
 		}
 	}
 	
@@ -512,11 +514,28 @@ app.controller('TrajetModif',function( $scope, $window, DataSource ){
         if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
         {
             $scope.cflip = '';
+			$scope.lasttrajet=angular.copy($scope.$parent.param.trajet);
+			console.log("saved :");
+			console.log($scope.lasttrajet);
             $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
             $scope.options=!$scope.options;
             if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from config", $scope.$parent.param.trajet.length);};
+			document.querySelector('#Suppr').show();
+			console.log("Now :");
+			console.log($scope.lasttrajet);
         }
     }
+	
+	$scope.cancelDelete = function(){
+				console.log("Cancel :");
+			console.log($scope.lasttrajet);
+							console.log("Before :");
+			console.log($scope.$parent.param.trajet);
+		$scope.$parent.param.trajet.push($scope.lasttrajet);
+						console.log("After :");
+			console.log($scope.$parent.param.trajet);
+	}
+	
 })
 
 

@@ -1,8 +1,8 @@
 angular.module('ligneL')
 .directive('nextSlideEraser', ['$swipe',
   function($swipe) {
-    var max = 150;
-    var min = 50;
+    var max = 250;
+    var min = 150;
 
     return {
       restrict: 'EA',
@@ -26,7 +26,8 @@ angular.module('ligneL')
           'end': function(coords) {
             var delta = coords.x - startX;
             if(Math.abs(delta) > min) {
-              scope.action();
+			  scope.action();
+			  translateX(0, ele);
             }
             else {
               translateX(0, ele);
@@ -40,6 +41,8 @@ angular.module('ligneL')
     }
 
     function translateX(val, ele) {
+	  ele.css('transition', '0.5s default');
+	  ele.css('-webkit-transition', '0.5s default');
       ele.css('-webkit-transform', 'translateX(' + val + 'px)');
       ele.css('transform', 'translateX(' + val + 'px)');
       ele.css('opacity', 1-Math.abs(val)/(1.5*max));

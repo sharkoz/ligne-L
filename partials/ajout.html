@@ -66,8 +66,8 @@
                             </div>
                         </div>
                         <div>
-                            <input name="submit" type="submit" value="Annuler" ng-click="autoDepart='';collapse=0;"/>
-                            <input name="submit" type="submit" value="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();"/>
+							<paper-button raisedButton label="Annuler" ng-click="autoDepart='';collapse=0;"></paper-button>
+							<paper-button raisedButton label="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();"></paper-button>
 							<input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click="trajet.path='mobil';trajet2.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet2={};trajet2.depart=trajet.arrivee;trajet2.arrivee=trajet.depart;$parent.param.trajet.push(trajet2);trajet={};trajet2={};$route.reload();"/>
                         </div>
                     </div>
@@ -121,6 +121,9 @@
 				</div>
 				</div>
 			</div>
+			
+
+			
 	</div>
 	
 	   <!-- <div class="metacard" ng-show="debug">
@@ -156,3 +159,7 @@
 	</div>
 -->
 </div>
+
+<paper-toast id="Suppr" text="Trajet supprimé." class="capsule">
+</paper-toast>
+

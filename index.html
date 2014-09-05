@@ -42,7 +42,8 @@
 <link rel="import" href="components/paper-dropdown/paper-dropdown.html">
 <link rel="import" href="components/paper-item/paper-item.html"> 
 <link rel="import" href="components/paper-dialog/paper-dialog.html">    
-  
+<link rel="import" href="components/paper-toast/paper-toast.html">  
+
 </head>
 
  <body ng-controller="AppCtrl" unresolved>
@@ -54,16 +55,16 @@
       <span>Menu</span>
     </core-toolbar>
     <core-menu>
-  		<paper-item label="Accueil"><a href="#/"></a></paper-item>
-  	  <paper-item label="Gérer les gares" onclick="changePage('#/ajout')"></paper-item>
-  		<paper-item label="Options"><a href="#/options"></a></paper-item>
+  		<paper-item label="Accueil" onclick="changePage('#/');document.querySelector('core-scaffold').closeDrawer();"><a href="#/"></a></paper-item>
+  	  <paper-item label="Gérer les gares" onclick="changePage('#/ajout');document.querySelector('core-scaffold').closeDrawer();"><a href="#/ajout"></a></paper-item>
+  		<paper-item label="Options" onclick="changePage('#/options');document.querySelector('core-scaffold').closeDrawer();"><a href="#/options"></a></paper-item>
   		<!--<a href="#/aide"     >Aide</a>-->
-  		<paper-item label="A propos"><a href="#/apropos"></a></paper-item>
+  		<paper-item label="A propos" onclick="changePage('#/apropos');document.querySelector('core-scaffold').closeDrawer();"><a href="#/apropos"></a></paper-item>
 	
     </core-menu>
   </core-header-panel>
   
-  <span tool>Next</span>
+  <span tool onclick="changePage('#/');document.querySelector('core-scaffold').closeDrawer();">Next</span>
 
   <div class="content">
       <div ng-view class="view"></div>
@@ -193,7 +194,7 @@
                 </tbody>
             </table>
 		</div>
-		<paper-button label="Partager par SMS" dismissive onclick="window.plugins.socialsharing.shareViaSMS('My cool message', null /* see the note below */, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})"></paper-button>
+		<paper-button label="Partager par SMS" dismissive onclick="window.plugins.socialsharing.shareViaSMS('Je prend le train de {{gare[dep]}} à {{train.date.val | limitTo:-5}}.Plus de détails sur http://rlier.fr/ligne-L', null, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})"></paper-button>
 		<paper-button label="Fermer" affirmative autofocus></paper-button>
 </paper-dialog>
   
