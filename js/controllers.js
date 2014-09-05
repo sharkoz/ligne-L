@@ -201,7 +201,8 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
   	$scope.modal = false;
     // Fonction pour toggle l'affichage du Modal de détail du train
   	$scope.newModal = function(train, dest, dep) {
-  		$scope.modal = true;
+  		//$scope.modal = true;
+		document.querySelector('paper-dialog').toggle()
   		$scope.train = train;
         $scope.dest = dest;
         $scope.dep = dep;
@@ -214,7 +215,8 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
     $scope.gare = LibGare.func;
 
     $scope.closeModal = function(){
-        $scope.modal = false;
+        //$scope.modal = false;
+		document.querySelector('paper-dialog').toggle()
         $scope.train = undefined;
         $scope.dest = undefined;
         $scope.detail = undefined;

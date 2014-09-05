@@ -29,30 +29,19 @@
 
 <script src="components/platform/platform.js">
   </script>
-  <link rel="import" 
-    href="components/font-roboto/roboto.html">
-<link rel="import" 
-  href="components/core-toolbar/core-toolbar.html">
-<link rel="import" 
-  href="components/core-menu/core-menu.html">
-<link rel="import" 
-  href="components/core-item/core-item.html">
-<link rel="import" 
-  href="components/core-header-panel/core-header-panel.html">
-<link rel="import" 
-  href="components/core-drawer-panel/core-drawer-panel.html">
-<link rel="import" 
-  href="components/core-scaffold/core-scaffold.html">
-  <link rel="import" 
-  href="components/paper-toggle-button/paper-toggle-button.html">
-    <link rel="import" 
-  href="components/paper-slider/paper-slider.html">
-      <link rel="import" 
-  href="components/paper-fab/paper-fab.html">
-      <link rel="import" 
-  href="components/paper-dropdown/paper-dropdown.html">
-  <link rel="import" 
-  href="components/paper-item/paper-item.html">  
+<link rel="import" href="components/font-roboto/roboto.html">
+<link rel="import" href="components/core-toolbar/core-toolbar.html">
+<link rel="import" href="components/core-menu/core-menu.html">
+<link rel="import" href="components/core-item/core-item.html">
+<link rel="import" href="components/core-header-panel/core-header-panel.html">
+<link rel="import" href="components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="components/core-scaffold/core-scaffold.html">
+<link rel="import" href="components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="components/paper-slider/paper-slider.html">
+<link rel="import" href="components/paper-fab/paper-fab.html">
+<link rel="import" href="components/paper-dropdown/paper-dropdown.html">
+<link rel="import" href="components/paper-item/paper-item.html"> 
+<link rel="import" href="components/paper-dialog/paper-dialog.html">    
   
 </head>
 
@@ -66,10 +55,11 @@
     </core-toolbar>
     <core-menu>
   		<paper-item label="Accueil"><a href="#/"></a></paper-item>
-  	  <paper-item label="Gérer les gares"><a href="#/ajout"></a></paper-item>
+  	  <paper-item label="Gérer les gares" onclick="changePage('#/ajout')"></paper-item>
   		<paper-item label="Options"><a href="#/options"></a></paper-item>
   		<!--<a href="#/aide"     >Aide</a>-->
   		<paper-item label="A propos"><a href="#/apropos"></a></paper-item>
+	
     </core-menu>
   </core-header-panel>
   
@@ -79,35 +69,15 @@
       <div ng-view class="view"></div>
   </div>
 </core-scaffold>
+
+  <script>
+    function changePage(dest) {
+      window.location.href = dest;
+    }
+  </script>
+
    <!--
-   
- <section layout="horizontal" layout-fill> 
- 
-     <material-sidenav class="material-sidenav-left material-whiteframe-z2" component-id="left">
 
-      <material-toolbar class="material-theme-indigo">
-        <h1 class="material-toolbar-tools">Sidenav Left</h1>
-      </material-toolbar>
-      <material-content class="material-content-padding" ng-controller="LeftCtrl">
-        <material-button ng-click="close()" class="material-button-colored" hide-md>
-          Close Sidenav Left
-        </material-button>
-      </material-content>
-
-    </material-sidenav>
- 
- <section layout="vertical" layout-fill> 
- 
-    <material-toolbar scroll-shrink class="material-theme-light">
-    <div class="material-toolbar-tools">
-      <span>Next</span>
-	  		<div ng-show="" class="corner_location" ng-click="local()" ng-hide="$storage.nogeoloc || route !='Accueil'"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
-		<span ng-show="route =='Accueil'" class="corner_menu" ng-click="toggleModal();"><span class="menubutton"> </span> </span>
-
-    </div>
-  </material-toolbar>
-  
- <!-- 
  <div class="header">
 	<div class="">
         <a href="#/">
@@ -147,15 +117,15 @@
 	</div>
  </div>
  <div class="top"></div>
--->
+
  
  <div modalmenu show='modalShown' ng-cloak >
 		<a href="#/ajout"    >Gérer les gares</a>
 		<a href="#/options"  >Options</a>
-		<!--<a href="#/aide"     >Aide</a>-->
+		<!--<a href="#/aide"     >Aide</a> ->
 		<a href="#/apropos"  >A propos</a>
   </div>
-  
+  -->
 <div modaldialog show='modal' ng-cloak >
         <div class="ng-modal-ligne"><span class="rer transilien ligne{{train.ligne}}" style="width:40px;height:40px;">{{train.ligne}}</span></div>
 		<div class='modal-header'>
@@ -189,18 +159,43 @@
 		</div>
 </div>  
 
-<material-content>
-
-	
-
-</material-content>
-	
-	
-	
-  </section>
-    </section>
-
-
+<paper-dialog backdrop="true">
+		<div style="border-bottom:1px solid #eee">
+		    <div style="width:40px;float:left;"><span class="rer transilien ligne{{train.ligne}}" style="width:40px;height:40px;">{{train.ligne}}</span></div>
+			<div style="margin-left:45px;">
+				<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3>
+				<span style="padding-left:10px">Vers {{gare[train.term]}}</span>
+			</div>
+            
+		</div>
+		<div class='' style="margin-top:10px">
+			<div ng-show="train.date.mode=='R' && train.delta!='0'">
+                Retard actuel : {{train.delta}} minutes<br/>
+                Départ prévu de {{gare[dep]}} à : {{train.message}}
+            </div>
+            <div ng-show="train.date.mode=='R' && train.delta=='0'">
+                Retard actuel : Aucun<br/>
+                Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
+            </div>
+            <div ng-show="train.date.mode!='R'">
+                Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
+            </div>
+            <div ng-show="dest!='0' && 1==0">Arrivée prévue à {{gare[dest]}} : *h*</div>
+            <h3>Arrivées théoriques :</h3>
+            <span class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</span>
+            <table class="detail">
+                <tbody>
+                <tr ng-repeat="arret in detail">
+                    <td class="time">{{arret.time | limitTo:5}}</td>
+                    <td class="stop {{train.date.jsdate}} {{jsnow}} {{train.date.jsdate<jsnow}}">•</td>
+                    <td>{{gare[arret.name]}}</td>
+                </tr>
+                </tbody>
+            </table>
+		</div>
+		<paper-button label="Partager par SMS" dismissive onclick="window.plugins.socialsharing.shareViaSMS('My cool message', null /* see the note below */, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})"></paper-button>
+		<paper-button label="Fermer" affirmative autofocus></paper-button>
+</paper-dialog>
   
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
