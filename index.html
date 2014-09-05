@@ -194,7 +194,7 @@
                 </tbody>
             </table>
 		</div>
-		<paper-button label="Partager par SMS" dismissive onclick="window.plugins.socialsharing.shareViaSMS('Je prend le train de {{gare[dep]}} à {{train.date.val | limitTo:-5}}.Plus de détails sur http://rlier.fr/ligne-L', null, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})"></paper-button>
+		<paper-button label="Partager par SMS" dismissive onclick="window.plugins.socialsharing.shareViaSMS('Je prend le train de {{gare[dep]}} à {{train.date.val | limitTo:-5}}. Plus de détails sur http://rlier.fr/ligne-L', null, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})"></paper-button>
 		<paper-button label="Fermer" affirmative autofocus></paper-button>
 </paper-dialog>
   
