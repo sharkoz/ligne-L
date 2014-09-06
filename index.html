@@ -59,7 +59,7 @@
   	  <paper-item label="Gérer les gares" onclick="changePage('#/ajout');document.querySelector('core-scaffold').closeDrawer();"><a href="#/ajout"></a></paper-item>
   		<paper-item label="Options" onclick="changePage('#/options');document.querySelector('core-scaffold').closeDrawer();"><a href="#/options"></a></paper-item>
   		<!--<a href="#/aide"     >Aide</a>-->
-  		<paper-item label="A propos" onclick="changePage('#/apropos');document.querySelector('core-scaffold').closeDrawer();"><a href="#/apropos"></a></paper-item>
+  		<paper-item label="A propos" ng-click="changePage('#/apropos');document.querySelector('core-scaffold').closeDrawer();"></paper-item>
 	
     </core-menu>
   </core-header-panel>
@@ -76,89 +76,6 @@
       window.location.href = dest;
     }
   </script>
-
-   <!--
-
- <div class="header">
-	<div class="">
-        <a href="#/">
-		<table class="apptitle" style="display: table-cell; vertical-align: middle;border-spacing: 0;"><tbody style="height:50px;border-spacing: 0;">
-            <tr style="height:50px;border-spacing: 0;">
-                <td style="height:50px;width:10px;">
-                &nbsp;
-                </td>
-                <td ng-hide="route !='Accueil'" style="height:50px">
-			        <span ><img src="next.png" style="height:26px;vertical-align:middle;"/>ext</span>
-                </td>
-                <td ng-show="route !='Accueil'" style="height:50px" ng-cloak>
-                    <span class="svg back" style="vertical-align: middle;"><</span>
-                </td>
-                <td ng-show="route !='Accueil'" style="height:50px" ng-cloak>
-                    <span style="vertical-align: middle;">{{route}} </span>
-                </td>
-                <td style="height:50px;width:10px;">
-                    &nbsp;
-                </td>
-			       <!-- <a href="#/" ng-show="route !='Accueil'" style="height:50px;vertical-align: middle;" ng-cloak>
-                      <span class="svg back" style="vertical-align: middle;"><</span>
-                      <span style="vertical-align: middle;">{{route}} </span>
-                    </a>->
-            </tr>
-        </tbody>
-		</table>
-        </a>
-		<!--<h1><span clock ng-hide="$storage.noclock"></span></h1>
-		<!--<div class="corner_network ng-cloak" ng-cloak>
-			<object ng-show="!network" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon.svg">Net</object>
-			<object ng-show="network == 'online'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_online.svg">Net</object>
-			<object ng-show="network == 'offline'" style="height:30px;width:30px;" type="image/svg+xml" data="./img/iconmonstr-wireless-6-icon_offline.svg">Net</object>
-		</div>->
-		<div ng-show="" class="corner_location" ng-click="local()" ng-hide="$storage.nogeoloc || route !='Accueil'"><span class="svg crosshair {{gpsloading}}">GPS</span></div>
-		<span ng-show="route =='Accueil'" class="corner_menu" ng-click="toggleModal();"><span class="menubutton"> </span> </span>
-	</div>
- </div>
- <div class="top"></div>
-
- 
- <div modalmenu show='modalShown' ng-cloak >
-		<a href="#/ajout"    >Gérer les gares</a>
-		<a href="#/options"  >Options</a>
-		<!--<a href="#/aide"     >Aide</a> ->
-		<a href="#/apropos"  >A propos</a>
-  </div>
-  -->
-<div modaldialog show='modal' ng-cloak >
-        <div class="ng-modal-ligne"><span class="rer transilien ligne{{train.ligne}}" style="width:40px;height:40px;">{{train.ligne}}</span></div>
-		<div class='modal-header'>
-			<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3><button type='button' class='ng-modal-close' ng-click='closeModal()'>&times;</button>
-            Vers {{gare[train.term]}}
-		</div>
-		<div class='modal-body'>
-			<div ng-show="train.date.mode=='R' && train.delta!='0'">
-                Retard actuel : {{train.delta}} minutes<br/>
-                Départ prévu de {{gare[dep]}} à : {{train.message}}
-            </div>
-            <div ng-show="train.date.mode=='R' && train.delta=='0'">
-                Retard actuel : Aucun<br/>
-                Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
-            </div>
-            <div ng-show="train.date.mode!='R'">
-                Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
-            </div>
-            <div ng-show="dest!='0' && 1==0">Arrivée prévue à {{gare[dest]}} : *h*</div>
-            <h3>Arrivées théoriques :</h3>
-            <span class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</span>
-            <table class="detail">
-                <tbody>
-                <tr ng-repeat="arret in detail">
-                    <td class="time">{{arret.time | limitTo:5}}</td>
-                    <td class="stop {{train.date.jsdate}} {{jsnow}} {{train.date.jsdate<jsnow}}">•</td>
-                    <td>{{gare[arret.name]}}</td>
-                </tr>
-                </tbody>
-            </table>
-		</div>
-</div>  
 
 <paper-dialog backdrop="true">
 		<div style="border-bottom:1px solid #eee">

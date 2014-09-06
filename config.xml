@@ -56,6 +56,9 @@ Quand le réseau est revenu, Next récupère également les informations de reta
     -->
 		<gap:plugin name="com.adobe.plugins.gaplugin" />
 		<gap:plugin name="nl.x-services.plugins.socialsharing" />
+		<gap:plugin name="nl.x-services.plugins.launchmyapp">
+			<param name="URL_SCHEME" value="next" />
+		</gap:plugin>
 		
     <!-- Define app icon for each platform. -->
     <icon src="next.png" />
