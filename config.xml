@@ -56,10 +56,13 @@ Quand le réseau est revenu, Next récupère également les informations de reta
     -->
 		<gap:plugin name="com.adobe.plugins.gaplugin" />
 		<gap:plugin name="nl.x-services.plugins.socialsharing" />
-		<gap:plugin name="nl.x-services.plugins.launchmyapp">
+		<gap:plugin name="com.machenmusik.plugins.launchmyapp" version="3.1.2">
 			<param name="URL_SCHEME" value="next" />
+			<param name="HTTP_HOST" value="rlier.fr" />
+			<param name="HTTP_PATHPREFIX" value="ligne-L" />
+			<param name="HTTPS_HOST" value="..." />
+			<param name="HTTPS_PATHPREFIX" value="..." />
 		</gap:plugin>
-		
     <!-- Define app icon for each platform. -->
     <icon src="next.png" />
     <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
