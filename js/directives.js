@@ -45,6 +45,10 @@ angular.module('ligneL')
         ele.css('transition', '0.1s ease-in all');
         ele.css('-webkit-transition', '0.1s ease-in all');
       }
+      else {
+        ele.css('transition', 'none');
+        ele.css('-webkit-transition', 'none');
+      }
       ele.css('-webkit-transform', 'translateX(' + val + 'px)');
       ele.css('transform', 'translateX(' + val + 'px)');
       ele.css('opacity', 1-Math.abs(val)/(1.5*max));
