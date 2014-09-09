@@ -63,7 +63,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
 			<param name="HTTPS_HOST" value="..." />
 			<param name="HTTPS_PATHPREFIX" value="..." />
 		</gap:plugin>
-    <!-- Define app icon for each platform. -->
+    <!- Define app icon for each platform. -->
     <icon src="next.png" />
     <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
     <icon src="next.png" gap:platform="android"    gap:density="mdpi" />
