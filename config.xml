@@ -53,7 +53,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
     <!--
         <gap:plugin name="Example" />
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
-    
+    -->
 		<gap:plugin name="com.adobe.plugins.gaplugin" />
 		<gap:plugin name="nl.x-services.plugins.socialsharing" />
 		<gap:plugin name="com.machenmusik.plugins.launchmyapp" version="3.1.2">
@@ -62,7 +62,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
 			<param name="HTTP_PATHPREFIX" value="ligne-L" />
 			<param name="HTTPS_HOST" value="..." />
 			<param name="HTTPS_PATHPREFIX" value="..." />
-		</gap:plugin> -->
+		</gap:plugin>
     <!-- Define app icon for each platform. -->
     <icon src="next.png" />
     <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
