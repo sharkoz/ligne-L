@@ -1,4 +1,4 @@
-﻿
+
 /* Controllers */
 
 
@@ -508,7 +508,10 @@ app.controller('TrajetModif',function( $scope, $window, DataSource ){
     }
 	
 	// Listener sur le champ de saisie de la gare de départ
-	$scope.$watch('autoDepart', function(){$scope.getLocation();});
+	$scope.$watch('autoDepart', function(){
+		if($scope.norefresh==1) {$scope.norefresh=0;}
+		else {$scope.getLocation();}
+	});
    
    
     // Supprimer un trajet

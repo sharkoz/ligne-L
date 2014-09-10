@@ -12,14 +12,15 @@
 		<table>
 			<tr ng-click='$parent.localise="false"'><td>
 				<h2>Désactiver la localisation</h2>
-				<h3 ng-show="$storage.nogeoloc">La géolocalisation est désactivée</h3>
+				<h3 ng-show="$storage.nogeoloc">Les trajets sont triés selon l'ordre défini dans la page de gestion des gares</h3>
 				<h3 ng-hide="$storage.nogeoloc">La géolocalisation est activée</h3>
 				<paper-toggle-button class="right" ng-model="$storage.nogeoloc"></paper-toggle-button>
 			</td></tr>
 			<tr><td>
 				<h2>Trains affichés par gare : {{$storage.max}}</h2>
-				<paper-slider snaps="true" pin="true" ng-model="$storage.max" min="3" max="15"></paper-slider>
-				<h3>1 <input type="range" ng-model="$storage.max" min="1" max="15" value="5" style="width:80%;"> 15</h3>
+				<br />
+				<paper-slider snaps="true" pin="true" ng-model="$storage.max" min="3" max="15" style="width:100%"></paper-slider>
+				<!--<h3>1 <input type="range" ng-model="$storage.max" min="1" max="15" value="5" style="width:80%;"> 15</h3>-->
 			</td></tr>
             <tr ><td>
                 <h2>Masquer les nom de lignes</h2>
