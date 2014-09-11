@@ -2,9 +2,11 @@
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="ligneL" class="ng-app:ligneL">
  <head>
 <title>Transilien</title>
+<link href="css/ionic.min.css" rel="stylesheet">
 <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/metrodna.css" media="screen" rel="stylesheet" type="text/css">
 <link href="css/angular-carousel.css" rel="stylesheet" type="text/css" />
+
 
 <!--[if lte IE 8]>
       <script src="lib/json-3.min.js"></script>
@@ -25,35 +27,50 @@
 
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
 
 </head>
 
  <body ng-controller="AppCtrl" unresolved>
-   
-<core-scaffold responsiveWidth="800px">
+     <ion-side-menus>
 
-  <core-header-panel navigation flex>
-    <core-toolbar id="navheader">
-      <span>Menu</span>
-    </core-toolbar>
-    <core-menu>
-  		<paper-item label="Accueil" onclick="changePage('#/');document.querySelector('core-scaffold').closeDrawer();"><a href="#/"></a></paper-item>
-  	  <paper-item label="Gérer les gares" onclick="changePage('#/ajout');document.querySelector('core-scaffold').closeDrawer();"><a href="#/ajout"></a></paper-item>
-  		<paper-item label="Options" onclick="changePage('#/options');document.querySelector('core-scaffold').closeDrawer();"><a href="#/options"></a></paper-item>
-  		<!--<a href="#/aide"     >Aide</a>-->
-  		<paper-item label="A propos" onclick="changePage('#/apropos');document.querySelector('core-scaffold').closeDrawer();"><a href="#/apropos"></a></paper-item>
-	
-    </core-menu>
-  </core-header-panel>
-  
-  <span tool onclick="changePage('#/');document.querySelector('core-scaffold').closeDrawer();">Next</span>
+    <!-- Center content -->
+    <ion-side-menu-content>
+      <ion-header-bar class="bar-dark">
+		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+        <a href="#/"><h1 class="title">Next</h1></a>
+      </ion-header-bar>
+      <ion-content>
+		<div ng-view class="view-ligne"></div>
+      </ion-content>
+    </ion-side-menu-content>
 
-  <div class="content">
-      <div ng-view class="view"></div>
-  </div>
-</core-scaffold>
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar-dark">
+        <h1 class="title">Menu</h1>
+      </ion-header-bar>
+	  <ion-content scroll="false">
+		<ion-list menu-close>
+			<ion-item ng-href="#/">
+			Accueil
+			</ion-item>
+			<ion-item ng-href="#/ajout">
+			Gérer les gares
+			</ion-item>
+			<ion-item ng-href="#/options">
+			Options
+			</ion-item>
+			<ion-item ng-href="#/apropos">
+			A propos
+			</ion-item>
+		</ion-list>
+	   </ion-content>
+    </ion-side-menu>
+
+  </ion-side-menus>
+
 
   <script>
     function changePage(dest) {
@@ -61,16 +78,13 @@
     }
   </script>
 
-<paper-dialog backdrop="true">
-		<div style="border-bottom:1px solid #eee">
-		    <div style="width:40px;float:left;"><span class="rer transilien ligne{{train.ligne}}" style="width:40px;height:40px;">{{train.ligne}}</span></div>
-			<div style="margin-left:45px;">
-				<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3>
-				<span style="padding-left:10px">Vers {{gare[train.term]}}</span>
-			</div>
-            
+<div modaldialog show='modal' ng-cloak >
+        <div class="ng-modal-ligne"><span class="rer transilien ligne{{train.ligne}}" style="width:40px;height:40px;">{{train.ligne}}</span></div>
+		<div class='modal-header'>
+			<h3 class='modal-title'> Train {{train.num}} - Mission : {{train.miss}}</h3><button type='button' class='ng-modal-close' ng-click='closeModal()'>&times;</button>
+            Vers {{gare[train.term]}}
 		</div>
-		<div class='' style="margin-top:10px">
+		<div class='modal-body'>
 			<div ng-show="train.date.mode=='R' && train.delta!='0'">
                 Retard actuel : {{train.delta}} minutes<br/>
                 Départ prévu de {{gare[dep]}} à : {{train.message}}
@@ -83,8 +97,8 @@
                 Départ prévu de {{gare[dep]}} à : {{train.date.val | limitTo:-5}}
             </div>
             <div ng-show="dest!='0' && 1==0">Arrivée prévue à {{gare[dest]}} : *h*</div>
-            <h3>Arrivées théoriques :</h3>
-            <span class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</span>
+            <h3>Dessertes théoriques :</h3>
+            <div class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</div>
             <table class="detail">
                 <tbody>
                 <tr ng-repeat="arret in detail">
@@ -95,9 +109,7 @@
                 </tbody>
             </table>
 		</div>
-		<!--<paper-button label="Partager par SMS" dismissive ng-click="window.plugins.socialsharing.shareViaSMS('Je prend le train de {{gare[dep]}} à {{train.date.val | limitTo:-5}}. Plus de détails sur http://rlier.fr/ligne-L', null, function(msg) {console.log('ok: ' + msg)}, function(msg) {alert('error: ' + msg)})"></paper-button>-->
-		<paper-button label="Fermer" affirmative autofocus></paper-button>
-</paper-dialog>
+</div>  
   
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -124,7 +136,11 @@
 <script src="lib/angular-carousel.min.js"></script>
 <script src="lib/angular-strap-modal.js"></script>
 <script src="lib/angular-ui-tree.min.js"></script>
-<script src="lib/ng-polymer-elements.min.js"></script>
+<script src="lib/angular-sanitize.min.js"></script>
+<script src="lib/angular-animate.min.js"></script>
+<script src="lib/angular-ui-router.min.js"></script>
+<script src="lib/ionic.min.js"></script>
+<script src="lib/ionic-angular.min.js"></script>
 
 <script src="phonegap.js"></script>
 <!--<script src="GAPlugin.js"></script>-->
@@ -132,7 +148,7 @@
 <script src="js/services.js"></script>
 <script src="js/controllers.js"></script>
 <script src="js/directives.js"></script> 
-<script src="lib/prefixfree.min.js"></script>
+<!--<script src="lib/prefixfree.min.js"></script>-->
 
 <!--<script src="lib/gremlins.min.js"></script>
 <script>

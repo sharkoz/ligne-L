@@ -16,6 +16,7 @@ angular.module('ligneL')
           'start': function(coords) {
             startX = coords.x;
             startY = coords.y;
+			console.log("start :"+startX+" "+startY);
           },
           'move': function(coords) {
             var delta = coords.x - startX;
@@ -25,7 +26,10 @@ angular.module('ligneL')
           },
           'end': function(coords) {
             var delta = coords.x - startX;
+			console.log("End :"+coords.x+" "+coords.y);
+			console.log("Delta :"+delta);
             if(Math.abs(delta) > min) {
+				console.log("Action");
 			  scope.action();
 			  translateX(0, ele);
             }

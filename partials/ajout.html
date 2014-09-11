@@ -1,8 +1,11 @@
 <div class="cardswidth" ng-cloak>
 	<div class="metacard" ng-controller="TrajetModif">
-        <div class="card front">
+        <div class="card-ligne front">
                     <div style="position: relative;"> 
-						<paper-input floatinglabel label="Gare de départ :" placeholder="Gare de départ" ng-model="autoDepart"></paper-input>
+						<label class="item item-input item-floating-label">
+							<span class="input-label">Gare de départ</span>
+							<input ng-model="autoDepart" type="text" placeholder="Gare de départ">
+						</label>
                         <a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" ng-show="autoShow" tabindex="-1" ng-click="autoDepart='';autoShow=0;" class="clear_button">×</a>
                     </div>
                 <div ng-show="autoShow">
@@ -11,10 +14,9 @@
                     </div>
                 </div>
             <div class="collapsible" ng-show="collapse">
-                <div ng-hide="autoShow" class="jelly-form">
-                    <div>
-                        <label>Arrivée :</label>
-                        <div>
+                <div ng-hide="autoShow" class="">
+                    <div class="item item-input item-select">
+                        <div class="input-label">Arrivée :</div>
                             <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="trajet.savedate = '';broadcastRefresh()">
                                 <OPTION value='0' >Toutes directions</OPTION>
                                 <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
@@ -22,8 +24,11 @@
                             <div ng-hide="ListeDessertes" ng-click="getDessertes();">
                                 <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
                             </div>
-                        </div>
                     </div>
+					<div class="button-bar">
+						<a class="button" ng-click="autoDepart='';collapse=0;">Annuler</a>
+						<a class="button" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();">Sauvegarder</a>
+					</div>
                     <div>
 						<paper-button raisedButton label="Annuler" ng-click="autoDepart='';collapse=0;"></paper-button>
 						<paper-button raisedButton label="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();"></paper-button>
@@ -34,13 +39,13 @@
         </div>
     </div>
 <div data-sortable="board.dragControlListeners" data-ng-model="param.trajet" >	
-	<div class="card front" ng-repeat="trajet in param.trajet "  data-sortable-item ng-controller="TrajetModif">
+	<div class="card-ligne front" ng-repeat="trajet in param.trajet "  data-sortable-item ng-controller="TrajetModif">
 				
 					<div class="title" ng-click="getDessertes();collapse = !collapse; " ng-swipe-left="rmTrajet(trajet);">
                         <span>
                             <span ng-show="collapse" >&#9660;</span>
                             <span ng-hide="collapse" >&#9654;</span>
-                            {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}} <core-icon icon="swap-vert" data-sortable-item-handle style="vertical-align: text-top;float:right;"></core-icon>
+                            {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}} <span class="ion-arrow-move"data-sortable-item-handle style="vertical-align: text-top;float:right;">
                         </span>
                         <!--<div class="corner_config" ng-click="collapse = !collapse">i</div>-->
                     </div>

@@ -204,7 +204,7 @@ z-index:99999;
 
 .cardswidth{max-width:500px;margin-left: auto;margin-right: auto;}
 
-.card {
+.card-ligne {
     max-width: 85%;
 /*	min-height: 225px;*/
     margin: 10px;
@@ -230,33 +230,33 @@ z-index:99999;
               backface-visibility: hidden;
 }
 
-    .card.flipped {
+    .card-ligne.flipped {
       -webkit-transform: rotateY( -179.9deg );
          -moz-transform: rotateY( -179.9deg );
            -o-transform: rotateY( -179.9deg );
               transform: rotateY( -179.9deg );
     }
 
-    .card figure {
+    .card-ligne figure {
 	width: 100%;
       -webkit-backface-visibility: hidden;
          -moz-backface-visibility: hidden;
            -o-backface-visibility: hidden;
               backface-visibility: hidden;
     }
-	.card div{
+	.card-ligne div{
 	      -webkit-backface-visibility: hidden;
          -moz-backface-visibility: hidden;
            -o-backface-visibility: hidden;
               backface-visibility: hidden;
 	}
 
-    .card .front {
+    .card-ligne .front {
 		  	width: 100%;
 			
     }
 
-    .card.back {
+    .card-ligne.back {
 		position: absolute;
 		top: -10;
 		left: 0;
@@ -268,7 +268,7 @@ z-index:99999;
            -o-transform: rotateY( 179.9deg );
               transform: rotateY( 179.9deg );
     }
-	    .card.back.flipped {
+	    .card-ligne.back.flipped {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -280,22 +280,22 @@ z-index:99999;
            -o-transform: rotateY( 0deg );
               transform: rotateY( 0deg );
     }
-	.card.hidden {
+	.card-ligne.hidden {
 		visibility:hidden;
 		position: static;
 	}
 
-card:nth-child(2) {
+card-ligne:nth-child(2) {
   animation-delay:0.25s;
 }
-card:nth-child(n+3) {
+card-ligne:nth-child(n+3) {
   animation-delay:0.5s;
 }
 
 	
 
 
-	.card  .autocomplete{
+	.card-ligne  .autocomplete{
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -330,13 +330,13 @@ card:nth-child(n+3) {
 	text-align:center;
 	text-shadow:1px 1px 0px #ffffff;
 	}
-.card .autocomplete:hover {
+.card-ligne .autocomplete:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
 }
-.card .autocomplete:active {
+.card-ligne .autocomplete:active {
 	position:relative;
 	top:1px;
 }
@@ -393,14 +393,14 @@ overflow:hidden;
     text-decoration: none;
 }
 
-.card h2{
+.card-ligne h2{
 	font-size:1.3rem;
 	margin-top: 0;
 	margin-bottom: 0;
 	margin-right: 75px;
 }
 
-.card table {
+.card-ligne table {
   border-collapse: collapse;
 	border-top-width: 0px;
 	border-left-width: 0px;
@@ -408,7 +408,7 @@ overflow:hidden;
 	border-bottom-width: 1px;
 	width: 100%;
 }
-.card td{
+.card-ligne td{
 	border-top-width: 0px;
 	border-left-width: 0px;
 	border-right-width: 0px;
@@ -417,10 +417,10 @@ overflow:hidden;
 	padding-left: 3px;
 	
 }
-.card tr:nth-child(even) {
+.card-ligne tr:nth-child(even) {
   background: white;
 }
-.card tr{
+.card-ligne tr{
 	background: #eee;
 	border-top-width: 0px;
 	border-left-width: 0px;
@@ -792,6 +792,7 @@ text-decoration:none;
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ /*
 .clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
@@ -802,8 +803,8 @@ text-decoration:none;
 .modal.fade.in{top:10%;}
 /*.modal-header{padding:9px 15px;border-bottom:1px solid #eee;}.modal-header .close{margin-top:2px;}
 .modal-header h3{margin:0;line-height:30px;}
-*/
-/*.modal-body{position:relative;overflow-y:auto;max-height:400px;padding:15px;}*/
+
+/*.modal-body{position:relative;overflow-y:auto;max-height:400px;padding:15px;}
 .modal-body{position:relative;overflow-y:auto;max-height:400px;padding:15px;}
 
 .modal-form{margin-bottom:0;}
@@ -812,7 +813,7 @@ text-decoration:none;
 .modal-footer .btn+.btn{margin-left:5px;margin-bottom:0;}
 .modal-footer .btn-group .btn+.btn{margin-left:-1px;}
 .modal-footer .btn-block+.btn-block{margin-left:0;}
-
+*/
 
 .detail
 {

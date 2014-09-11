@@ -1,11 +1,15 @@
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
-        <next-slide-eraser class="card front" on-swipe="rmTrajet(trajet);">
+        <next-slide-eraser class="card-ligne front" on-swipe="rmTrajet(trajet);">
+
+			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="broadcastRefresh()"></span>
+			<span class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="setAgenda(trajet);changePage('#/agenda');"></span>
             <h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
-            <div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
-            <div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>
+            <!--<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
+            <div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>-->
             <!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
+
             <h3>Vers {{gare[trajet.arrivee]}}</h3>
             <table class="horaires">
                 <tbody>
@@ -33,7 +37,7 @@
             </table>
         </next-slide-eraser>
 	</div>
-    <div ng-hide="param.trajet" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
+    <div ng-hide="param.trajet.length" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
 </div>
 
 <a href="#/ajout">

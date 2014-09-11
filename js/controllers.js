@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $route, Geomath, Locate, LibGare, DataSource){
+app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $route, $ionicModal, Geomath, Locate, LibGare, DataSource){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
 	
@@ -198,17 +198,18 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
     };
 
     // Modal de détail du train caché par défaut
-  	//$scope.modal = false;
+  	$scope.modal = false;
     // Fonction pour toggle l'affichage du Modal de détail du train
   	$scope.newModal = function(train, dest, dep) {
-  		//$scope.modal = true;
-		document.querySelector('paper-dialog').toggle()
+  		$scope.modal = true;
+		//document.querySelector('paper-dialog').toggle()
+		//$scope.openModal();
 		console.log("Toggle open");
   		$scope.train = train;
         $scope.dest = dest;
         $scope.dep = dep;
         // get détail
-        $scope.detailloading = "loading";
+        $scope.$parent.detailloading = true;
         DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
         if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
   	};
@@ -216,8 +217,8 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
     $scope.gare = LibGare.func;
 
     $scope.closeModal = function(){
-        //$scope.modal = false;
-		document.querySelector('paper-dialog').toggle()
+        $scope.modal = false;
+		//document.querySelector('paper-dialog').toggle()
 		console.log("toggle Close");
         $scope.train = undefined;
         $scope.dest = undefined;
@@ -227,7 +228,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
     $scope.getDetail = function(data){
         //console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.detail = data;
-        $scope.detailloading = "";
+        $scope.$parent.detailloading = false;
     };
     $scope.getDetailError = function(err){
         console.log("Erreur recuperation des details en live");
@@ -447,7 +448,8 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 			$scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1); 
 			$scope.options=!$scope.options;
             if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from Accueil", 1);};
-			document.querySelector('#Suppr').show();
+			//TODO: toast notification
+			//document.querySelector('#Suppr').show();
 			$scope.$apply();
 		}
 	}
