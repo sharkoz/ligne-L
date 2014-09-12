@@ -281,23 +281,27 @@ app.controller('HorairesCtrl',function( $scope, LibGare, Param){
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param){
+app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $routeParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
-	    if ($scope.$storage.param===undefined) {
+	if ($scope.$storage.param===undefined) {
         $scope.$storage.param = Param.values;
     }
-	    $scope.param = $scope.$storage.param;
-    $scope.gare = LibGare.func;
+	
+	$scope.param = $scope.$storage.param;
+
+	$scope.gare = LibGare.func;
     $scope.ListeGares = LibGare.values;
     $scope.GareLoc = LibGare.gareloc;
 
 	$scope.setAgenda = function (trajet) {
 		$scope.trajet = trajet;
-		//console.log("Agenda set on scope "+$scope.$id);
+		console.log("Agenda set on scope "+$scope.$id);
+		console.log(trajet);
 		$scope.slideIndex = 0;
 		$scope.slides=[];
 		$scope.addSlides($scope.slides	, '', 2);
+		$scope.$apply;
 	}
 	
     //console.log('init scope '+$scope.$id);
@@ -339,6 +343,12 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param){
 	$scope.slideIndex = 0;
 	$scope.today=Math.floor(new Date().getTime()/86400000);
 	//$scope.$apply;
+	
+	if ($routeParams.id) {
+		console.log("id :"+$routeParams.id);
+		console.log($scope.param.trajet);
+        $scope.setAgenda($scope.param.trajet[$routeParams.id]);
+	}
 })
 
 
