@@ -4,7 +4,7 @@
         <next-slide-eraser class="card-ligne front" next-swipe="rmTrajet(trajet);">
 
 			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="broadcastRefresh()"></span>
-			<span class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}");"></span>
+			<button class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}");"></button>
             <h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
             <!--<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
             <div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>-->
