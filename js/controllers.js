@@ -97,12 +97,12 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
     var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 	if ( nativeapp ) {
 	    // PhoneGap application
-		$scope.apiUrl = "http://rlier.fr/ligne-server/";
+		$scope.apiUrl = "http://nexttrain.fr/api/";
 		$scope.phonegap = true;		
 	} else {
 	    // Web page
             if(document.URL.indexOf( 'localhost' ) !== -1) {
-		$scope.apiUrl = "http://rlier.fr/ligne-server/";
+		$scope.apiUrl = "http://nexttrain.fr/api/";
             }
 	    else {
 		$scope.apiUrl = "../ligne-server/";	
