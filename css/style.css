@@ -430,7 +430,7 @@ overflow:hidden;
 
 .voie{
 background: darkblue;
-  width: 25px; line-height: 25px; /* dim. de la case */  
+  width: 35px; height: 35px; /* dim. de la case */  
   border: 7px double white;  
   color: white;
   text-align: center;
