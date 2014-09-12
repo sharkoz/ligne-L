@@ -66,6 +66,31 @@ return function(input) {
 	}
 });
 
+app.filter('agenda', function(toDayFilter, formatAddDateFilter) {
+	return function(collection, scope) {
+		var res = new Array;
+		var train;
+		var today=Math.floor(new Date().getTime()/86400000);
+		var slideIndex = scope.slideIndex;
+		if (collection===undefined) {
+			return ;
+		}
+		else {
+			for (var i=0, len=collection.length; i<len; i++) {
+				train=collection[i];
+				if (toDayFilter(train.valid.deb) >	today+slideIndex || toDayFilter(train.valid.fin) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf(formatAddDateFilter(slideIndex)))>-1) {
+					// Do nothing
+				}
+				else {
+					res.push(collection[i]);
+				}
+				//console.log("i : "+i+" len : " + len + " var : " +collection[i]['date']['jsdate'] + " / now : " +now);
+			}
+		}
+     return res;
+   };
+});
+
 app.directive('clock', function($timeout, dateFilter){
     return function(scope, element, attrs){
        var timeoutId; // timeoutId, so that we can cancel the time updates

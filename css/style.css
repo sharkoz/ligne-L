@@ -413,6 +413,7 @@ overflow:hidden;
 	border-left-width: 0px;
 	border-right-width: 0px;
 	border-bottom-width: 1px;
+	vertical-align:middle;
 	padding-right: 3px;
 	padding-left: 3px;
 	
@@ -422,6 +423,7 @@ overflow:hidden;
 }
 .card-ligne tr{
 	background: #eee;
+	vertical-align:middle;
 	border-top-width: 0px;
 	border-left-width: 0px;
 	border-right-width: 0px;

@@ -1,11 +1,11 @@
 <div class="cardswidth">
 	<div ng-show="trajet==undefined">
 	<div style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Choisir le trajet :<br/></div>
-		<div class="card front" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-click="setAgenda(trajet)">
+		<div class="card-ligne front" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-click="setAgenda(trajet)">
 		<h2>{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
 		</div>
 	</div>
-	<div ng-hide="trajet==undefined">
+	<div ng-hide="trajet==undefined" class="card-ligne front">
 		<h2>Trajet de {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
 		 <h3>{{trajet.save.train.length}} Horaires théoriques pour la journée du {{ addDays(slideIndex) }}</h3>
         <!--<button class="button grey" ng-click="slideIndex=slideIndex+1"  >next</button>-->
@@ -14,7 +14,8 @@
 			 <br />
 		        <table class="horaires">
 		        	<tbody>
-		        		<tr ng-repeat="train in trajet.save.train | limitTo:150" ng-click="newModal(train, trajet.arrivee)" ng-hide="(train.valid.deb | toDay) >today+slideIndex || (train.valid.fin | toDay) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf((slideIndex | formatAddDate)))>-1">
+		        		<!--<tr ng-repeat="train in trajet.save.train | limitTo:150" ng-click="newModal(train, trajet.arrivee)" ng-hide="(train.valid.deb | toDay) >today+slideIndex || (train.valid.fin | toDay) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf((slideIndex | formatAddDate)))>-1">-->
+		        		<tr ng-repeat="train in trajet.save.train | agenda:this | limitTo:150" ng-click="newModal(train, trajet.arrivee)" >
 		        			<td style="text-align:center;width:1px">
 		        				<b>{{train.date.val | limitTo:-5}}</b>
 		        			</td>
