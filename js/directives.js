@@ -7,7 +7,7 @@ angular.module('ligneL')
     return {
       restrict: 'EA',
       scope: {
-        'action': '&onSwipe'
+        'action': '&nextSwipe'
       },
       link: function(scope, ele, attrs, ctrl) {
         var startX, pointX;

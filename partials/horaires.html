@@ -1,7 +1,7 @@
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
-        <next-slide-eraser class="card-ligne front" on-swipe="rmTrajet(trajet);">
+        <next-slide-eraser class="card-ligne front" next-swipe="rmTrajet(trajet);">
 
 			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="broadcastRefresh()"></span>
 			<span class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="setAgenda(trajet);changePage('#/agenda');"></span>
