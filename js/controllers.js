@@ -204,7 +204,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
   		$scope.modal = true;
 		//document.querySelector('paper-dialog').toggle()
 		//$scope.openModal();
-		console.log("Toggle open");
+		//console.log("Toggle open");
   		$scope.train = train;
         $scope.dest = dest;
         $scope.dep = dep;
@@ -219,7 +219,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $r
     $scope.closeModal = function(){
         $scope.modal = false;
 		//document.querySelector('paper-dialog').toggle()
-		console.log("toggle Close");
+		//console.log("toggle Close");
         $scope.train = undefined;
         $scope.dest = undefined;
         $scope.detail = undefined;
@@ -296,8 +296,8 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $routePa
 
 	$scope.setAgenda = function (trajet) {
 		$scope.trajet = trajet;
-		console.log("Agenda set on scope "+$scope.$id);
-		console.log(trajet);
+		//console.log("Agenda set on scope "+$scope.$id);
+		//console.log(trajet);
 		$scope.slideIndex = 0;
 		$scope.slides=[];
 		$scope.addSlides($scope.slides	, '', 2);
@@ -322,7 +322,7 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $routePa
 			label: 'slide #' + (i + 1),
 			currDay: result.getFullYear()+'-'+('0'+(result.getMonth()+1)).substr(-2)+'-'+('0'+result.getDate()).substr(-2)
 		});
-		console.log(target);
+		//console.log(target);
 	}
 	
 	$scope.addSlides = function (target, style, qty) {
@@ -345,8 +345,8 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $routePa
 	//$scope.$apply;
 	
 	if ($routeParams.id) {
-		console.log("id :"+$routeParams.id);
-		console.log($scope.param.trajet);
+		//console.log("id :"+$routeParams.id);
+		//console.log($scope.param.trajet);
         $scope.setAgenda($scope.param.trajet[$routeParams.id]);
 	}
 })
@@ -423,7 +423,7 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
         $scope.jsoncall();
     }
     $scope.saveDataError = function(data) {
-        console.log(data);
+        //console.log(data);
         $scope.jsonloading = "";
     }
 
@@ -472,7 +472,7 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 app.controller('TrajetModif',function( $scope, $window, DataSource ){
    // Recherche des gares
    $scope.getLocation = function(){
-		console.log('entered');
+		//console.log('entered');
        if($scope.autoDepart && $scope.autoDepart.length > 0){
            $scope.DepartList =  {'name': 'Chargement ...'};
            $scope.autoShow = 1;
@@ -532,14 +532,14 @@ app.controller('TrajetModif',function( $scope, $window, DataSource ){
         {
             $scope.cflip = '';
 			$scope.lasttrajet=angular.copy($scope.$parent.param.trajet);
-			console.log("saved :");
-			console.log($scope.lasttrajet);
+			//console.log("saved :");
+			//console.log($scope.lasttrajet);
             $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
             $scope.options=!$scope.options;
             if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from config", $scope.$parent.param.trajet.length);};
 			document.querySelector('#Suppr').show();
-			console.log("Now :");
-			console.log($scope.lasttrajet);
+			//console.log("Now :");
+			//console.log($scope.lasttrajet);
         }
     }
 	
