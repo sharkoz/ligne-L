@@ -39,7 +39,11 @@
     <ion-side-menu-content>
       <ion-header-bar class="bar-dark">
 		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-        <a href="#/"><h1 class="title">Next</h1></a>
+        <h1 class="title">Next</h1>
+		<button class="button button-icon" style="color:white;" ng-click="local()" ng-hide="$storage.nogeoloc || route !='Accueil'">
+			<span class="svg crosshair {{gpsloading}}">GPS</span>
+		</button>
+		
       </ion-header-bar>
       <ion-content>
 		<div ng-view class="view-ligne"></div>
