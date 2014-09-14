@@ -185,6 +185,7 @@ height:100%;
 z-index:99999;
 }
 
+.sortable-item.ng-leave{visibility:hidden;}
 
 .metacard{
 

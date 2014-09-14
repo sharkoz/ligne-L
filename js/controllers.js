@@ -281,7 +281,7 @@ app.controller('HorairesCtrl',function( $scope, LibGare, Param){
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $routeParams){
+app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $stateParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 	if ($scope.$storage.param===undefined) {
@@ -344,10 +344,10 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $routePa
 	$scope.today=Math.floor(new Date().getTime()/86400000);
 	//$scope.$apply;
 	
-	if ($routeParams.id) {
+	if ($stateParams.id) {
 		//console.log("id :"+$routeParams.id);
 		//console.log($scope.param.trajet);
-        $scope.setAgenda($scope.param.trajet[$routeParams.id]);
+        $scope.setAgenda($scope.param.trajet[$stateParams.id]);
 	}
 })
 

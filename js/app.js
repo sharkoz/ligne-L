@@ -1,9 +1,9 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'ngRoute', 'ngResource', 'ionic', 'ui.sortable', 'ngTouch', 'ngStorage', 'angular-carousel', 'mgcrea.ngStrap.modal', 'ui.tree' ]);
+var app = angular.module('ligneL', [ 'ngRoute', 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ngTouch', 'ngStorage', 'angular-carousel', 'mgcrea.ngStrap.modal', 'ui.tree' ]);
 
-
+/*
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl', route:'Accueil'});
   $routeProvider.when('/ajout', {templateUrl: 'partials/ajout.html', controller: 'HorairesCtrl', route:'Gares'});
@@ -12,7 +12,42 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/options', {templateUrl: 'partials/options.html', controller: '', route:'Options'});
   $routeProvider.when('/agenda', {templateUrl: 'partials/agenda.html', controller: 'AgendaCtrl', route:'Agenda'});
   $routeProvider.otherwise({redirectTo: '/'});
-}]);
+}]);*/
+
+app.config(function($stateProvider, $urlRouterProvider) {
+
+$urlRouterProvider.otherwise("/");
+
+  $stateProvider
+    .state('horaires', {
+      url: "/",
+      templateUrl: "partials/horaires.html",
+	  controller: 'HorairesCtrl'
+    })
+	.state('ajout', {
+      url: "/ajout",
+      templateUrl: "partials/ajout.html",
+	  controller: 'HorairesCtrl'
+    })
+	.state('aide', {
+      url: "/aide",
+      templateUrl: "partials/aide.html"
+    })
+	.state('apropos', {
+      url: "/apropos",
+      templateUrl: "partials/apropos.html"
+    })
+	.state('options', {
+      url: "/options",
+      templateUrl: "partials/options.html"
+    })
+	.state('agenda', {
+      url: "/agenda?id",
+      templateUrl: "partials/agenda.html",
+	  controller: 'AgendaCtrl'
+    });
+});
+
 
 app.filter('future', function() {
 	return function(collection) {
