@@ -425,6 +425,7 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
     $scope.saveDataError = function(data) {
         //console.log(data);
         $scope.jsonloading = "";
+		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
     }
 
     // Callback function pour les horaires en live
@@ -434,10 +435,12 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
         $scope.dataSet = data.passages;
         $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
         $scope.jsonloading = "";
+		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
     }
     $scope.setDataError = function(data) {
         console.log("Erreur recuperation des horaires en live");
         $scope.jsonloading = "";
+		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
     }
 
     $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};

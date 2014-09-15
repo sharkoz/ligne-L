@@ -30,8 +30,6 @@
 						<a class="button" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();">Sauvegarder</a>
 					</div>
                     <div>
-						<paper-button raisedButton label="Annuler" ng-click="autoDepart='';collapse=0;"></paper-button>
-						<paper-button raisedButton label="Sauvegarder" ng-click="trajet.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet={};$route.reload();addTrajet();"></paper-button>
 						<input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click="trajet.path='mobil';trajet2.path='mobil';$parent.param.trajet.push(trajet);autoDepart='';collapse=0;trajet2={};trajet2.depart=trajet.arrivee;trajet2.arrivee=trajet.depart;$parent.param.trajet.push(trajet2);trajet={};trajet2={};$route.reload();"/>
                     </div>
                 </div>
@@ -50,35 +48,28 @@
                         <!--<div class="corner_config" ng-click="collapse = !collapse">i</div>-->
                     </div>
 				<div class="collapsible" ng-show="collapse">
-					<div class="jelly-form">
-						<label>Depart : </label>
-						<div style="position: relative;">
-							<input type="text" ng-model="autoDepart"  placeholder="{{gare[trajet.depart]}}" ng-change="getLocation()">
-							<a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" ng-show="autoShow" tabindex="-1" ng-click="autoDepart='';autoShow=0;" class="clear_button">×</a>
-						</div>
+					<div class="item item-input" style="border-style:none;">
+						<div class="input-label">Depart  : {{gare[trajet.depart]}}</div>
 					</div>
-					<div ng-show="autoShow">
-							<div class="autocomplete" ng-repeat="index in DepartList" ng-click="$parent.autoDepart = ''; trajet.depart = '{{index.codeTR3A}}'; getDessertes(); trajet.depart_pos = {'latitude':'{{index.latitude}}','longitude':'{{index.longitude}}'}; trajet.savedate = ''; $parent.autoShow = 0; broadcastRefresh();">
-                                <a>{{index.name}} <span><span ng-repeat="im in index.lignes" class="rer transilien ligne{{im.idLigne}}">{{im.idLigne}}</span></span></a>
-                            </div>
-					</div>
-					<div ng-hide="autoShow">
-						<div class="jelly-form">
-							<label>Arrivée :</label>
-							<div>
+					<div>
+						<div class="item item-input item-select">
+							<div class="input-label">Arrivée :</div>
 								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="trajet.savedate = '';broadcastRefresh()">
 									<OPTION value='0' >Toutes directions</OPTION>
 									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
 								</SELECT>
-                                <div ng-hide="ListeDessertes" ng-click="getDessertes();">
-                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
-                                </div>
-							</div>
+								<div ng-hide="ListeDessertes" ng-click="getDessertes();">
+									<span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
+								</div>
 						</div>
-						<div class="jelly-form">
+						<div class="button-bar">
+							<a class="button" ng-click="rmTrajet(trajet);">Supprimer trajet</a>
+							<a class="button" ng-click="broadcastRefresh(); collapse = !collapse">Sauvegarder</a>
+						</div>
+						<!--<div class="jelly-form">
 							<input name="submit" type="submit" value="Supprimer trajet" ng-click="rmTrajet(trajet);"/>
 							<input name="submit" type="submit" value="Terminé" ng-click="broadcastRefresh(); collapse = 'false'"/>
-						</div>
+						</div>-->
 					</div>
 				</div>
 	</div>
