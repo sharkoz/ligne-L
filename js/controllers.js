@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $route, $ionicModal, Geomath, Locate, LibGare, DataSource){
+app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LibGare, DataSource){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	FastClick.attach(document.body);
 	
