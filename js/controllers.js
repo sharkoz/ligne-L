@@ -201,9 +201,9 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
   	$scope.modal = false;
     // Fonction pour toggle l'affichage du Modal de détail du train
   	$scope.newModal = function(train, dest, dep) {
-  		$scope.modal = true;
+  		//MODAL $scope.modal = true;
 		//document.querySelector('paper-dialog').toggle()
-		//$scope.openModal();
+		$scope.openModal();
 		//console.log("Toggle open");
   		$scope.train = train;
         $scope.dest = dest;
@@ -217,7 +217,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
     $scope.gare = LibGare.func;
 
     $scope.closeModal = function(){
-        $scope.modal = false;
+        //MODAL $scope.modal = false;
 		//document.querySelector('paper-dialog').toggle()
 		//console.log("toggle Close");
         $scope.train = undefined;
@@ -234,7 +234,25 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
         console.log("Erreur recuperation des details en live");
         $scope.detailloading = "";
     };
+	
+$ionicModal.fromTemplateUrl('detail-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modalionic = modal
+  })
 
+  $scope.openModal = function() {
+    $scope.modalionic.show()
+  }
+
+  $scope.closeModal = function() {
+    $scope.modalionic.hide();
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.modalionic.remove();
+  });
 
       /** Fin gestion des Modals */
 	
