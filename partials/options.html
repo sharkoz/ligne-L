@@ -1,11 +1,14 @@
 <ion-view title="Options">
   <ion-nav-bar class="bar-positive">
-    <ion-nav-back-button>
-      Back
-    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+	<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<a class="button button-icon icon ion-home" href="#/" ></a>
+	</ion-nav-buttons>
   </ion-nav-bar>
 <ion-content>
-<div class="cardswidth" ng-cloak>
+<div class="cardswidth padding" ng-cloak>
 	<!--<div class="metacard card ng-cloak" ng-cloak  >
 			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
 			<i>Chemin : </i>{{apiUrl}}<br>
