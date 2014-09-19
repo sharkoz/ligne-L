@@ -326,9 +326,9 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $statePa
    $scope.$watch('slideIndex', function(newVal, oldVal, scope){
        if(newVal>$scope.slides.length-3){
            $scope.addSlide($scope.slides,'');
-		   //console.log('Added slide '+scope.slides.length);
+		   console.log('Added slide '+scope.slides.length);
 		   }
-       //console.log('changed scope '+scope.$id);
+       console.log('On slide '+newVal);
    }, true);
    
     $scope.addSlide = function (target, style) {
