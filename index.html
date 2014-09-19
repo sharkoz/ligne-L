@@ -36,22 +36,12 @@
      <ion-side-menus ng-cloak>
 
     <!-- Center content -->
-    <ion-side-menu-content >
-      <!--<ion-header-bar class="bar-dark">
-		<!--<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-        <!--<h1 class="title">Next</h1>
-		<button class="button button-icon" style="color:white;" ng-click="local()" ng-hide="$storage.nogeoloc || route !='Accueil'">
-			<span class="svg crosshair {{gpsloading}}">GPS</span>
-		</button>-->
-		<!--<ion-nav-bar class="bar-positive" animation="slide-left-right">
-		<ion-nav-back-button class="button-icon ion-arrow-left-c">
-      </ion-nav-back-button>
-		</ion-nav-bar>
-      </ion-header-bar>
-		<!--<div ui-view class="view-ligne"></div>-->
-		<ion-nav-view animation="slide-left-right">
-		</ion-nav-view>
-    </ion-side-menu-content>
+    <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
 
     <!-- Left menu -->
     <ion-side-menu side="left">
