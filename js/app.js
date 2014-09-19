@@ -3,8 +3,7 @@
 // Declare app level module which depends on filters, and services
 var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ngTouch', 'ngStorage', 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
 
-/*
-app.config(['$routeProvider', function($routeProvider) {
+/*app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl', route:'Accueil'});
   $routeProvider.when('/ajout', {templateUrl: 'partials/ajout.html', controller: 'HorairesCtrl', route:'Gares'});
   $routeProvider.when('/aide', {templateUrl: 'partials/aide.html', controller: '', route:'Aide'});
@@ -48,6 +47,7 @@ $urlRouterProvider.otherwise("/");
     });
 });
 
+app.run( [ '$rootScope', function ($rootScope) { $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) { $rootScope.$previousState = from; }); }]);
 
 app.filter('future', function() {
 	return function(collection) {
