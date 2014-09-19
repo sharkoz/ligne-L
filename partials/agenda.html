@@ -1,4 +1,4 @@
-<ion-view title="Agenda">
+<ion-view title="{{::gare[trajet.depart]}} vers {{::gare[trajet.arrivee]}}">
   <ion-nav-bar class="bar-positive">
     <ion-nav-buttons side="left">
 	<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
@@ -7,36 +7,37 @@
 		<a class="button button-icon icon ion-home" href="#/" ></a>
 	</ion-nav-buttons>
   </ion-nav-bar>
-<ion-content>
-<div class="cardswidth">
+
+<div class="cardswidth" ng-controller="AgendaCtrl" style="scroll:auto; bottom:0px;height:100%;">
 	<div ng-show="trajet==undefined">
 	<div style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Choisir le trajet :<br/></div>
 		<div class="card-ligne front" ng-repeat="trajet in param.trajet | orderBy:'dist'" ng-click="setAgenda(trajet)">
 		<h2>{{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}}</h2>
 		</div>
 	</div>
-	<div ng-hide="trajet==undefined" class="card-ligne front">
-		<h2>Trajet de {{::gare[trajet.depart]}} vers {{::gare[trajet.arrivee]}}</h2>
-		 <h3>{{trajet.save.train.length}} Horaires théoriques pour la journée du {{ addDays(slideIndex) }}</h3>
-        <!--<button class="button grey" ng-click="slideIndex=slideIndex+1"  >next</button>-->
-        <ul rn-carousel rn-carousel-control rn-carousel-buffered rn-carousel-index="slideIndex" style="scroll:auto; bottom:0px;height:100%;">
-            <li ng-repeat="slide in slides">
-			 <br />
-		        <table class="horaires">
-		        	<tbody>
-		        		<tr ng-repeat="train in trajet.save.train | agenda:this | limitTo:150" ng-click="newModal(train, trajet.arrivee)" >
-		        			<td style="text-align:center;width:1px">
-		        				<b>{{::train.date.val | limitTo:-5}}</b>
-		        			</td>
-		        			<td style="text-align:center;width:1px" ng-hide="::$storage.noline">
-		        				<span class="rer transilien ligne{{::train.ligne}}" style="width:30px;height:30px">{{::train.ligne}}</span>
-		        			</td>
-		        			<td>{{::gare[train.term]}}</td>
-		        		</tr>
-		        	</tbody>
-		        </table>
-            </li>
+	<div ng-hide="trajet==undefined" class="bar bar-header bar-light bar-subheader">
+		<h2 style="text-align:center;">{{ addDays(slideIndex) }}</h2>
 	</div>
+	<ion-slide-box does-continue="true" show-pager="false" on-slide-changed="slideIndex=slideIndex+1" style="height:100%">
+  <ion-slide ng-repeat="i in '123'.split('')" style="height:100%">
+  <ion-content class="has-subheader">
+	<div class="list">
+		<ion-item style="left: 0;right: 0;padding-top: 0;padding-bottom: 0;height:35px" collection-repeat="train in trajet.save.train | agenda:this | limitTo:150" ng-click="newModal(train, trajet.arrivee)" collection-item-height="35" collection-item-width="'100%'">
+		    <span style="text-align:center;">
+		    	<b>{{::train.date.val | limitTo:-5}}</b>
+		    </span>
+		    <span style="text-align:center;" ng-hide="::$storage.noline">
+		    	<span class="rer transilien ligne{{::train.ligne}}" style="width:30px;height:30px">{{::train.ligne}}</span>
+		    </span>
+		    <span>{{::gare[train.term]}}</span>
+		</ion-item>
+	</div>
+	</ion-content>
+	  </ion-slide>
+</ion-slide-box>
+	
+
+	
 </div>
-</ion-content>
+
 </ion-view>
