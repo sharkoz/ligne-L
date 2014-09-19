@@ -38,7 +38,7 @@
     <!-- Center content -->
     <ion-pane ion-side-menu-content>
     <ion-nav-bar class="bar-positive nav-title-slide-ios7">
-      <!--<ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>-->
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
     </ion-nav-bar>
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
   </ion-pane>
@@ -50,7 +50,11 @@
       </ion-header-bar>
 	  <ion-content scroll="false">
 		<ion-list menu-close>
-			<ion-item href="#/" nav-clear>
+      <a href="#/" class="item" menu-close><i class="ion-home"></i>  Accueil</a>
+      <a href="#/ajout" class="item" menu-close><i class="ion-star"></i>  Gérer les gares</a>
+      <a href="#/options" class="item" menu-close><i class="ion-settings"></i>  Options</a>
+      <a href="#/apropos" class="item" menu-close><i class="ion-information-circled"></i>  A propos</a>
+			<!--<ion-item href="#/" nav-clear>
 			<i class="ion-home"></i>  Accueil
 			</ion-item>
 			<ion-item href="#/ajout" nav-clear>
@@ -61,7 +65,7 @@
 			</ion-item>
 			<ion-item href="#/apropos" nav-clear>
 			<i class="ion-information-circled"></i>  A propos
-			</ion-item>
+			</ion-item>-->
 		</ion-list>
 	   </ion-content>
 
