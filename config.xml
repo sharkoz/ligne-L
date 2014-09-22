@@ -63,6 +63,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
 			<param name="HTTPS_HOST" value="..." />
 			<param name="HTTPS_PATHPREFIX" value="..." />
 		</gap:plugin>
+		<gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.4" />
     <!-- Define app icon for each platform. -->
     <icon src="next.png" />
     <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
@@ -100,6 +101,8 @@ Quand le réseau est revenu, Next récupère également les informations de reta
 
         Otherwise, you can specify specific domains:
     -->
+
+
     <access origin="*"/> <!-- allow local pages -->
 
 </widget>
