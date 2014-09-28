@@ -2,7 +2,7 @@
   <ion-nav-bar class="bar-positive">
 		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
   </ion-nav-bar>
-<ion-content>
+<ion-content >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<ion-refresher pulling-text="Mettre à jour..." on-refresh="$broadcast('Refresh');"></ion-refresher>
 	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
