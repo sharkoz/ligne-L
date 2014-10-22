@@ -97,7 +97,7 @@ function AppCtrl( $scope, $location, $window, $localStorage, $route, Geomath, Lo
     var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 	if ( nativeapp ) {
 	    // PhoneGap application
-		$scope.apiUrl = "http://rlier.fr/ligne-server/";
+		$scope.apiUrl = "http://nexttrain.fr/api/";
 		$scope.phonegap = true;		
 	} else {
 	    // Web page

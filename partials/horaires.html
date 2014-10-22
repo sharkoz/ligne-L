@@ -3,7 +3,7 @@
         <div class="card front" ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);">
             <h2>{{gare[trajet.depart]}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
             <div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
-            <div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>
+<!--            <div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>
             <!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
             <h3>Vers {{gare[trajet.arrivee]}}</h3>
             <table class="horaires">
