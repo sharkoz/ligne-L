@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LibGare, DataSource){
+app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LibGare, ApiService){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// TODO : mettre dans app
 	FastClick.attach(document.body);
@@ -176,7 +176,16 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
         $scope.dep = dep;
         // get détail
         $scope.$parent.detailloading = true;
-        DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
+        // NEW
+        ApiService.getDetail($scope.train.longnum)
+          .then(function(data) {
+            $scope.getDetail(data);
+          })
+          .catch(function(error) {
+            $scope.getDetailError(error)
+          });
+        // DEPRECATED
+        //DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
         if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
   	};
     // Ajout de la transco des gares pour le modal
@@ -229,7 +238,16 @@ $ionicModal.fromTemplateUrl('detail-modal.html', {
     }
    // Recherche des dessertes
    $scope.GtfsDate = function(){
-       DataSource.get($scope.refreshGtfsDate,$scope.refreshDessertesError, $scope.apiUrl+"refresh.txt");
+      // NEW
+      ApiService.getLastRefresh()
+        .then(function(data) {
+          $scope.refreshGtfsDate(data);
+        })
+        .catch(function(error) {
+          $scope.refreshDessertesError(error);
+        });
+      // DEPRECATED
+      //DataSource.get($scope.refreshGtfsDate,$scope.refreshDessertesError, $scope.apiUrl+"refresh.txt");
    };
    // Callback dessertes
    $scope.refreshGtfsDate = function(data) {
@@ -336,7 +354,7 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $statePa
 })
 
 
-app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
+app.controller('TrajetCtrl',function( $scope, $window, ApiService, Getprevi ){
 	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
 
     $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
@@ -362,7 +380,16 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
         }
         if ($scope.$storage.gtfs > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
             // Si le gtfs n'est pas à jour on le telecharge
-            DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+            // NEW
+            ApiService.getGtfs($scope.trajet.depart, $scope.trajet.arrivee)
+              .then(function(data) {
+                $scope.saveData(data);
+              })
+              .catch(function(error) {
+                $scope.saveDataError(error);
+              });
+            // DEPRECATED
+            //DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
         }
         else {
             // Si les prévisions sont à jour on récupère juste le live
@@ -427,7 +454,17 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
     }
 
-    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};
+    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";
+    // NEW
+    ApiService.getLive($scope.trajet.depart, $scope.trajet.arrivee)
+      .then(function(data) {
+        $scope.setData(data);
+      })
+      .catch(function(error) {
+        $scope.setDataError(error);
+      });
+    // DEPRECATED
+    //DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};
 
     //Chaque trajet se rafraichit lui même
     $scope.$parent.$broadcast('Refresh');
@@ -456,7 +493,7 @@ app.controller('TrajetCtrl',function( $scope, $window, DataSource, Getprevi ){
 
 
 
-app.controller('TrajetModif',function( $scope, $window, DataSource ){
+app.controller('TrajetModif',function( $scope, $window, ApiService ){
    // Recherche des gares
    $scope.getLocation = function(){
 		//console.log('entered');
@@ -464,7 +501,8 @@ app.controller('TrajetModif',function( $scope, $window, DataSource ){
            $scope.DepartList =  {'name': 'Chargement ...'};
            $scope.autoShow = 1;
            $scope.autoTR3A = '';
-           DataSource.get($scope.refreshDepart,$scope.refreshDepartError, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
+           // DEPRECATED => local
+           //DataSource.get($scope.refreshDepart,$scope.refreshDepartError, $scope.apiUrl+"autocomplete/"+$scope.autoDepart);
        }
        else{
            $scope.autoShow = 0;
@@ -485,7 +523,16 @@ app.controller('TrajetModif',function( $scope, $window, DataSource ){
 
    // Recherche des dessertes
    $scope.getDessertes = function(){
-       DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.trajet.depart);
+      // NEW
+      ApiService.getDessertes($scope.trajet.depart)
+        .then(function(data) {
+          $scope.refreshDessertes(data);
+        })
+        .catch(function(error) {
+          $scope.refreshDessertesError(error);
+        });
+      // DEPRECATED
+      //DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.trajet.depart);
    };
    // Callback dessertes
    $scope.refreshDessertes = function(data) {

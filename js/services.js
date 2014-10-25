@@ -1,15 +1,3 @@
-app.factory('DataSource', ['$http',function($http){
-  return {
-    get: function(callback,errorcallback, url){
-      $http
-          .get(url, {timeout:7000})
-          .success(function(data, status) { callback(data);  })
-          .error(function(data, status) { errorcallback(data);  })
-    }
-  }
- }])
-
-
 .service('LibGare', function(){
 return { values : [
 {"key" : '0'  , "value" : 'Toutes directions',"latitude" : "48.854223502592255", "longitude" : "2.132240468348696"},
