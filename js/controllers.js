@@ -4,23 +4,8 @@
 
 app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LibGare, DataSource){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
+	// TODO : mettre dans app
 	FastClick.attach(document.body);
-	
-	// Commenter pour passer en prod
-	//$scope.debug = true;
-
-	/**
-	* Debugging Tools
-	*
-	* Allows you to execute debug functions from the view
-	*/
-	$scope.log = function(variable) {
-		console.log(variable);
-	};
-	$scope.alert = function(text) {
-		alert(text);
-	};
-
 
     /** Fonctions pour le tracking google analytics */
 	function analytics() {
@@ -80,9 +65,6 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 		$scope.route = next.route;
 		if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
 	});
-
-
-	
 	
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
@@ -93,22 +75,6 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 	}
 	$scope.max = 15; //$scope.$storage.max;
 	
-	// 2 - Check if accessed via web or via PhoneGap app and change api URL accordingly
-    var nativeapp = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-	if ( nativeapp ) {
-	    // PhoneGap application
-		$scope.apiUrl = "http://nexttrain.fr/api/";
-		$scope.phonegap = true;		
-	} else {
-	    // Web page
-            if(document.URL.indexOf( 'localhost' ) !== -1) {
-		$scope.apiUrl = "http://nexttrain.fr/api/";
-            }
-	    else {
-		$scope.apiUrl = "../ligne-server/";	
-            }
-	}
-	//console.log($scope.apiUrl)
 
     $scope.reloadRoute = function () {
         $route.reload();
