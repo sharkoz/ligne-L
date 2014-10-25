@@ -21,17 +21,22 @@ function InitService ($document, $window, TrajetsService, GeolocService) {
 	var gaPlugin = $window.plugins.gaPlugin;
 	gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	InitService.gaTrackEvent = function(n1, n2, n3, value){
-		gaPlugin.trackEvent(null, function(error){console.log(error);}, n1, n2, n3, value);
+		if(InitService.phonegap){
+			gaPlugin.trackEvent(null, function(error){console.log(error);}, n1, n2, n3, value);
+		}
 	}
 	InitService.gaTrackPage = function(page){
-		gaPlugin.trackPage(null, function(error){console.log(error);}, page);
+		if(InitService.phonegap){
+			gaPlugin.trackPage(null, function(error){console.log(error);}, page);
+		}
 	}
 	
 	InitService.onResume = function(){
-		TrajetsService.RefreshAll;
-		GeolocService.local();
-		if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
+		TrajetsService.RefreshAll();
+		GeolocService.RefreshLoc();
+		InitService.gaPlugin.trackEvent("App", "Refresh", "App refreshed", 1);
 	};
+
 	
 	// Fonction d'initialisation
 	InitService.init = function(){
