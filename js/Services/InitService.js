@@ -1,7 +1,7 @@
-function InitService ($document, $window) {
+function InitService ($document, $window, TrajetsService, GeolocService) {
 	var InitService = {};
 	
-	// Vérif pour appli ou site web
+	// VÃ©rif pour appli ou site web
 	var nativeapp = $document.URL.indexOf( 'http://' ) === -1 && $document.URL.indexOf( 'https://' ) === -1;
 	if ( nativeapp ) {
 	    // PhoneGap application
@@ -28,9 +28,8 @@ function InitService ($document, $window) {
 	}
 	
 	InitService.onResume = function(){
-		$scope.$broadcast('Refresh');
-        $scope.jsnow=Date.now();
-		$scope.local();
+		TrajetsService.RefreshAll;
+		GeolocService.local();
 		if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
 	};
 	
