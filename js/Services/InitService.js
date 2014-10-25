@@ -1,4 +1,4 @@
-function InitService ($document, $window, TrajetsService, GeolocService) {
+function InitService ($document, $window, ApiService, TrajetsService, GeolocService) {
 	var InitService = {};
 	
 	// Vérif pour appli ou site web
@@ -38,8 +38,32 @@ function InitService ($document, $window, TrajetsService, GeolocService) {
 	};
 
 	
+   GtfsDate = function(){
+      ApiService.getLastRefresh()
+        .then(function(data) {
+          $scope.refreshGtfsDate(data);
+        })
+        .catch(function(error) {
+          $scope.refreshDessertesError(error);
+        });
+   };
+   refreshGtfsDate = function(data) {
+       $localstorage.gtfs_refresh = data;
+       //console.log("refreshdate : "+data);
+   }
+
 	// Fonction d'initialisation
 	InitService.init = function(){
+
+		// Variables du localstorage
+		if ($locastorage.gtfs_refresh===undefined) {
+        	$localstorage.gtfs_refresh = "1405015264";
+    	}
+    	if ($locastorage.max===undefined){
+			$locastorage.max = 5;
+		}
+		GtfsDate(); // Date de dernière MaJ des données du serveur
+
 		InitService.gaTrackPage("App", "Open", "App opened", 1);
 		InitService.gaTrackPage("Accueil");
 		

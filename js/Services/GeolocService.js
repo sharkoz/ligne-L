@@ -1,11 +1,21 @@
 function GeolocService ($localStorage, Geomath, Locate) {
 	var GeolocService = {};
 	
+    setLoc = function(position) {
+    	var coords = position.coords || position.coordinate || position;
+   		$localStorage.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
+    };
+
 	GeolocService.RefreshLoc = function(){
 	    if(!$localStorage.nogeoloc){
-	        Locate.doGeolocation($scope.setLoc);
+	        Locate.doGeolocation(setLoc);
 	    }
     }
+
+    GeolocService.calculateDistance = function(geo1, geo2){
+        var dist = Geomath.calculateDistance(geo1, geo2);
+		return dist;
+    };
 	
 	return GeolocService;
 }

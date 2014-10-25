@@ -36,61 +36,9 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
 
-	if ($scope.$storage.max===undefined)
-	{
-		$scope.$storage.max = 5;
-	}
-	$scope.max = 15; //$scope.$storage.max;
-	
-
     $scope.reloadRoute = function () {
         $route.reload();
     };
-
-    $scope.setLoc = function(position) {
-    var coords = position.coords || position.coordinate || position;
-    $scope.localise = true;
-    $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
-    $scope.$storage.pos = $scope.pos;
-    $scope.$broadcast('LocRefreshed');
-    $scope.gpsloading = "";
-		//console.log($scope.gpsloading);
-        //console.log($scope.$id);
-		$scope.$apply();
-		//console.log('https://maps.google.com/?q='+$scope.pos.latitude+','+$scope.pos.longitude)
-        //$scope.reloadRoute(); //Attention ! Bug !
-    };
-
-    // Calculate distance btw 2 positions
-    $scope.calculateDistance = function(geo1, geo2){
-		//console.log("dist btw :");
-		//console.log('https://maps.google.com/?q='+geo1.latitude+','+geo1.longitude);
-		//console.log('https://maps.google.com/?q='+geo2.latitude+','+geo2.longitude);
-        var dist = Geomath.calculateDistance(geo1, geo2);
-		return dist;
-    };
-
-    // User friendly display of distances
-	$scope.distDisplay=function(dist){
-		if(dist<100){
-			res = 'à <100m';
-		}
-		else if(dist<950){
-			res = 'à '+Math.round(dist/100)*100+'m';
-		}
-		else{
-			res = 'à '+Math.round(dist/1000)+'km';
-		}
-		return res;
-	};
-
-
-    
-	$scope.hideOptions = function(index) {
-		$scope.GlobalOptions = false;
-		//$scope.GlobalOptions = ! $scope.GlobalOptions;
-		$scope.$apply();
-	};
 
     // Function to clear the local storage
 	$scope.purge = function() {
@@ -176,33 +124,7 @@ $ionicModal.fromTemplateUrl('detail-modal.html', {
   });
 
       /** Fin gestion des Modals */
-	
-	/** Récupération de la dernière date de MaJ de la bdd gtfs **/
-	
-	if ($scope.$storage.gtfs===undefined) {
-        $scope.$storage.gtfs = "1405015264";
-    }
-   // Recherche des dessertes
-   $scope.GtfsDate = function(){
-      // NEW
-      ApiService.getLastRefresh()
-        .then(function(data) {
-          $scope.refreshGtfsDate(data);
-        })
-        .catch(function(error) {
-          $scope.refreshDessertesError(error);
-        });
-      // DEPRECATED
-      //DataSource.get($scope.refreshGtfsDate,$scope.refreshDessertesError, $scope.apiUrl+"refresh.txt");
-   };
-   // Callback dessertes
-   $scope.refreshGtfsDate = function(data) {
-       $scope.$storage.gtfs = data;
-       //console.log("refreshdate : "+data);
-   }
-   
-   $scope.GtfsDate ();
-   
+	 
 	/** Gestion de l'agenda par trajet */
 	
 	$scope.setAgenda = function (trajet) {
@@ -311,7 +233,7 @@ app.controller('TrajetCtrl',function( $scope, $window, ApiService, Getprevi ){
         $scope.jsonloading = "spin_image";
         // Si les prévisions existent, on rafraichit asap
         if ($scope.trajet.save !== undefined) {
-            $scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+            $scope.trajet.previ = $scope.getprevi($scope.trajet.save, 15);
             // Si aucun live n'est dispo on affiche les prévisions, sinon on
             if($scope.dataSet === undefined) {
                 $scope.trajet.display = $scope.trajet.previ;
@@ -320,7 +242,7 @@ app.controller('TrajetCtrl',function( $scope, $window, ApiService, Getprevi ){
                 $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
             }
         }
-        if ($scope.$storage.gtfs > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
+        if ($localstorage.gtfs_refresh > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
             // Si le gtfs n'est pas à jour on le telecharge
             // NEW
             ApiService.getGtfs($scope.trajet.depart, $scope.trajet.arrivee)
@@ -384,7 +306,7 @@ app.controller('TrajetCtrl',function( $scope, $window, ApiService, Getprevi ){
     // Callback function pour les horaires en live
     $scope.setData = function(data) {
         //console.log('Données temps réel disponibles controller '+$scope.$id);
-        $scope.trajet.previ = $scope.getprevi($scope.trajet.save, $scope.max);
+        $scope.trajet.previ = $scope.getprevi($scope.trajet.save, 15);
         $scope.dataSet = data.passages;
         $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
         $scope.jsonloading = "";
