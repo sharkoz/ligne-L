@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LibGare, ApiService){
+app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, ApiService){
 //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// TODO : mettre dans app
 	FastClick.attach(document.body);
@@ -189,7 +189,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
         if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
   	};
     // Ajout de la transco des gares pour le modal
-    $scope.gare = LibGare.func;
+    $scope.gare = LIB_GARE;
 
     $scope.closeModal = function(){
         //MODAL $scope.modal = false;
@@ -267,15 +267,13 @@ $ionicModal.fromTemplateUrl('detail-modal.html', {
 	  
 });
 
-app.controller('HorairesCtrl',function( $scope, LibGare, Param){
+app.controller('HorairesCtrl',function( $scope, LIB_GARE, Param){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
     if ($scope.$storage.param===undefined) {
         $scope.$storage.param = Param.values;
     }
     $scope.param = $scope.$storage.param;
-    $scope.gare = LibGare.func;
-    $scope.ListeGares = LibGare.values;
-    $scope.GareLoc = LibGare.gareloc;
+    $scope.gare = LIB_GARE;
 
     $scope.addTrajet = function(){
         $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
@@ -283,7 +281,7 @@ app.controller('HorairesCtrl',function( $scope, LibGare, Param){
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $stateParams){
+app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, Param, $stateParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 	if ($scope.$storage.param===undefined) {
@@ -292,9 +290,7 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LibGare, Param, $statePa
 	
 	$scope.param = $scope.$storage.param;
 
-	$scope.gare = LibGare.func;
-    $scope.ListeGares = LibGare.values;
-    $scope.GareLoc = LibGare.gareloc;
+  $scope.gare = LIB_GARE;
 
 	$scope.setAgenda = function (trajet) {
 		$scope.trajet = trajet;
