@@ -7,57 +7,24 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 	// TODO : mettre dans app
 	FastClick.attach(document.body);
 
-    /** Fonctions pour le tracking google analytics */
-	function analytics() {
-       // alert('loading analytics');
-    var gaPlugin;
-    gaPlugin = window.plugins.gaPlugin;
-    //    gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
-    //    gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
-	$scope.gaPlugin = gaPlugin;
-    $scope.gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
-	$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Open", "App opened", 1);
-	$scope.gaPlugin.trackPage(successHandler, errorHandler, 'Accueil');
-	}
-
-    // Fonctions succes et erreur pour le plugin analytics
-    function successHandler(result) {
-        //alert('anaytics success : '+result);
-    }
-    function errorHandler(error) {
-        //alert('anaytics error : '+error);
-    }
-    $scope.successHandler = function (result) {
-        //alert('anaytics success : '+result);
-    }
-    $scope.errorHandler = function (error) {
-        //alert('anaytics error : '+error);
-    }
 
     /** Lancer les analytics après le deviceReady */
+	// TODO : mettre dans app
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
 		analytics();
-	//	document.addEventListener("resume", onResume, false);
 	}
 	
 	// Phonegap event listener
-	document.addEventListener("resume", onResume, false);
+	$document.addEventListener("resume", onResume, false);
 	// Desktop event listener
-	window.onfocus = function() {
+	$window.onfocus = function() {
 		onResume();
 	};
 	
 	//document.addEventListener("menubutton", $scope.toggleModal, false);
 	//document.addEventListener("menubutton", $scope.toggleModal, true);
 	
-	function onResume(){
-		$scope.$broadcast('Refresh');
-        $scope.jsnow=Date.now();
-		$scope.local();
-		if ($scope.phonegap) {$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);};
-	};
-
 
     $scope.$on('$routeChangeSuccess', function(event, next, current) {
 		// Cacher le menu
@@ -81,12 +48,12 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
     };
 
     $scope.setLoc = function(position) {
-      var coords = position.coords || position.coordinate || position;
-      $scope.localise = true;
-      $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
-      $scope.$storage.pos = $scope.pos;
-	  $scope.$broadcast('LocRefreshed');
-	  $scope.gpsloading = "";
+    var coords = position.coords || position.coordinate || position;
+    $scope.localise = true;
+    $scope.pos= {'latitude' : coords.latitude, 'longitude' : coords.longitude};
+    $scope.$storage.pos = $scope.pos;
+    $scope.$broadcast('LocRefreshed');
+    $scope.gpsloading = "";
 		//console.log($scope.gpsloading);
         //console.log($scope.$id);
 		$scope.$apply();
@@ -117,28 +84,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 		return res;
 	};
 
-    // Geolocate the user
-    $scope.local = function(){
-    if($scope.$storage.nogeoloc){}
-    else{
-		$scope.gpsloading = "spin_image";
-		//console.log($scope.gpsloading);
-        //console.log($scope.$id);
-        Locate.doGeolocation($scope.setLoc);
-    }
-    }
-	
-	// At init, coordinates are not refreshed
-    $scope.localise = false;
-	if ($scope.$storage.pos===undefined)
-	{
-		$scope.$storage.pos = { "latitude" : 48.8753578, "longitude" : 2.3247332};
-	}
-    $scope.pos = $scope.$storage.pos;
-    //$scope.locate = Locate;
-	
-	// Refresh coordinates
-    $scope.local();
+
     
 	$scope.hideOptions = function(index) {
 		$scope.GlobalOptions = false;
