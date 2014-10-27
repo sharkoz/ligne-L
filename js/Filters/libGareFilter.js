@@ -8,3 +8,4 @@ function libGare () {
 angular
   .module('ligneL')
   .filter('libGare', libGare);
+

@@ -1,4 +1,4 @@
-function InitService ($document, $window, ApiService, TrajetsService, GeolocService) {
+function InitService ($document, $window, $locastorage, ApiService, TrajetsService, GeolocService) {
 	var InitService = {};
 	
 	// Vérif pour appli ou site web
@@ -52,6 +52,15 @@ function InitService ($document, $window, ApiService, TrajetsService, GeolocServ
        //console.log("refreshdate : "+data);
    }
 
+       // Function to clear the local storage
+	InitService.purgeStorage = function() {
+		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
+			$localstorage.$reset();
+			$localstorage.max = 5;
+			$localstorage.gtfs_refresh = "1405015264";
+		};
+	};
+
 	// Fonction d'initialisation
 	InitService.init = function(){
 
@@ -62,6 +71,10 @@ function InitService ($document, $window, ApiService, TrajetsService, GeolocServ
     	if ($locastorage.max===undefined){
 			$locastorage.max = 5;
 		}
+		
+		// Initialiser l'affichage des trains
+		TrajetsService.RefreshAll();
+
 		GtfsDate(); // Date de dernière MaJ des données du serveur
 
 		InitService.gaTrackPage("App", "Open", "App opened", 1);

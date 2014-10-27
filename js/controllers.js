@@ -21,17 +21,13 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 	$window.onfocus = function() {
 		onResume();
 	};
-	
-	//document.addEventListener("menubutton", $scope.toggleModal, false);
-	//document.addEventListener("menubutton", $scope.toggleModal, true);
-	
 
     $scope.$on('$routeChangeSuccess', function(event, next, current) {
-		// Cacher le menu
-		$scope.modalShown=false;
-		$scope.route = next.route;
-		if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
-	});
+		  // Cacher le menu
+		  $scope.modalShown=false;
+		  $scope.route = next.route;
+		  if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
+    });
 	
 	// 1 - Get localstorage
     $scope.$storage = $localStorage;
@@ -39,14 +35,6 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
     $scope.reloadRoute = function () {
         $route.reload();
     };
-
-    // Function to clear the local storage
-	$scope.purge = function() {
-		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
-			$scope.$storage.$reset();
-			$scope.$storage.max = 5;
-		};
-	};
 
     /** Gestion des Modals */
     // Modal du menu caché par défaut
@@ -61,41 +49,35 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
   	$scope.modal = false;
     // Fonction pour toggle l'affichage du Modal de détail du train
   	$scope.newModal = function(train, dest, dep) {
-  		//MODAL $scope.modal = true;
-		//document.querySelector('paper-dialog').toggle()
-		$scope.openModal();
-		//console.log("Toggle open");
-  		$scope.train = train;
-        $scope.dest = dest;
-        $scope.dep = dep;
-        // get détail
-        $scope.$parent.detailloading = true;
-        // NEW
-        ApiService.getDetail($scope.train.longnum)
-          .then(function(data) {
-            $scope.getDetail(data);
-          })
-          .catch(function(error) {
-            $scope.getDetailError(error)
-          });
-        // DEPRECATED
-        //DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
-        if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
+		  $scope.openModal();
+		  //console.log("Toggle open");
+  	 	$scope.train = train;
+      $scope.dest = dest;
+      $scope.dep = dep;
+      // get détail
+      $scope.$parent.detailloading = true;
+      // NEW
+      ApiService.getDetail($scope.train.longnum)
+        .then(function(data) {
+          $scope.getDetail(data);
+        })
+        .catch(function(error) {
+          $scope.getDetailError(error)
+        });
+      // DEPRECATED
+      //DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
+      if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
   	};
     // Ajout de la transco des gares pour le modal
     $scope.gare = LIB_GARE;
 
     $scope.closeModal = function(){
-        //MODAL $scope.modal = false;
-		//document.querySelector('paper-dialog').toggle()
-		//console.log("toggle Close");
-        $scope.train = undefined;
-        $scope.dest = undefined;
-        $scope.detail = undefined;
+      $scope.train = undefined;
+      $scope.dest = undefined;
+      $scope.detail = undefined;
     };
 
     $scope.getDetail = function(data){
-        //console.log('Données temps réel disponibles controller '+$scope.$id);
         $scope.detail = data;
         $scope.$parent.detailloading = false;
     };
@@ -135,27 +117,19 @@ $ionicModal.fromTemplateUrl('detail-modal.html', {
 	  
 });
 
-app.controller('HorairesCtrl',function( $scope, LIB_GARE, Param){
+app.controller('HorairesCtrl',function( $scope, LIB_GARE){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
-    if ($scope.$storage.param===undefined) {
-        $scope.$storage.param = Param.values;
-    }
+
     $scope.param = $scope.$storage.param;
     $scope.gare = LIB_GARE;
 
-    $scope.addTrajet = function(){
-        $scope.param.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
-    }
+
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, Param, $stateParams){
+app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $stateParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
-	if ($scope.$storage.param===undefined) {
-        $scope.$storage.param = Param.values;
-    }
-	
 	$scope.param = $scope.$storage.param;
 
   $scope.gare = LIB_GARE;
@@ -377,12 +351,9 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
        $scope.DepartList =  data;
        $scope.autoShow = 1;
        $scope.autoTR3A = '';
-       //$scope.trajet = '';
-       //$scope.trajet.push({'depart' : '' , 'arrivee' : '0', 'path' : 'mobil', 'depart_pos':$scope.$parent.pos});
    }
    $scope.refreshDepartError = function(data) {
        $scope.autoShow = 0;
-       //$scope.autoTR3A = '';
    }
 
    // Recherche des dessertes
