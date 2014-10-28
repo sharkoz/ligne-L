@@ -115,7 +115,7 @@ $ionicModal.fromTemplateUrl('detail-modal.html', {
 		$scope.slideIndex = 0;
 	}
 	  
-});
+};
 
 app.controller('HorairesCtrl',function( $scope, LIB_GARE){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
