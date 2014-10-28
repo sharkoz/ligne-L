@@ -59,7 +59,13 @@ function TrajetsService ($document, $window, $localStorage, GeolocService, ApiSe
 
 	TrajetsService.AddTrajet = function(depart, arrivee, is_ar){
 		is_ar = is_ar || false;
+		arrivee = arrivee || "0";
+		console.log("Trajet depart");
+		console.log(depart);
+		console.log("Trajet arrivee");
+		console.log(arrivee);
         $localStorage.favoris[depart+"-"+arrivee] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
+
 		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", $localStorage.favoris.length);
 		TrajetsService.RefreshAll();
 	}

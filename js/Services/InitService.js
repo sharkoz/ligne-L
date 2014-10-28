@@ -2,14 +2,14 @@ function InitService ($document, $window, $localStorage, ApiService, TrajetsServ
 	var InitService = {};
 	
 	// Vérif pour appli ou site web
-	var nativeapp = $document.URL.indexOf( 'http://' ) === -1 && $document.URL.indexOf( 'https://' ) === -1;
+	var nativeapp = $document[0].URL.indexOf( 'http://' ) === -1 && $document[0].URL.indexOf( 'https://' ) === -1;
 	if ( nativeapp ) {
 	    // PhoneGap application
 		InitService.apiUrl = "http://nexttrain.fr/api/";
 		InitService.phonegap = true;		
 	} else {
 	    // Web page
-        if($document.URL.indexOf( 'localhost' ) !== -1) {
+        if($document[0].URL.indexOf( 'localhost' ) !== -1) {
 			InitService.apiUrl = "http://nexttrain.fr/api/";
             }
 	    else {
@@ -20,8 +20,10 @@ function InitService ($document, $window, $localStorage, ApiService, TrajetsServ
 	$localStorage.apiUrl = InitService.apiUrl;
   
 	// Analytics
-	var gaPlugin = $window.plugins.gaPlugin;
-	gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+	if(InitService.phonegap){
+		gaPlugin = $window[0].plugins.gaPlugin;
+		gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+	}
 	InitService.gaTrackEvent = function(n1, n2, n3, value){
 		if(InitService.phonegap){
 			gaPlugin.trackEvent(null, function(error){console.log(error);}, n1, n2, n3, value);
@@ -36,17 +38,17 @@ function InitService ($document, $window, $localStorage, ApiService, TrajetsServ
 	InitService.onResume = function(){
 		TrajetsService.RefreshAll();
 		GeolocService.RefreshLoc();
-		InitService.gaPlugin.trackEvent("App", "Refresh", "App refreshed", 1);
+		InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
 	};
 
 	
    GtfsDate = function(){
       ApiService.getLastRefresh()
         .then(function(data) {
-          $scope.refreshGtfsDate(data);
+          refreshGtfsDate(data);
         })
         .catch(function(error) {
-          $scope.refreshDessertesError(error);
+          console.log(error);
         });
    };
    refreshGtfsDate = function(data) {
@@ -73,6 +75,12 @@ function InitService ($document, $window, $localStorage, ApiService, TrajetsServ
     	if ($localStorage.max===undefined){
 			$localStorage.max = 5;
 		}
+		if ($localStorage.favoris===undefined){
+			$localStorage.favoris = {};
+		}
+		if ($localStorage.gtfs===undefined){
+			$localStorage.gtfs = {};
+		}
 		
 		// Initialiser l'affichage des trains
 		TrajetsService.RefreshAll();
@@ -83,7 +91,9 @@ function InitService ($document, $window, $localStorage, ApiService, TrajetsServ
 		InitService.gaTrackPage("Accueil");
 		
 		// Phonegap event listener
-		$document.addEventListener("resume", InitService.onResume, false);
+		if(InitService.phonegap){
+			$document.addEventListener("resume", InitService.onResume, false);
+		}
 		// Desktop event listener
 		$window.onfocus = function() {
 			InitService.onResume();

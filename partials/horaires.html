@@ -5,7 +5,7 @@
 <ion-content >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<ion-refresher pulling-text="Mettre à jour..." on-refresh="$broadcast('Refresh');"></ion-refresher>
-	<div class="metacard" ng-repeat="trajet in param.trajet | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
+	<div class="metacard" ng-repeat="trajet in favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
         <next-slide-eraser class="card-ligne front" next-swipe="rmTrajet(trajet);">
 

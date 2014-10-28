@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ngTouch', 'ngStorage', 'angular-carousel', 'mgcrea.ngStrap.modal', 'firebase' ]);
+var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal', 'firebase' ]);
 
 /*app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl', route:'Accueil'});

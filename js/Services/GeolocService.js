@@ -17,7 +17,23 @@ function GeolocService ($localStorage, Geomath, Locate) {
     var dist = Geomath.calculateDistance(geo1, geo2);
 		return dist;
   };
-	
+
+  GeolocService.calculateDistanceGare = function(idGare){
+    geo1 = gareLocation(idGare);
+    var dist = GeolocService.calculateDistance(geo1);
+    return dist;
+  };
+
+  gareLocation = function(idGare){
+    var loc;
+    gare = _.find(LIB_GARE, function (item) {
+        item.code === idGare;
+      })
+    loc.latitude = gare.latitude;
+    loc.longitude = gare.longitude;
+    return loc;
+	}
+
 	return GeolocService;
 }
 angular

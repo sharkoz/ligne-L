@@ -2,13 +2,13 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $document, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, ApiService, TrajetsService){
+app.controller('AppCtrl',function( $scope, $location, $document, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, InitService, ApiService, TrajetsService){
   //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// TODO : mettre dans app
 	FastClick.attach(document.body);
 
 
-    /** Lancer les analytics après le deviceReady */
+  /** Lancer les analytics après le deviceReady */
 	// TODO : mettre dans app
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
@@ -98,7 +98,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
     $scope.modalionic.remove();
   });
 
-      /** Fin gestion des Modals */
+  /** Fin gestion des Modals */
 	 
 	/** Gestion de l'agenda par trajet */
 	
@@ -107,15 +107,15 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 		//console.log("Agenda set on scope "+$scope.$id);
 		$scope.slideIndex = 0;
 	}
-	  
+
+    InitService.init();
+	  $scope.favoris = $localStorage.favoris;
+    $scope.gares = LIB_GARE;
+    $scope.TrajetsService = TrajetsService;
+
 });
 
-app.controller('HorairesCtrl',function( $scope, LIB_GARE){
-//console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
-
-    $scope.param = $scope.$storage.param;
-    $scope.gare = LIB_GARE;
-
+app.controller('HorairesCtrl',function( $scope, $localStorage, LIB_GARE){
 
 })
 
@@ -191,6 +191,8 @@ app.controller('TrajetCtrl',function(){
 
 app.controller('TrajetModif',function( $scope, $window, ApiService ){
    // Recherche des gares
+
+
    $scope.getLocation = function(){
 		//console.log('entered');
        if($scope.autoDepart && $scope.autoDepart.length > 0){
