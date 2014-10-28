@@ -1,7 +1,8 @@
-function TrajetsService ($document, $window, $localstorage, GeolocService) {
+function TrajetsService ($document, $window, $localstorage, GeolocService, ApiService) {
 	var TrajetsService = {};
 	
 	var TrajetsService.live = {};
+	var TrajetsService.previ = {};
 	var TrajetsService.display = {};
 	var TrajetsService.details = {};
 
@@ -9,29 +10,57 @@ function TrajetsService ($document, $window, $localstorage, GeolocService) {
 
 	}
 
-	RefreshTrajet = function(trajet){
+	RefreshTrajet = function(idTrajet){
+		// Si les prévisions existent, on rafraichit asap
+    	if ($localstorage.gtfs[idTrajet] !== undefined) {
+    	    TrajetsService.previ[idTrajet] = TrajetsService.getprevi(idTrajet);
+    	    TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
+    	}
+	    // Si le gtfs n'est pas à jour on le telecharge
+    	if ($localstorage.gtfs_refresh > $localstorage.gtfs[idTrajet].savedate || isNaN($localstorage.gtfs[idTrajet].savedate)) {
+    	     saveGtfs(idTrajet, data);
+    	}
+    	else {
+        	// Si les prévisions sont à jour on récupère juste le live
+        	$scope.jsoncall();
+    	}
+	}
 
+	saveGtfs = function(idTrajet, data){
+		ApiService.getGtfs($localstorage.favoris[idTrajet].depart, $localstorage.favoris[idTrajet].arrivee)
+    	    .then(function(data) {
+    	    	$localstorage.gtfs[idTrajet] = data;
+    	    })
+    	    .catch(function(error) {
+    	    	console.log(error);
+    	    });
+    	RefreshTrajet(idTrajet);
 	}
 
 	TrajetsService.RefreshAll = function(){
 		// TODO : remplace le broadcast
 		SpinnersService.setRefresh();
-		_.each($localstorage.favoris, RefreshTrajet)
+		_.each($localstorage.favoris, function(value, key, list){RefreshTrajet(key);})
 			.then(SpinnersService.resetRefresh());
 	}
 
 	TrajetsService.AddTrajet = function(depart, arrivee, is_ar){
-        $localstorage.favoris.push({'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true});
+		is_ar = is_ar || false;
+        $localstorage.favoris[depart+"-"+arrivee] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
+		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", $localstorage.favoris.length);
 		TrajetsService.RefreshAll();
 	}
 
-	TrajetsService.RmTrajet = function(trajet){
-	
+	TrajetsService.RmTrajet = function(idTrajet){
+		$localstorage.favoris = _omit($localstorage.favoris, idTrajet);
+		$localstorage.gtfs = _omit($localstorage.gtfs, idTrajet);
 		TrajetsService.RefreshAll();	
 	}
 
-	getPrevi = function(save, max){
+	// Fonction pour récupérer les horaires théoriques des prochains trains
+	getPrevi = function(idTrajet, max){
 		max = max || 15;
+		save = $localstorage.gtfs[idTrajet];
 		var i=0;
 		var n=0;
 		var take=0;
@@ -96,6 +125,34 @@ function TrajetsService ($document, $window, $localstorage, GeolocService) {
 		//console.log(res);
 		return res;
 	};
+
+	//Fonction pour merger les temps prévus et les temps réels
+    merge = function(live, previ) {
+        var liv;
+        var pre;
+        var display;
+        display = angular.copy(previ);
+        for(liv=0; liv<live.length; ++liv){
+            for(pre=0; pre<previ.length; ++pre){
+                if(live[liv].num == previ[pre].num){
+                    display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
+                    if(display[pre].delta == "0"){
+                        display[pre].message = "OK";
+                    }
+                    else{
+                        display[pre].message = live[liv].date.val;
+                    }
+                    display[pre].date.mode='R';
+                    display[pre].date.reel=live[liv].date.val;
+					display[pre].date.jsdate=live[liv].date.jsdate;
+                    display[pre].voie=live[liv].voie;
+					if(live[liv].voie=='BL') {display[pre].voie='?';}
+                    display[pre].ligne=live[liv].ligne;
+                }
+            }
+        }
+        return display;
+    }
 
 	return TrajetsService;
 }

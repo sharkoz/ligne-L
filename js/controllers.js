@@ -203,66 +203,39 @@ app.controller('TrajetCtrl',function( $scope, $window, ApiService, Getprevi ){
     $scope.getprevi = Getprevi.get;
 
 	$scope.$on('Refresh', function() {
-        // On anime le spin loader
-        $scope.jsonloading = "spin_image";
-        // Si les prévisions existent, on rafraichit asap
-        if ($scope.trajet.save !== undefined) {
-            $scope.trajet.previ = $scope.getprevi($scope.trajet.save, 15);
-            // Si aucun live n'est dispo on affiche les prévisions, sinon on
-            if($scope.dataSet === undefined) {
-                $scope.trajet.display = $scope.trajet.previ;
-            }
-            else {
-                $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-            }
-        }
-        if ($localstorage.gtfs_refresh > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
-            // Si le gtfs n'est pas à jour on le telecharge
-            // NEW
-            ApiService.getGtfs($scope.trajet.depart, $scope.trajet.arrivee)
-              .then(function(data) {
-                $scope.saveData(data);
-              })
-              .catch(function(error) {
-                $scope.saveDataError(error);
-              });
-            // DEPRECATED
-            //DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+    // On anime le spin loader
+    $scope.jsonloading = "spin_image";
+    // Si les prévisions existent, on rafraichit asap
+    if ($scope.trajet.save !== undefined) {
+        $scope.trajet.previ = $scope.getprevi($scope.trajet.save, 15);
+        // Si aucun live n'est dispo on affiche les prévisions, sinon on
+        if($scope.dataSet === undefined) {
+            $scope.trajet.display = $scope.trajet.previ;
         }
         else {
-            // Si les prévisions sont à jour on récupère juste le live
-            $scope.jsoncall();
-			//console.log("gtfs : "+$scope.$storage.gtfs+" < "+$scope.trajet.savedate);
+            $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
         }
+    }
+    if ($localstorage.gtfs_refresh > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
+        // Si le gtfs n'est pas à jour on le telecharge
+        // NEW
+        ApiService.getGtfs($scope.trajet.depart, $scope.trajet.arrivee)
+          .then(function(data) {
+            $scope.saveData(data);
+          })
+          .catch(function(error) {
+            $scope.saveDataError(error);
+          });
+        // DEPRECATED
+        //DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
+    }
+    else {
+        // Si les prévisions sont à jour on récupère juste le live
+        $scope.jsoncall();
+    }
 	});
 
-    //Fonction pour merger les temps prévus et les temps réels
-    merge = function(live, previ) {
-        var liv;
-        var pre;
-        var display;
-        display = angular.copy(previ);
-        for(liv=0; liv<live.length; ++liv){
-            for(pre=0; pre<previ.length; ++pre){
-                if(live[liv].num == previ[pre].num){
-                    display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
-                    if(display[pre].delta == "0"){
-                        display[pre].message = "OK";
-                    }
-                    else{
-                        display[pre].message = live[liv].date.val;
-                    }
-                    display[pre].date.mode='R';
-                    display[pre].date.reel=live[liv].date.val;
-					display[pre].date.jsdate=live[liv].date.jsdate;
-                    display[pre].voie=live[liv].voie;
-					if(live[liv].voie=='BL') {display[pre].voie='?';}
-                    display[pre].ligne=live[liv].ligne;
-                }
-            }
-        }
-        return display;
-    }
+
 
     // Callback fonction pour récupérer les horaires prévisionnels de la gare
     $scope.saveData = function(data) {
@@ -382,11 +355,6 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
     $scope.broadcastRefresh = function () {
         $scope.$parent.$parent.$broadcast('Refresh');
     }
-
-    // Ajouter un trajet #TODO
-    $scope.addTrajet = function(){
-        if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Add", "Trajet added", $scope.$parent.param.trajet.length);};
-    }
 	
 	// Listener sur le champ de saisie de la gare de départ
 	$scope.$watch('autoDepart', function(){
@@ -401,26 +369,11 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
         {
             $scope.cflip = '';
 			$scope.lasttrajet=angular.copy($scope.$parent.param.trajet);
-			//console.log("saved :");
-			//console.log($scope.lasttrajet);
             $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
             $scope.options=!$scope.options;
             if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from config", $scope.$parent.param.trajet.length);};
-			document.querySelector('#Suppr').show();
-			//console.log("Now :");
-			//console.log($scope.lasttrajet);
         }
     }
-	
-	$scope.cancelDelete = function(){
-				console.log("Cancel :");
-			console.log($scope.lasttrajet);
-							console.log("Before :");
-			console.log($scope.$parent.param.trajet);
-		$scope.$parent.param.trajet.push($scope.lasttrajet);
-						console.log("After :");
-			console.log($scope.$parent.param.trajet);
-	}
 	
 })
 
