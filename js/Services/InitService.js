@@ -1,4 +1,4 @@
-function InitService ($document, $window, $locastorage, ApiService, TrajetsService, GeolocService) {
+function InitService ($document, $window, $localStorage, ApiService, TrajetsService, GeolocService) {
 	var InitService = {};
 	
 	// Vérif pour appli ou site web
@@ -16,6 +16,8 @@ function InitService ($document, $window, $locastorage, ApiService, TrajetsServi
 			InitService.apiUrl = "../ligne-server/";	
         }
 	}
+
+	$localStorage.apiUrl = InitService.apiUrl;
   
 	// Analytics
 	var gaPlugin = $window.plugins.gaPlugin;
@@ -48,16 +50,16 @@ function InitService ($document, $window, $locastorage, ApiService, TrajetsServi
         });
    };
    refreshGtfsDate = function(data) {
-       $localstorage.gtfs_refresh = data;
+       $localStorage.gtfs_refresh = data;
        //console.log("refreshdate : "+data);
    }
 
        // Function to clear the local storage
 	InitService.purgeStorage = function() {
 		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
-			$localstorage.$reset();
-			$localstorage.max = 5;
-			$localstorage.gtfs_refresh = "1405015264";
+			$localStorage.$reset();
+			$localStorage.max = 5;
+			$localStorage.gtfs_refresh = "1405015264";
 		};
 	};
 
@@ -65,11 +67,11 @@ function InitService ($document, $window, $locastorage, ApiService, TrajetsServi
 	InitService.init = function(){
 
 		// Variables du localstorage
-		if ($locastorage.gtfs_refresh===undefined) {
-        	$localstorage.gtfs_refresh = "1405015264";
+		if ($localStorage.gtfs_refresh===undefined) {
+        	$localStorage.gtfs_refresh = "1405015264";
     	}
-    	if ($locastorage.max===undefined){
-			$locastorage.max = 5;
+    	if ($localStorage.max===undefined){
+			$localStorage.max = 5;
 		}
 		
 		// Initialiser l'affichage des trains
@@ -91,5 +93,5 @@ function InitService ($document, $window, $locastorage, ApiService, TrajetsServi
 	return InitService;
 }
 angular
-  .module('ligne-L')
+  .module('ligneL')
   .factory('InitService', InitService);

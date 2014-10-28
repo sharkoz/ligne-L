@@ -12,7 +12,7 @@ function distance () {
 		return res;
 	};
   };
-}
+
 angular
   .module('ligneL')
   .filter('distance', distance);

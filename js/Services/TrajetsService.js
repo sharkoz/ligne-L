@@ -1,35 +1,36 @@
-function TrajetsService ($document, $window, $localstorage, GeolocService, ApiService) {
+function TrajetsService ($document, $window, $localStorage, GeolocService, ApiService, SpinnersService) {
 	var TrajetsService = {};
 	
-	var TrajetsService.live = {};
-	var TrajetsService.previ = {};
-	var TrajetsService.display = {};
-	var TrajetsService.details = {};
+	TrajetsService.live = {};
+	TrajetsService.previ = {};
+	TrajetsService.display = {};
+	TrajetsService.details = {};
 
-	RefreshDistances = function(){
-
+	RefreshDistance = function(idTrajet){
+		$localStorage.favoris[idTrajet].distance = GeolocService.calculateDistance(LIB_GARE[$localStorage.favoris[idTrajet].depart]);
 	}
 
 	RefreshTrajet = function(idTrajet){
 		// Si les prévisions existent, on rafraichit asap
-    	if ($localstorage.gtfs[idTrajet] !== undefined) {
+    	if ($localStorage.gtfs[idTrajet] !== undefined) {
     	    TrajetsService.previ[idTrajet] = TrajetsService.getprevi(idTrajet);
     	    TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     	}
 	    // Si le gtfs n'est pas à jour on le telecharge
-    	if ($localstorage.gtfs_refresh > $localstorage.gtfs[idTrajet].savedate || isNaN($localstorage.gtfs[idTrajet].savedate)) {
-    	     saveGtfs(idTrajet, data);
+    	if ($localStorage.gtfs_refresh > $localStorage.gtfs[idTrajet].savedate || isNaN($localStorage.gtfs[idTrajet].savedate)) {
+    	    saveGtfs(idTrajet, data);
     	}
     	else {
         	// Si les prévisions sont à jour on récupère juste le live
-        	$scope.jsoncall();
+        	saveLive(idTrajet);
     	}
 	}
 
 	saveGtfs = function(idTrajet, data){
-		ApiService.getGtfs($localstorage.favoris[idTrajet].depart, $localstorage.favoris[idTrajet].arrivee)
+		ApiService.getGtfs($localStorage.favoris[idTrajet].depart, $localStorage.favoris[idTrajet].arrivee)
     	    .then(function(data) {
-    	    	$localstorage.gtfs[idTrajet] = data;
+    	    	$localStorage.gtfs[idTrajet] = data;
+    	    	$localStorage.gtfs[idTrajet].savedate = Math.floor(new Date().getTime()/1000);
     	    })
     	    .catch(function(error) {
     	    	console.log(error);
@@ -37,30 +38,42 @@ function TrajetsService ($document, $window, $localstorage, GeolocService, ApiSe
     	RefreshTrajet(idTrajet);
 	}
 
+	saveLive = function(idTrajet){
+    	ApiService.getLive($localStorage.favoris[idTrajet].depart, $localStorage.favoris[idTrajet].arrivee)
+    		.then(function(data) {
+        		TrajetsService.live[idTrajet] = data;
+        		TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
+    		})
+    		.catch(function(error) {
+       			console.log(error);
+      		});
+  	}
+
 	TrajetsService.RefreshAll = function(){
 		// TODO : remplace le broadcast
 		SpinnersService.setRefresh();
-		_.each($localstorage.favoris, function(value, key, list){RefreshTrajet(key);})
-			.then(SpinnersService.resetRefresh());
+		_.each($localStorage.favoris, function(value, key, list){RefreshTrajet(key);});
+		_.each($localStorage.favoris, function(value, key, list){RefreshDistance(key);});
+		SpinnersService.resetRefresh();
 	}
 
 	TrajetsService.AddTrajet = function(depart, arrivee, is_ar){
 		is_ar = is_ar || false;
-        $localstorage.favoris[depart+"-"+arrivee] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
-		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", $localstorage.favoris.length);
+        $localStorage.favoris[depart+"-"+arrivee] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
+		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", $localStorage.favoris.length);
 		TrajetsService.RefreshAll();
 	}
 
 	TrajetsService.RmTrajet = function(idTrajet){
-		$localstorage.favoris = _omit($localstorage.favoris, idTrajet);
-		$localstorage.gtfs = _omit($localstorage.gtfs, idTrajet);
+		$localStorage.favoris = _.omit($localStorage.favoris, idTrajet);
+		$localStorage.gtfs = _.omit($localStorage.gtfs, idTrajet);
 		TrajetsService.RefreshAll();	
 	}
 
 	// Fonction pour récupérer les horaires théoriques des prochains trains
 	getPrevi = function(idTrajet, max){
 		max = max || 15;
-		save = $localstorage.gtfs[idTrajet];
+		save = $localStorage.gtfs[idTrajet];
 		var i=0;
 		var n=0;
 		var take=0;
@@ -128,34 +141,39 @@ function TrajetsService ($document, $window, $localstorage, GeolocService, ApiSe
 
 	//Fonction pour merger les temps prévus et les temps réels
     merge = function(live, previ) {
-        var liv;
-        var pre;
-        var display;
-        display = angular.copy(previ);
-        for(liv=0; liv<live.length; ++liv){
-            for(pre=0; pre<previ.length; ++pre){
-                if(live[liv].num == previ[pre].num){
-                    display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
-                    if(display[pre].delta == "0"){
-                        display[pre].message = "OK";
-                    }
-                    else{
-                        display[pre].message = live[liv].date.val;
-                    }
-                    display[pre].date.mode='R';
-                    display[pre].date.reel=live[liv].date.val;
-					display[pre].date.jsdate=live[liv].date.jsdate;
-                    display[pre].voie=live[liv].voie;
-					if(live[liv].voie=='BL') {display[pre].voie='?';}
-                    display[pre].ligne=live[liv].ligne;
-                }
-            }
+        if(angular.isUndefined(live)){
+        	return angular.copy(previ);
         }
-        return display;
+        else{
+	        var liv;
+	        var pre;
+	        var display;
+	        display = angular.copy(previ);
+	        for(liv=0; liv<live.length; ++liv){
+	            for(pre=0; pre<previ.length; ++pre){
+	                if(live[liv].num == previ[pre].num){
+	                    display[pre].delta=(new Date('1970/01/01 '+previ[pre].date.val+':00')-new Date('1970/01/01 '+live[liv].date.val+':00'))/(-60000);
+	                    if(display[pre].delta == "0"){
+	                        display[pre].message = "OK";
+	                    }
+	                    else{
+	                        display[pre].message = live[liv].date.val;
+	                    }
+	                    display[pre].date.mode='R';
+	                    display[pre].date.reel=live[liv].date.val;
+						display[pre].date.jsdate=live[liv].date.jsdate;
+	                    display[pre].voie=live[liv].voie;
+						if(live[liv].voie=='BL') {display[pre].voie='?';}
+	                    display[pre].ligne=live[liv].ligne;
+	                }
+	            }
+	        }
+        	return display;
+        }
     }
 
 	return TrajetsService;
 }
 angular
-  .module('ligne-L')
+  .module('ligneL')
   .factory('TrajetsService', TrajetsService);

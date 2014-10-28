@@ -1,10 +1,10 @@
-function ApiService ($q, $http, InitService) {
+function ApiService ($q, $http, $localStorage) {
 	ApiObject = {};
 
 	ApiObject.getGtfs = function (depart, arrivee) {
 		var deferred = $q.defer();
 
-		var url = InitService.apiUrl + ['gtfs', depart, arrivee].join('/');
+		var url = $localStorage.apiUrl + ['gtfs', depart, arrivee].join('/');
 
 		$http.get(url, {timeout:7000})
 			.success(function(data) {
@@ -20,7 +20,7 @@ function ApiService ($q, $http, InitService) {
 	ApiObject.getLive = function (depart, arrivee) {
 		var deferred = $q.defer();
 
-		var url = InitService.apiUrl + ['mobil', depart, arrivee].join('/');
+		var url = $localStorage.apiUrl + ['mobil', depart, arrivee].join('/');
 
 		$http.get(url, {timeout:7000})
 			.success(function(data) {
@@ -36,7 +36,7 @@ function ApiService ($q, $http, InitService) {
 	ApiObject.getDetail = function (numTrain) {
 		var deferred = $q.defer();
 
-		var url = InitService.apiUrl + ['detail', numTrain].join('/');
+		var url = $localStorage.apiUrl + ['detail', numTrain].join('/');
 
 		$http.get(url, {timeout:7000})
 			.success(function(data) {
@@ -52,7 +52,7 @@ function ApiService ($q, $http, InitService) {
 	ApiObject.getLastRefresh = function () {
 		var deferred = $q.defer();
 
-		var url = InitService.apiUrl + 'refresh.txt';
+		var url = $localStorage.apiUrl + 'refresh.txt';
 
 		$http.get(url, {timeout:7000})
 			.success(function(data) {
@@ -68,7 +68,7 @@ function ApiService ($q, $http, InitService) {
 	ApiObject.getLastDessertes = function (depart) {
 		var deferred = $q.defer();
 
-		var url = InitService.apiUrl + ['dessertes', depart].join('/');
+		var url = $localStorage.apiUrl + ['dessertes', depart].join('/');
 
 		$http.get(url, {timeout:7000})
 			.success(function(data) {

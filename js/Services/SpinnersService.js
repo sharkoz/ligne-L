@@ -24,5 +24,5 @@ function SpinnersService () {
 	return SpinnersService;
 }
 angular
-  .module('ligne-L')
+  .module('ligneL')
   .factory('SpinnersService', SpinnersService);

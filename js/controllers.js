@@ -2,8 +2,8 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, ApiService){
-//console.log("Chargement du controller AppCtrl pour "+$scope.$id);
+app.controller('AppCtrl',function( $scope, $location, $document, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, ApiService, TrajetsService){
+  //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// TODO : mettre dans app
 	FastClick.attach(document.body);
 
@@ -14,13 +14,6 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
 	function onDeviceReady() {
 		analytics();
 	}
-	
-	// Phonegap event listener
-	$document.addEventListener("resume", onResume, false);
-	// Desktop event listener
-	$window.onfocus = function() {
-		onResume();
-	};
 
     $scope.$on('$routeChangeSuccess', function(event, next, current) {
 		  // Cacher le menu
@@ -86,7 +79,7 @@ app.controller('AppCtrl',function( $scope, $location, $window, $localStorage, $i
         $scope.detailloading = "";
     };
 	
-$ionicModal.fromTemplateUrl('detail-modal.html', {
+  $ionicModal.fromTemplateUrl('detail-modal.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -115,7 +108,7 @@ $ionicModal.fromTemplateUrl('detail-modal.html', {
 		$scope.slideIndex = 0;
 	}
 	  
-};
+});
 
 app.controller('HorairesCtrl',function( $scope, LIB_GARE){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
@@ -192,117 +185,9 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $stateParams){
 })
 
 
-app.controller('TrajetCtrl',function( $scope, $window, ApiService, Getprevi ){
-	//console.log("Chargement du controller TrajetCtrl pour "+$scope.$id);
+app.controller('TrajetCtrl',function(){
 
-    $scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
-	$scope.$on('LocRefreshed', function() {
-		$scope.trajet.dist = $scope.calculateDistance($scope.trajet.depart_pos,$scope.pos);
-	});
-
-    $scope.getprevi = Getprevi.get;
-
-	$scope.$on('Refresh', function() {
-    // On anime le spin loader
-    $scope.jsonloading = "spin_image";
-    // Si les prévisions existent, on rafraichit asap
-    if ($scope.trajet.save !== undefined) {
-        $scope.trajet.previ = $scope.getprevi($scope.trajet.save, 15);
-        // Si aucun live n'est dispo on affiche les prévisions, sinon on
-        if($scope.dataSet === undefined) {
-            $scope.trajet.display = $scope.trajet.previ;
-        }
-        else {
-            $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-        }
-    }
-    if ($localstorage.gtfs_refresh > $scope.trajet.savedate || isNaN($scope.trajet.savedate)) {
-        // Si le gtfs n'est pas à jour on le telecharge
-        // NEW
-        ApiService.getGtfs($scope.trajet.depart, $scope.trajet.arrivee)
-          .then(function(data) {
-            $scope.saveData(data);
-          })
-          .catch(function(error) {
-            $scope.saveDataError(error);
-          });
-        // DEPRECATED
-        //DataSource.get($scope.saveData,$scope.saveDataError, $scope.apiUrl + "gtfs/" + $scope.trajet.depart + "/" + $scope.trajet.arrivee);
-    }
-    else {
-        // Si les prévisions sont à jour on récupère juste le live
-        $scope.jsoncall();
-    }
-	});
-
-
-
-    // Callback fonction pour récupérer les horaires prévisionnels de la gare
-    $scope.saveData = function(data) {
-        $scope.trajet.save = data.passages;
-        $scope.trajet.savedate = Math.floor(new Date().getTime()/1000);
-        // Une fois que les horaires prévisionnels sont récupérés on récupère les horaires en temps réel
-        $scope.jsoncall();
-    }
-    $scope.saveDataError = function(data) {
-        //console.log(data);
-        $scope.jsonloading = "";
-		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
-    }
-
-    // Callback function pour les horaires en live
-    $scope.setData = function(data) {
-        //console.log('Données temps réel disponibles controller '+$scope.$id);
-        $scope.trajet.previ = $scope.getprevi($scope.trajet.save, 15);
-        $scope.dataSet = data.passages;
-        $scope.trajet.display = merge($scope.dataSet.train, $scope.trajet.previ);
-        $scope.jsonloading = "";
-		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
-    }
-    $scope.setDataError = function(data) {
-        console.log("Erreur recuperation des horaires en live");
-        $scope.jsonloading = "";
-		$scope.$parent.$parent.$broadcast('scroll.refreshComplete');
-    }
-
-    $scope.jsoncall = function(){$scope.jsonloading = "spin_image";
-    // NEW
-    ApiService.getLive($scope.trajet.depart, $scope.trajet.arrivee)
-      .then(function(data) {
-        $scope.setData(data);
-      })
-      .catch(function(error) {
-        $scope.setDataError(error);
-      });
-    // DEPRECATED
-    //DataSource.get($scope.setData,$scope.setDataError, $scope.apiUrl+$scope.trajet.path+"/"+$scope.trajet.depart+"/"+$scope.trajet.arrivee);};
-
-    //Chaque trajet se rafraichit lui même
-    $scope.$parent.$broadcast('Refresh');
-
-	// Rafraichir tous les trajets
-	$scope.broadcastRefresh = function () {
-		$scope.$parent.$parent.$broadcast('Refresh');
-	}
-
-    // Supprimer un trajet
-	$scope.rmTrajet = function(trajet){
-		if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
-		{
-			$scope.cflip = ''; 
-			$scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1); 
-			$scope.options=!$scope.options;
-            if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from Accueil", 1);};
-			//TODO: toast notification
-			//document.querySelector('#Suppr').show();
-			$scope.$apply();
-		}
-	}
-	
 })
-
-
-
 
 app.controller('TrajetModif',function( $scope, $window, ApiService ){
    // Recherche des gares
@@ -339,8 +224,6 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
         .catch(function(error) {
           $scope.refreshDessertesError(error);
         });
-      // DEPRECATED
-      //DataSource.get($scope.refreshDessertes,$scope.refreshDessertesError, $scope.apiUrl+"dessertes/"+$scope.trajet.depart);
    };
    // Callback dessertes
    $scope.refreshDessertes = function(data) {
@@ -350,11 +233,6 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
    $scope.refreshDessertesError = function(data) {
        console.log(data);
    }
-
-    // Rafraichir tous les trajets
-    $scope.broadcastRefresh = function () {
-        $scope.$parent.$parent.$broadcast('Refresh');
-    }
 	
 	// Listener sur le champ de saisie de la gare de départ
 	$scope.$watch('autoDepart', function(){
@@ -362,19 +240,7 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
 		else {$scope.getLocation();}
 	});
    
-   
-    // Supprimer un trajet
-    $scope.rmTrajet = function(trajet){
-        if($window.confirm('Voulez vous supprimer le trajet '+$scope.gare[trajet.depart]+' vers '+$scope.gare[trajet.arrivee]+' ?'))
-        {
-            $scope.cflip = '';
-			$scope.lasttrajet=angular.copy($scope.$parent.param.trajet);
-            $scope.$parent.param.trajet.splice($scope.$parent.param.trajet.indexOf(trajet),1);
-            $scope.options=!$scope.options;
-            if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "Trajet", "Delete", "Delete from config", $scope.$parent.param.trajet.length);};
-        }
-    }
-	
+
 })
 
 
