@@ -1,4 +1,4 @@
-function GeolocService ($localStorage, Geomath, Locate) {
+function GeolocService ($localStorage, Geomath, Locate, LIB_GARE) {
 	var GeolocService = {};
 	
   setLoc = function(position) {
@@ -25,9 +25,9 @@ function GeolocService ($localStorage, Geomath, Locate) {
   };
 
   gareLocation = function(idGare){
-    var loc;
+    var loc = {};
     gare = _.find(LIB_GARE, function (item) {
-        item.code === idGare;
+        return item.code == idGare;
       })
     loc.latitude = gare.latitude;
     loc.longitude = gare.longitude;

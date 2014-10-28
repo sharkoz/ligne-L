@@ -1,4 +1,4 @@
-function TrajetsService ($document, $window, $localStorage, GeolocService, ApiService, SpinnersService) {
+function TrajetsService ($document, $window, $localStorage, $filter, InitService, GeolocService, ApiService, SpinnersService, LIB_GARE) {
 	var TrajetsService = {};
 	
 	TrajetsService.live = {};
@@ -7,18 +7,18 @@ function TrajetsService ($document, $window, $localStorage, GeolocService, ApiSe
 	TrajetsService.details = {};
 
 	RefreshDistance = function(idTrajet){
-		$localStorage.favoris[idTrajet].distance = GeolocService.calculateDistance(LIB_GARE[$localStorage.favoris[idTrajet].depart]);
+		$localStorage.favoris[idTrajet].distance = GeolocService.calculateDistanceGare($localStorage.favoris[idTrajet].depart);
 	}
 
 	RefreshTrajet = function(idTrajet){
 		// Si les prévisions existent, on rafraichit asap
-    	if ($localStorage.gtfs[idTrajet] !== undefined) {
-    	    TrajetsService.previ[idTrajet] = TrajetsService.getprevi(idTrajet);
+    	if ($localStorage.gtfs[idTrajet].train !== undefined) {
+    	    TrajetsService.previ[idTrajet] = getPrevi(idTrajet);
     	    TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     	}
 	    // Si le gtfs n'est pas à jour on le telecharge
     	if ($localStorage.gtfs_refresh > $localStorage.gtfs[idTrajet].savedate || isNaN($localStorage.gtfs[idTrajet].savedate)) {
-    	    saveGtfs(idTrajet, data);
+    	    saveGtfs(idTrajet);
     	}
     	else {
         	// Si les prévisions sont à jour on récupère juste le live
@@ -26,7 +26,7 @@ function TrajetsService ($document, $window, $localStorage, GeolocService, ApiSe
     	}
 	}
 
-	saveGtfs = function(idTrajet, data){
+	saveGtfs = function(idTrajet){
 		ApiService.getGtfs($localStorage.favoris[idTrajet].depart, $localStorage.favoris[idTrajet].arrivee)
     	    .then(function(data) {
     	    	$localStorage.gtfs[idTrajet] = data;
@@ -35,7 +35,7 @@ function TrajetsService ($document, $window, $localStorage, GeolocService, ApiSe
     	    .catch(function(error) {
     	    	console.log(error);
     	    });
-    	RefreshTrajet(idTrajet);
+    	//RefreshTrajet(idTrajet);
 	}
 
 	saveLive = function(idTrajet){
@@ -52,6 +52,7 @@ function TrajetsService ($document, $window, $localStorage, GeolocService, ApiSe
 	TrajetsService.RefreshAll = function(){
 		// TODO : remplace le broadcast
 		SpinnersService.setRefresh();
+		console.log("refresh");
 		_.each($localStorage.favoris, function(value, key, list){RefreshTrajet(key);});
 		_.each($localStorage.favoris, function(value, key, list){RefreshDistance(key);});
 		SpinnersService.resetRefresh();
@@ -65,6 +66,8 @@ function TrajetsService ($document, $window, $localStorage, GeolocService, ApiSe
 		console.log("Trajet arrivee");
 		console.log(arrivee);
         $localStorage.favoris[depart+"-"+arrivee] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
+        $localStorage.gtfs[depart+"-"+arrivee] = {};
+        $localStorage.gtfs[depart+"-"+arrivee].savedate="0";
 
 		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", $localStorage.favoris.length);
 		TrajetsService.RefreshAll();

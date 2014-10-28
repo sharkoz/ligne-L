@@ -1,4 +1,4 @@
-function InitService ($document, $window, $localStorage, ApiService, TrajetsService, GeolocService) {
+function InitService ($document, $window, $localStorage, ApiService, GeolocService) {
 	var InitService = {};
 	
 	// Vérif pour appli ou site web
@@ -81,9 +81,6 @@ function InitService ($document, $window, $localStorage, ApiService, TrajetsServ
 		if ($localStorage.gtfs===undefined){
 			$localStorage.gtfs = {};
 		}
-		
-		// Initialiser l'affichage des trains
-		TrajetsService.RefreshAll();
 
 		GtfsDate(); // Date de dernière MaJ des données du serveur
 

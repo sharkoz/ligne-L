@@ -112,6 +112,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 	  $scope.favoris = $localStorage.favoris;
     $scope.gares = LIB_GARE;
     $scope.TrajetsService = TrajetsService;
+    TrajetsService.RefreshAll();
 
 });
 

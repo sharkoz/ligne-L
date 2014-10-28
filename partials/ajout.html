@@ -53,7 +53,7 @@
                         <span>
                             <span ng-show="collapse" >&#9660;</span>
                             <span ng-hide="collapse" >&#9654;</span>
-                            {{gare[trajet.depart]}} vers {{gare[trajet.arrivee]}} <span class="ion-arrow-move" data-sortable-item-handle style="vertical-align: text-top;float:right;">
+                            {{trajet.depart | libGare}} vers {{trajet.arrivee | libGare}} <span class="ion-arrow-move" data-sortable-item-handle style="vertical-align: text-top;float:right;">
                         </span>
                         <!--<div class="corner_config" ng-click="collapse = !collapse">i</div>-->
                     </div>
