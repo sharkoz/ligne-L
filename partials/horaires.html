@@ -5,16 +5,16 @@
 <ion-content >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher>
-	<div class="metacard" ng-repeat="(idTrajet, trajet) in favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
+	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
-        <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(idTrajet);">
-			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
-			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}");"></a>
-            <h2>{{::trajet.depart | libGare}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
+        <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
+			<span class="ion-loop {{refresh}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
+			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}"></a>
+            <h2>{{::trajet.depart | libGare}} <i ng-hide="$storage.nogps">{{distDisplay(trajet.dist)}}</i></h2>
             <h3>Vers {{trajet.arrivee | libGare}}</h3>
             <table class="horaires">
                 <tbody>
-                    <tr ng-repeat="train in TrajetsService.getDisplay(idTrajet) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
+                    <tr ng-repeat="train in TrajetsService.getDisplay(trajet.idTrajet) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
                         <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
 							<b>{{::train.date.val | limitTo:-5}}</b>
 							<br/>
@@ -38,7 +38,7 @@
             </table>
         </next-slide-eraser>
 	</div>
-    <div ng-hide="favoris.length" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
+    <div ng-hide="$storage.favoris.length" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
 </div>
 
 

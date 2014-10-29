@@ -69,7 +69,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 			$localStorage.max = 5;
 		}
 		if ($localStorage.favoris===undefined){
-			$localStorage.favoris = {};
+			$localStorage.favoris = [];
 		}
 		if ($localStorage.gtfs===undefined){
 			$localStorage.gtfs = {};

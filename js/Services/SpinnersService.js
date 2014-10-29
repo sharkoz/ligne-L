@@ -14,11 +14,11 @@ function SpinnersService ($rootScope) {
 	}
 
 	SpinnersService.setRefresh = function(){
-		SpinnersService.refresh="spin_image";
+		$rootScope.refresh="spin_image";
 	}
 
 	SpinnersService.resetRefresh = function(){
-		SpinnersService.refresh="";
+		$rootScope.refresh="";
 		$rootScope.$broadcast('scroll.refreshComplete');
 	}
 

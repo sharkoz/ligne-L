@@ -112,9 +112,10 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 
 
   InitService.init();
-  $scope.favoris = $localStorage.favoris;
+  $scope.$storage = $localStorage;
   $scope.gares = LIB_GARE;
   $scope.TrajetsService = TrajetsService;
+  $scope.InitService = InitService;
   TrajetsService.RefreshAll();
 
   // Phonegap event listener
