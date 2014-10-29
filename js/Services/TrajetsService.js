@@ -25,13 +25,13 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	}
 
 	RefreshTrajet = function(idTrajet){
-		if(TrajetsService.live[idTrajet] == undefined){
+		if(TrajetsService.live[idTrajet] === undefined){
 			TrajetsService.live[idTrajet]={};
 		}
-		if($localStorage.gtfs[idTrajet] == undefined){
+		if($localStorage.gtfs[idTrajet] === undefined){
 			$localStorage.gtfs[idTrajet]={};
 		}		
-		if($localStorage.gtfs[idTrajet].passages == undefined){
+		if($localStorage.gtfs[idTrajet].passages === undefined){
 			$localStorage.gtfs[idTrajet].passages={};
 		}
 		// Si les prévisions existent, on rafraichit asap

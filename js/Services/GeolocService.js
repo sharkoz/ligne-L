@@ -163,7 +163,7 @@ app.service('Geomath', function() {
 	
 	    this.doGeolocation = function(callback) {
       if (navigator.geolocation) {
-	  //console.log('Localisation supportée');
+	  console.log('Localisation supportée');
         var loc = navigator.geolocation.getCurrentPosition(callback, self.positionError);
       } else {
         self.positionError(-1);
