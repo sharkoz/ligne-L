@@ -5,14 +5,21 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	TrajetsService.previ = {};
 	TrajetsService.display = {};
 	TrajetsService.details = {};
+	TrajetsService.getDisplay = function(idTrajet){
+		console.log(TrajetsService.display[idTrajet]);
+		return TrajetsService.display[idTrajet];
+	}
 
 	RefreshDistance = function(idTrajet){
 		$localStorage.favoris[idTrajet].distance = GeolocService.calculateDistanceGare($localStorage.favoris[idTrajet].depart);
 	}
 
 	RefreshTrajet = function(idTrajet){
+		if(TrajetsService.live[idTrajet] == undefined){
+			TrajetsService.live[idTrajet]={};
+		}
 		// Si les prévisions existent, on rafraichit asap
-    	if ($localStorage.gtfs[idTrajet].train !== undefined) {
+    	if ($localStorage.gtfs[idTrajet].passages.train !== undefined) {
     	    TrajetsService.previ[idTrajet] = getPrevi(idTrajet);
     	    TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     	}
@@ -41,7 +48,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	saveLive = function(idTrajet){
     	ApiService.getLive($localStorage.favoris[idTrajet].depart, $localStorage.favoris[idTrajet].arrivee)
     		.then(function(data) {
-        		TrajetsService.live[idTrajet] = data;
+        		TrajetsService.live[idTrajet] = data.passages;
         		TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     		})
     		.catch(function(error) {
@@ -52,7 +59,6 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	TrajetsService.RefreshAll = function(){
 		// TODO : remplace le broadcast
 		SpinnersService.setRefresh();
-		console.log("refresh");
 		_.each($localStorage.favoris, function(value, key, list){RefreshTrajet(key);});
 		_.each($localStorage.favoris, function(value, key, list){RefreshDistance(key);});
 		SpinnersService.resetRefresh();
@@ -74,7 +80,10 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	}
 
 	TrajetsService.RmTrajet = function(idTrajet){
-		$localStorage.favoris = _.omit($localStorage.favoris, idTrajet);
+		console.log(idTrajet);
+		newFav = _.omit($localStorage.favoris, idTrajet);
+		$localStorage.favoris = newFav;
+
 		$localStorage.gtfs = _.omit($localStorage.gtfs, idTrajet);
 		TrajetsService.RefreshAll();	
 	}
@@ -82,7 +91,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	// Fonction pour récupérer les horaires théoriques des prochains trains
 	getPrevi = function(idTrajet, max){
 		max = max || 15;
-		save = $localStorage.gtfs[idTrajet];
+		save = $localStorage.gtfs[idTrajet].passages;
 		var i=0;
 		var n=0;
 		var take=0;
@@ -154,6 +163,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
         	return angular.copy(previ);
         }
         else{
+        	console.log(live);
 	        var liv;
 	        var pre;
 	        var display;
@@ -177,6 +187,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	                }
 	            }
 	        }
+	        console.log(display);
         	return display;
         }
     }

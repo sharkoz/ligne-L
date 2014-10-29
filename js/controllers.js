@@ -186,8 +186,8 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $stateParams){
 })
 
 
-app.controller('TrajetCtrl',function(){
-
+app.controller('TrajetCtrl',function($scope, TrajetsService){
+  $scope.trajet.display = TrajetsService.getDisplay();
 })
 
 app.controller('TrajetModif',function( $scope, $window, ApiService ){

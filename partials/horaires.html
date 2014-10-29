@@ -7,7 +7,7 @@
 	<ion-refresher pulling-text="Mettre à jour..." on-refresh="$broadcast('Refresh');"></ion-refresher>
 	<div class="metacard" ng-repeat="trajet in favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
-        <next-slide-eraser class="card-ligne front" next-swipe="rmTrajet(trajet);">
+        <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.depart+'-'+trajet.arrivee);">
 
 			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="broadcastRefresh()"></span>
 			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}");"></a>
@@ -19,7 +19,7 @@
             <h3>Vers {{::trajet.arrivee | libGare}}</h3>
             <table class="horaires">
                 <tbody>
-                    <tr ng-repeat="train in trajet.display | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
+                    <tr ng-repeat="train in TrajetsService.getDisplay(trajet.depart+'-'+trajet.arrivee) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
                         <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
 							<b>{{::train.date.val | limitTo:-5}}</b>
 							<br/>
@@ -34,7 +34,7 @@
 							<b>{{train.date.val | limitTo:-5}}</b>
 						</td>
 						<td style="text-align:center;width:1px" ng-hide="$storage.noline"><span class="rer transilien ligne{{::train.ligne}}" style="width:30px;height:30px">{{::train.ligne}}</span></td>
-                        <td>{{::gare[train.term]}}</td>
+                        <td>{{::train.term | libGare}}</td>
                         <td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
                             <div title="{{::train.num}}" ng-hide="train.voie != '-'">-</div>
                         </td>
@@ -43,7 +43,7 @@
             </table>
         </next-slide-eraser>
 	</div>
-    <div ng-hide="param.trajet.length" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
+    <div ng-hide="favoris.length" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
 </div>
 
 
