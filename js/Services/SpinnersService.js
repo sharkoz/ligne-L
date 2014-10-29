@@ -1,4 +1,4 @@
-function SpinnersService () {
+function SpinnersService ($rootScope) {
 	var SpinnersService = {};
 	
 	// Contient les classes à mettre aux spinners, au début on met une classe vide
@@ -19,6 +19,7 @@ function SpinnersService () {
 
 	SpinnersService.resetRefresh = function(){
 		SpinnersService.refresh="";
+		$rootScope.$broadcast('scroll.refreshComplete');
 	}
 
 	return SpinnersService;

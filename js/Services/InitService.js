@@ -35,13 +35,6 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		}
 	}
 	
-	InitService.onResume = function(){
-		TrajetsService.RefreshAll();
-		GeolocService.RefreshLoc();
-		InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
-	};
-
-	
    GtfsDate = function(){
       ApiService.getLastRefresh()
         .then(function(data) {
@@ -87,14 +80,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		InitService.gaTrackPage("App", "Open", "App opened", 1);
 		InitService.gaTrackPage("Accueil");
 		
-		// Phonegap event listener
-		if(InitService.phonegap){
-			$document.addEventListener("resume", InitService.onResume, false);
-		}
-		// Desktop event listener
-		$window.onfocus = function() {
-			InitService.onResume();
-		};
+
     }
 
 	return InitService;

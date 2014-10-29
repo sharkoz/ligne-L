@@ -65,7 +65,7 @@ function ApiService ($q, $http, $localStorage) {
 		return deferred.promise;
 	};
 
-	ApiObject.getLastDessertes = function (depart) {
+	ApiObject.getDessertes = function (depart) {
 		var deferred = $q.defer();
 
 		var url = $localStorage.apiUrl + ['dessertes', depart].join('/');

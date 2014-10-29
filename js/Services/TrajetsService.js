@@ -6,7 +6,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	TrajetsService.display = {};
 	TrajetsService.details = {};
 	TrajetsService.getDisplay = function(idTrajet){
-		console.log(TrajetsService.display[idTrajet]);
+		//console.log(idTrajet+' : '+TrajetsService.display[idTrajet]);
 		return TrajetsService.display[idTrajet];
 	}
 
@@ -18,10 +18,16 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 		if(TrajetsService.live[idTrajet] == undefined){
 			TrajetsService.live[idTrajet]={};
 		}
+		if($localStorage.gtfs[idTrajet] == undefined){
+			$localStorage.gtfs[idTrajet]={};
+		}		
+		if($localStorage.gtfs[idTrajet].passages == undefined){
+			$localStorage.gtfs[idTrajet].passages={};
+		}
 		// Si les prévisions existent, on rafraichit asap
     	if ($localStorage.gtfs[idTrajet].passages.train !== undefined) {
     	    TrajetsService.previ[idTrajet] = getPrevi(idTrajet);
-    	    TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
+    	    TrajetsService.display[idTrajet] = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     	}
 	    // Si le gtfs n'est pas à jour on le telecharge
     	if ($localStorage.gtfs_refresh > $localStorage.gtfs[idTrajet].savedate || isNaN($localStorage.gtfs[idTrajet].savedate)) {
@@ -38,18 +44,18 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
     	    .then(function(data) {
     	    	$localStorage.gtfs[idTrajet] = data;
     	    	$localStorage.gtfs[idTrajet].savedate = Math.floor(new Date().getTime()/1000);
+    	    	RefreshTrajet(idTrajet);
     	    })
     	    .catch(function(error) {
     	    	console.log(error);
     	    });
-    	//RefreshTrajet(idTrajet);
 	}
 
 	saveLive = function(idTrajet){
     	ApiService.getLive($localStorage.favoris[idTrajet].depart, $localStorage.favoris[idTrajet].arrivee)
     		.then(function(data) {
         		TrajetsService.live[idTrajet] = data.passages;
-        		TrajetsService.display = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
+        		TrajetsService.display[idTrajet] = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     		})
     		.catch(function(error) {
        			console.log(error);
@@ -71,9 +77,10 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 		console.log(depart);
 		console.log("Trajet arrivee");
 		console.log(arrivee);
-        $localStorage.favoris[depart+"-"+arrivee] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
-        $localStorage.gtfs[depart+"-"+arrivee] = {};
-        $localStorage.gtfs[depart+"-"+arrivee].savedate="0";
+		idTrajet = _.keys($localStorage.favoris).length+1;
+        $localStorage.favoris[idTrajet] = {'depart' : depart , 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true};
+        $localStorage.gtfs[idTrajet] = {};
+        $localStorage.gtfs[idTrajet].savedate="0";
 
 		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", $localStorage.favoris.length);
 		TrajetsService.RefreshAll();
@@ -163,7 +170,6 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
         	return angular.copy(previ);
         }
         else{
-        	console.log(live);
 	        var liv;
 	        var pre;
 	        var display;
@@ -187,7 +193,6 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	                }
 	            }
 	        }
-	        console.log(display);
         	return display;
         }
     }

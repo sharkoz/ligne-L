@@ -2,7 +2,7 @@
 /* Controllers */
 
 
-app.controller('AppCtrl',function( $scope, $location, $document, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, InitService, ApiService, TrajetsService){
+app.controller('AppCtrl',function( $scope, $location, $document, $window, $localStorage, $ionicModal, Geomath, Locate, LIB_GARE, GeolocService, InitService, ApiService, TrajetsService){
   //console.log("Chargement du controller AppCtrl pour "+$scope.$id);
 	// TODO : mettre dans app
 	FastClick.attach(document.body);
@@ -108,12 +108,29 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 		$scope.slideIndex = 0;
 	}
 
-    InitService.init();
-	  $scope.favoris = $localStorage.favoris;
-    $scope.gares = LIB_GARE;
-    $scope.TrajetsService = TrajetsService;
-    TrajetsService.RefreshAll();
 
+
+
+  InitService.init();
+  $scope.favoris = $localStorage.favoris;
+  $scope.gares = LIB_GARE;
+  $scope.TrajetsService = TrajetsService;
+  TrajetsService.RefreshAll();
+
+  // Phonegap event listener
+  if(InitService.phonegap){
+    $document.addEventListener("resume", onResume, false);
+  }
+  // Desktop event listener
+  $window.onfocus = function() {
+    onResume();
+  };
+
+  onResume = function(){
+    TrajetsService.RefreshAll();
+    GeolocService.RefreshLoc();
+    InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
+  };
 });
 
 app.controller('HorairesCtrl',function( $scope, $localStorage, LIB_GARE){

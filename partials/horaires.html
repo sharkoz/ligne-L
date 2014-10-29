@@ -4,22 +4,17 @@
   </ion-nav-bar>
 <ion-content >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
-	<ion-refresher pulling-text="Mettre à jour..." on-refresh="$broadcast('Refresh');"></ion-refresher>
-	<div class="metacard" ng-repeat="trajet in favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
+	<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher>
+	<div class="metacard" ng-repeat="(idTrajet, trajet) in favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
-        <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.depart+'-'+trajet.arrivee);">
-
-			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="broadcastRefresh()"></span>
+        <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(idTrajet);">
+			<span class="ion-loop {{jsonloading}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
 			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}");"></a>
             <h2>{{::trajet.depart | libGare}} <i ng-show="$parent.localise">{{distDisplay(trajet.dist)}}</i></h2>
-            <!--<div class="corner_refresh {{jsonloading}}" ng-click="broadcastRefresh()"><span class="svg refresh">MaJ</span></div>
-            <div class="corner_agenda" ng-click="setAgenda(trajet)"><a href="#/agenda"  ><span class="svg agenda">Agenda</span></a></div>-->
-            <!--<div class="corner_config" ng-click="$scope.cflip = 'flipped'">i</div>-->
-
-            <h3>Vers {{::trajet.arrivee | libGare}}</h3>
+            <h3>Vers {{trajet.arrivee | libGare}}</h3>
             <table class="horaires">
                 <tbody>
-                    <tr ng-repeat="train in TrajetsService.getDisplay(trajet.depart+'-'+trajet.arrivee) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
+                    <tr ng-repeat="train in TrajetsService.getDisplay(idTrajet) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
                         <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
 							<b>{{::train.date.val | limitTo:-5}}</b>
 							<br/>

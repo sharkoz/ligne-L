@@ -47,7 +47,7 @@
         </div>
     </div>
 <div data-sortable="board.dragControlListeners" data-ng-model="param.trajet" >	
-	<div class="card-ligne front" ng-repeat="trajet in favoris"  data-sortable-item ng-controller="TrajetModif">
+	<div class="card-ligne front" ng-repeat="(idTrajet, trajet) in favoris"  data-sortable-item ng-controller="TrajetModif">
 				
 					<div class="title" ng-click="getDessertes();collapse = !collapse; " ng-swipe-left="rmTrajet(trajet);">
                         <span>
@@ -59,22 +59,22 @@
                     </div>
 				<div class="collapsible" ng-show="collapse">
 					<div class="item item-input" style="border-style:none;">
-						<div class="input-label">Depart  : {{gare[trajet.depart]}}</div>
+						<div class="input-label">Depart  : {{trajet.depart | libGare}}</div>
 					</div>
 					<div>
 						<div class="item item-input item-select">
-							<div class="input-label">Arrivée :</div>
-								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="trajet.savedate = '';broadcastRefresh()">
+							<div class="input-label">Arrivée :{{$storage.gtfs[idTrajet].savedate}}</div>
+								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$storage.gtfs[idTrajet].savedate = '0';TrajetsService.RefreshAll();">
 									<OPTION value='0' >Toutes directions</OPTION>
-									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
+									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
 								</SELECT>
 								<div ng-hide="ListeDessertes" ng-click="getDessertes();">
-									<span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
+									<span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
 								</div>
 						</div>
 						<div class="button-bar">
-							<a class="button" ng-click="rmTrajet(trajet);">Supprimer</a>
-							<a class="button" ng-click="broadcastRefresh(); collapse = !collapse">Sauvegarder</a>
+							<a class="button" ng-click="TrajetsService.RmTrajet(idTrajet);">Supprimer</a>
+							<a class="button" ng-click="collapse = !collapse">Terminer</a>
 						</div>
 						<!--<div class="jelly-form">
 							<input name="submit" type="submit" value="Supprimer trajet" ng-click="rmTrajet(trajet);"/>
