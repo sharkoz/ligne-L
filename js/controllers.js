@@ -240,26 +240,25 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
       // NEW
       ApiService.getDessertes($scope.trajet.depart)
         .then(function(data) {
-          $scope.refreshDessertes(data);
+          $scope.ListeDessertes = data;
         })
         .catch(function(error) {
-          $scope.refreshDessertesError(error);
+          $console.log(error);
         });
    };
-   // Callback dessertes
-   $scope.refreshDessertes = function(data) {
-       $scope.ListeDessertes = data;
-       //console.log(data);
-   }
-   $scope.refreshDessertesError = function(data) {
-       console.log(data);
+
+   $scope.onSelect = function($item, $model, $label){
+    $scope.trajet.depart=$scope.trajet.garedepart.code;
+    $scope.trajet.arrivee = '0';
+    $scope.getDessertes();
+    console.log('yes');
    }
 	
-	// Listener sur le champ de saisie de la gare de départ
+	/* Listener sur le champ de saisie de la gare de départ
 	$scope.$watch('autoDepart', function(){
 		if($scope.norefresh==1) {$scope.norefresh=0;}
 		else {$scope.getLocation();}
-	});
+	});*/
    
 
 })

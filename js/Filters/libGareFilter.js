@@ -1,8 +1,14 @@
 function libGare (LIB_GARE) {
   return function (code) {
-    return _.find(LIB_GARE, function (item) {
-    	return item.code === code;
-    }).name;
+  	    if(code === undefined){
+    		return '';
+    	}
+    	else{
+    		return _.find(LIB_GARE, function (item) {
+    	  		return item.code === code;
+    		}).name;
+    	}
+
   };
 }
 angular

@@ -5,12 +5,12 @@
 <ion-content >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
 	<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher>
-	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy:$parent.localise ? 'dist' : ''" ng-controller="TrajetCtrl">
+	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy: $storage.nogeoloc ? '' : 'distance'" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
         <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
 			<span class="ion-loop {{refresh}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
 			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{param.trajet.indexOf(trajet)}}"></a>
-            <h2>{{::trajet.depart | libGare}} <i ng-hide="$storage.nogps">{{distDisplay(trajet.dist)}}</i></h2>
+            <h2>{{::trajet.depart | libGare}} <i ng-hide="$storage.nogeoloc">{{trajet.distance | distance}}</i></h2>
             <h3>Vers {{trajet.arrivee | libGare}}</h3>
             <table class="horaires">
                 <tbody>

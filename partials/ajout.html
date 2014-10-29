@@ -11,9 +11,14 @@
 <div class="cardswidth" ng-cloak>
 	<div class="metacard" ng-controller="TrajetModif">
         <div class="card-ligne front">
+        <script type="text/ng-template" id="customTemplate.html">
+		  <a class="autocomplete" style="selected:">
+		      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+		  </a>
+		</script>
             <div style="position: relative;"> 
-            	<a style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" tabindex="-1" ng-click="depart='';autoShow=0;" class="clear_button">×</a>
-					<angucomplete id="autoDepart"
+            	<a ng-show="trajet.garedepart" style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" tabindex="-1" ng-click="trajet.garedepart=''"  class="clear_button">×</a>
+					<!--<angucomplete id="autoDepart"
 			          placeholder="Gare de départ"
 			          pause="100"
 			          selectedobject="trajet.depart"
@@ -21,23 +26,24 @@
 			          searchfields="name"
 			          titlefield="name"
 			          minlength="1"
-			          inputclass="form-control form-control-small"/>
+			          inputclass="form-control form-control-small"/>-->
+			          <input type="text" ng-model="trajet.garedepart" placeholder="Gare de départ" typeahead="gare as gare.name for gare in gares | filter:{name:$viewValue} | limitTo : 5" typeahead-template-url="customTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
             </div>
-            <div class="collapsible" ng-show="trajet.depart">
+            <div class="collapsible" ng-show="trajet.garedepart.code">
                 <div ng-hide="autoShow" class="">
                     <div class="item item-input item-select">
                         <div class="input-label">Arrivée :</div>
-                            <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="trajet.savedate = '';broadcastRefresh()">
+                            <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="TrajetsService.RefreshAll();">
                                 <OPTION value='0' >Toutes directions</OPTION>
-                                <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{gare[index.codeTR3A]}}</OPTION>
+                                <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
                             </SELECT>
                             <div ng-hide="ListeDessertes" ng-click="getDessertes();">
-                                <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{gare[trajet.arrivee]}}
+                                <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
                             </div>
                     </div>
 					<div class="button-bar">
 						<a class="button" ng-click="autoDepart='';">Annuler</a>
-						<a class="button" ng-click="TrajetsService.AddTrajet(trajet.depart.originalObject.code, trajet.arrivee); autoDepart=''; trajet={}; $route.reload();">Sauvegarder</a>
+						<a class="button" ng-click="TrajetsService.AddTrajet(trajet.garedepart.code, trajet.arrivee); autoDepart=''; trajet={}; $route.reload();">Sauvegarder</a>
 					</div>
                     <div>
 						<input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click=""/>
@@ -59,11 +65,11 @@
                     </div>
 				<div class="collapsible" ng-show="collapse">
 					<div class="item item-input" style="border-style:none;">
-						<div class="input-label">Depart  :</div>
+						<div class="input-label">Depart  : {{trajet.depart | libGare}}</div>
 					</div>
 					<div>
 						<div class="item item-input item-select">
-							<div class="input-label">Arrivée :/div>
+							<div class="input-label">Arrivée :</div>
 								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$storage.gtfs[trajet.idTrajet].savedate = '0';TrajetsService.RefreshAll();">
 									<OPTION value='0' >Toutes directions</OPTION>
 									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>

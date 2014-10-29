@@ -9,61 +9,7 @@
   </ion-nav-bar>
 <ion-content>
 <div class="cardswidth" ng-cloak>
-	<!--<div class="metacard card ng-cloak" ng-cloak  >
-			<h1>Parametres globaux</h1><div class="corner_config" ng-click="mySwipe.next()">x</div>
-			<i>Chemin : </i>{{apiUrl}}<br>
-			<i>Purger le LocalStorage : </i><input name="submit" type="submit" value="Purge" ng-click="$storage.$reset()"/><br>
-		Nombre de trains affiches par gare : {{$storage.max}}
-			<input type="range" name="max" ng-model="$storage.max" id="slider-1" min="1" max="15" value="5" data-popup-enabled="true">
-		<br/>
-		Désactiver la geolocalisation : <input type="checkbox" ng-model="$storage.nogeoloc" ng-click='$parent.localise="false";$storage.pos = { "latitude" : 48.8753578, "longitude" : 2.3247332};'/><br/>
-	</div>-->
 	<div class="settings">
-	<!--
-		<table>
-			<tr ng-click='$parent.localise="false"'><td>
-				<span class="padding-top" style="float:right;">
-				<label class="toggle toggle-assertive">
-				<input type="checkbox" ng-model="$storage.nogeoloc">
-					<div class="track">
-						<div class="handle"></div>
-					</div>
-				</label>
-				</span>
-				<h2>Désactiver la localisation</h2>
-				<h3 ng-show="$storage.nogeoloc">Les trajets sont triés selon l'ordre défini dans la page de gestion des gares</h3>
-				<h3 ng-hide="$storage.nogeoloc">La géolocalisation est activée</h3>
-
-			</td></tr>
-			<tr><td>
-				<h2>Trains affichés par gare : {{$storage.max}}</h2>
-				<br />
-				  <div class="item range range-positive" style="border-width:0px">
-					<input type="range" name="volume" ng-model="$storage.max" min="3" max="15" value="33">
-				</div>
-			</td></tr>
-            <tr ><td>
-				<span class="padding-top" style="float:right;">
-				<label class="toggle toggle-assertive">
-				<input type="checkbox" ng-model="$storage.noline">
-					<div class="track">
-						<div class="handle"></div>
-					</div>
-				</label>
-				</span>
-                <h2>Masquer les nom de lignes</h2>
-                <h3 ng-show="$storage.noline">Les noms de lignes ne sont pas affichés</h3>
-                <h3 ng-hide="$storage.noline">Les noms de lignes sont affichés</h3>
-                <paper-toggle-button class="right" ng-model="$storage.noline"></paper-toggle-button>
-            </td></tr>
-			<tr><td>
-				<h2>Réinitialiser l'application</h2>
-				<h3>Attention, cela supprimera toutes vos gares</h3>
-				<input class="right" name="submit" type="submit" value="Purge" ng-click="purge()"/>
-			</td></tr>
-		</table>
-	</div>
-	-->
 	<ion-list>
 		<ion-item>
 				<span class="padding-top" style="float:right;">

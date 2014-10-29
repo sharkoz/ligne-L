@@ -1,17 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal', 'firebase' ]);
-
-/*app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/', {templateUrl: 'partials/horaires.html', controller: 'HorairesCtrl', route:'Accueil'});
-  $routeProvider.when('/ajout', {templateUrl: 'partials/ajout.html', controller: 'HorairesCtrl', route:'Gares'});
-  $routeProvider.when('/aide', {templateUrl: 'partials/aide.html', controller: '', route:'Aide'});
-  $routeProvider.when('/apropos', {templateUrl: 'partials/apropos.html', controller: '', route:'A propos'});
-  $routeProvider.when('/options', {templateUrl: 'partials/options.html', controller: '', route:'Options'});
-  $routeProvider.when('/agenda', {templateUrl: 'partials/agenda.html', controller: 'AgendaCtrl', route:'Agenda'});
-  $routeProvider.otherwise({redirectTo: '/'});
-}]);*/
+var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal', 'firebase' ]);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
