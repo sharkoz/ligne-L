@@ -28,19 +28,19 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 		if(TrajetsService.live[idTrajet] === undefined){
 			TrajetsService.live[idTrajet]={};
 		}
-		if($localStorage.gtfs[idTrajet] === undefined){
-			$localStorage.gtfs[idTrajet]={};
+		if($localStorage.saveGtfs[idTrajet] === undefined){
+			$localStorage.saveGtfs[idTrajet]={};
 		}		
-		if($localStorage.gtfs[idTrajet].passages === undefined){
-			$localStorage.gtfs[idTrajet].passages={};
+		if($localStorage.saveGtfs[idTrajet].passages === undefined){
+			$localStorage.saveGtfs[idTrajet].passages={};
 		}
 		// Si les prévisions existent, on rafraichit asap
-    	if ($localStorage.gtfs[idTrajet].passages.train !== undefined) {
+    	if ($localStorage.saveGtfs[idTrajet].passages.train !== undefined) {
     	    TrajetsService.previ[idTrajet] = getPrevi(idTrajet);
     	    TrajetsService.display[idTrajet] = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
     	}
 	    // Si le gtfs n'est pas à jour on le telecharge
-    	if ($localStorage.gtfs_refresh > $localStorage.gtfs[idTrajet].savedate || isNaN($localStorage.gtfs[idTrajet].savedate)) {
+    	if ($localStorage.saveGtfs_refresh > $localStorage.saveGtfs[idTrajet].savedate || isNaN($localStorage.saveGtfs[idTrajet].savedate)) {
     	    saveGtfs(idTrajet);
     	}
     	else {
@@ -52,8 +52,8 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	saveGtfs = function(idTrajet){
 		ApiService.getGtfs($localStorage.favoris[favIndex(idTrajet)].depart, $localStorage.favoris[favIndex(idTrajet)].arrivee)
     	    .then(function(data) {
-    	    	$localStorage.gtfs[idTrajet] = data;
-    	    	$localStorage.gtfs[idTrajet].savedate = Math.floor(new Date().getTime()/1000);
+    	    	$localStorage.saveGtfs[idTrajet] = data;
+    	    	$localStorage.saveGtfs[idTrajet].savedate = Math.floor(new Date().getTime()/1000);
     	    	RefreshTrajet(idTrajet);
     	    })
     	    .catch(function(error) {
@@ -85,8 +85,8 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 		arrivee = arrivee || "0";
 		idTrajet = Math.max(0,_.max($localStorage.favoris, function(fav){return fav.idTrajet;}).idTrajet+1);
         $localStorage.favoris.push ({'idTrajet' : idTrajet, 'depart' : depart, 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true});
-        $localStorage.gtfs[idTrajet] = {};
-        $localStorage.gtfs[idTrajet].savedate="0";
+        $localStorage.saveGtfs[idTrajet] = {};
+        $localStorage.saveGtfs[idTrajet].savedate="0";
 
 		InitService.gaTrackEvent("Trajet", "Add", "Trajet added", idTrajet);
 		TrajetsService.RefreshAll();
@@ -95,7 +95,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	TrajetsService.RmTrajet = function(idTrajet){
 		if($window.confirm("Voulez vous supprimer ce trajet ?")) {
 			$localStorage.favoris.splice(favIndex(idTrajet),1);
-			$localStorage.gtfs = _.omit($localStorage.gtfs, idTrajet);
+			$localStorage.saveGtfs = _.omit($localStorage.saveGtfs, idTrajet);
 			TrajetsService.RefreshAll();	
 		}
 	}
@@ -103,7 +103,7 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	// Fonction pour récupérer les horaires théoriques des prochains trains
 	getPrevi = function(idTrajet, max){
 		max = max || 15;
-		save = $localStorage.gtfs[idTrajet].passages;
+		save = $localStorage.saveGtfs[idTrajet].passages;
 		var i=0;
 		var n=0;
 		var take=0;

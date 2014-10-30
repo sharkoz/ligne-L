@@ -45,7 +45,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
         });
    };
    refreshGtfsDate = function(data) {
-       $localStorage.gtfs_refresh = data;
+       $localStorage.saveGtfs_refresh = data;
        //console.log("refreshdate : "+data);
    }
 
@@ -54,7 +54,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
 			$localStorage.$reset();
 			$localStorage.max = 5;
-			$localStorage.gtfs_refresh = "1405015264";
+			$localStorage.saveGtfs_refresh = "1405015264";
 		};
 	};
 
@@ -62,8 +62,8 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 	InitService.init = function(){
 
 		// Variables du localstorage
-		if ($localStorage.gtfs_refresh===undefined) {
-        	$localStorage.gtfs_refresh = "1405015264";
+		if ($localStorage.saveGtfs_refresh===undefined) {
+        	$localStorage.saveGtfs_refresh = "1405015264";
     	}
     	if ($localStorage.max===undefined){
 			$localStorage.max = 5;
@@ -71,8 +71,8 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		if ($localStorage.favoris===undefined){
 			$localStorage.favoris = [];
 		}
-		if ($localStorage.gtfs===undefined){
-			$localStorage.gtfs = {};
+		if ($localStorage.saveGtfs===undefined){
+			$localStorage.saveGtfs = {};
 		}
 
 		GtfsDate(); // Date de dernière MaJ des données du serveur
