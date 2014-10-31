@@ -13,14 +13,17 @@ function GeolocService ($localStorage, Geomath, Locate, LIB_GARE) {
   }
 
   GeolocService.calculateDistance = function(geo1, geo2){
-    geo2 = geo2 || $localStorage.pos;
-    var dist = Geomath.calculateDistance(geo1, geo2);
+    	geo2 = geo2 || $localStorage.pos;
+    	var dist = Geomath.calculateDistance(geo1, geo2);
 		return dist;
   };
 
   GeolocService.calculateDistanceGare = function(idGare){
+    var dist;
     geo1 = gareLocation(idGare);
-    var dist = GeolocService.calculateDistance(geo1);
+    if($localStorage.pos !== undefined && !$localStorage.nogeoloc){
+    	var dist = GeolocService.calculateDistance(geo1);
+    }
     return dist;
   };
 

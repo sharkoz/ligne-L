@@ -16,3 +16,15 @@ function distance () {
 angular
   .module('ligneL')
   .filter('distance', distance);
+
+function formatSpecial(){
+	return function(text){
+		//if(text == undefined){text = ''};
+	    console.log(text);
+	    //var res = text.replace(/[^a-zéèà]/gi, '').replace(/é/gi, 'e').replace(/è/gi, 'e').replace(/à/gi, 'a');
+	    return text;
+	};
+};
+angular
+  .module('ligneL')
+  .filter('formatSpecial', formatSpecial);

@@ -75,6 +75,8 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 			$localStorage.saveGtfs = {};
 		}
 
+		GeolocService.RefreshLoc();
+
 		GtfsDate(); // Date de dernière MaJ des données du serveur
 
 		InitService.gaTrackPage("App", "Open", "App opened", 1);

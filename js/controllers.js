@@ -21,13 +21,6 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 		  $scope.route = next.route;
 		  if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
     });
-	
-	// 1 - Get localstorage
-    $scope.$storage = $localStorage;
-
-    $scope.reloadRoute = function () {
-        $route.reload();
-    };
 
     /** Gestion des Modals */
     // Modal du menu caché par défaut
@@ -211,6 +204,20 @@ app.controller('TrajetCtrl',function($scope, TrajetsService){
 app.controller('TrajetModif',function( $scope, $window, ApiService ){
    // Recherche des gares
 
+     formatSpecial = function(text){
+        if(text == undefined){text = ''};
+        var res = text.replace(/[^a-z]/gi, '').replace(/é/gi, 'e').replace(/è/gi, 'e').replace(/à/gi, 'a');
+        return res;
+     }
+
+     $scope.specialCompare = function(text1, text2){
+        if(text1 == undefined){text1 = ''};
+        if(text2 == undefined){text2 = ''};
+        var res1 = text1.toLowerCase().replace(/[^a-z]/gi, '').replace(/é/gi, 'e').replace(/è/gi, 'e').replace(/à/gi, 'a');
+        var res2 = text2.toLowerCase().replace(/[^a-z]/gi, '').replace(/é/gi, 'e').replace(/è/gi, 'e').replace(/à/gi, 'a');
+        r = res1.indexOf(res2);
+        return r>=0;
+     }
 
    $scope.getLocation = function(){
 		//console.log('entered');
@@ -243,7 +250,7 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
           $scope.ListeDessertes = data;
         })
         .catch(function(error) {
-          $console.log(error);
+          console.log(error);
         });
    };
 
