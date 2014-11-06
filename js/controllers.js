@@ -42,7 +42,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
       $scope.dep = dep;
       // get détail
       $scope.$parent.detailloading = true;
-      // NEW
+
       ApiService.getDetail($scope.train.longnum)
         .then(function(data) {
           $scope.getDetail(data);
@@ -50,8 +50,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
         .catch(function(error) {
           $scope.getDetailError(error)
         });
-      // DEPRECATED
-      //DataSource.get($scope.getDetail,$scope.getDetailError, $scope.apiUrl + "detail/" + $scope.train.longnum);
+
       if ($scope.phonegap) {$scope.gaPlugin.trackEvent($scope.successHandler, $scope.errorHandler, "App", "GetDetails", "Get Details", 1);};
   	};
     // Ajout de la transco des gares pour le modal
@@ -261,19 +260,7 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
     console.log('yes');
    }
 	
-	/* Listener sur le champ de saisie de la gare de départ
-	$scope.$watch('autoDepart', function(){
-		if($scope.norefresh==1) {$scope.norefresh=0;}
-		else {$scope.getLocation();}
-	});*/
-   
-
 })
-
-
-
-
-
 
 
 .controller("loginCtrl", function($scope, $rootScope, $firebase, $firebaseSimpleLogin) {
