@@ -49,6 +49,28 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
        //console.log("refreshdate : "+data);
    }
 
+   	migreTrajetV2= function(trajet){
+   		depart=trajet.depart;
+   		arrivee=trajet.arrivee || '0';
+   		if(_.isEmpty($localStorage.favoris)){
+			idTrajet = 0;
+		}
+		else{
+			idTrajet = _.max($localStorage.favoris, function(fav){return fav.idTrajet;}).idTrajet+1;			
+		}
+        $localStorage.favoris.push ({'idTrajet' : idTrajet, 'depart' : depart, 'arrivee' : arrivee, 'is_ar' : false, 'distance': 0, 'aller': true});
+        $localStorage.saveGtfs[idTrajet] = {};
+        $localStorage.saveGtfs[idTrajet].savedate="0";
+    }
+
+   migrationV2 = function(){
+   	if($localStorage.favoris===undefined && $localStorage.param!==undefined){
+   		// Migration des trajets
+   		$localStorage.favoris=[];
+   		_.forEach($localStorage.param.trajet,migreTrajetV2);
+   	}
+   }
+
        // Function to clear the local storage
 	InitService.purgeStorage = function() {
 		if($window.confirm("Voulez vous réinitialiser l'application ? Toutes vos gares favorites et vos paramètres seront perdus.")) {
@@ -68,6 +90,9 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
     	if ($localStorage.max===undefined){
 			$localStorage.max = 5;
 		}
+
+		migrationV2();
+
 		if ($localStorage.favoris===undefined){
 			$localStorage.favoris = [];
 		}
