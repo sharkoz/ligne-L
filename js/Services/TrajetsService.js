@@ -83,7 +83,12 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
 	TrajetsService.AddTrajet = function(depart, arrivee, is_ar){
 		is_ar = is_ar || false;
 		arrivee = arrivee || "0";
-		idTrajet = Math.max(0,_.max($localStorage.favoris, function(fav){return fav.idTrajet;}).idTrajet+1);
+		if(_.isEmpty($localStorage.favoris)){
+			idTrajet = 0;
+		}
+		else{
+			idTrajet = _.max($localStorage.favoris, function(fav){return fav.idTrajet;}).idTrajet+1;			
+		}
         $localStorage.favoris.push ({'idTrajet' : idTrajet, 'depart' : depart, 'arrivee' : arrivee, 'is_ar' : is_ar, 'distance': 0, 'aller': true});
         $localStorage.saveGtfs[idTrajet] = {};
         $localStorage.saveGtfs[idTrajet].savedate="0";
