@@ -91,13 +91,14 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 			$localStorage.max = 5;
 		}
 
+		if ($localStorage.saveGtfs===undefined){
+			$localStorage.saveGtfs = {};
+		}
+
 		migrationV2();
 
 		if ($localStorage.favoris===undefined){
 			$localStorage.favoris = [];
-		}
-		if ($localStorage.saveGtfs===undefined){
-			$localStorage.saveGtfs = {};
 		}
 
 		GeolocService.RefreshLoc();
