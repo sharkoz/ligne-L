@@ -95,7 +95,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 	/** Gestion de l'agenda par trajet */
 	
 	$scope.setAgenda = function (trajet) {
-		$scope.trajet = trajet;
+		$scope.idTrajet = trajet.idTrajet;
 		//console.log("Agenda set on scope "+$scope.$id);
 		$scope.slideIndex = 0;
 	}
@@ -131,67 +131,45 @@ app.controller('HorairesCtrl',function( $scope, $localStorage, LIB_GARE){
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $stateParams){
+app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $localStorage, $ionicSlideBoxDelegate, $stateParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 	$scope.param = $scope.$storage.param;
+  $scope.favoris = $localStorage.favoris;
 
   $scope.gare = LIB_GARE;
 
-	$scope.setAgenda = function (trajet) {
-		$scope.trajet = trajet;
-		//console.log("Agenda set on scope "+$scope.$id);
-		//console.log(trajet);
-		$scope.slideIndex = 0;
-		$scope.slides=[];
-		$scope.addSlides($scope.slides	, '', 2);
-		$scope.$apply;
-	}
-	
-    //console.log('init scope '+$scope.$id);
-   $scope.$watch('slideIndex', function(newVal, oldVal, scope){
-       if(newVal>$scope.slides.length-3){
-           $scope.addSlide($scope.slides,'');
-		   console.log('Added slide '+scope.slides.length);
-		   }
-       console.log('On slide '+newVal);
-   }, true);
-   
-    $scope.addSlide = function (target, style) {
-		var i = target.length;
-		var date = new Date();
-		var result = new Date(date);
-		result.setDate(date.getDate() + i);
-		target.push({
-			label: 'slide #' + (i + 1),
-			currDay: result.getFullYear()+'-'+('0'+(result.getMonth()+1)).substr(-2)+'-'+('0'+result.getDate()).substr(-2)
-		});
-		//console.log(target);
-	}
-	
-	$scope.addSlides = function (target, style, qty) {
-        for (var i=0; i < qty; i++) {
-            $scope.addSlide(target, style);
-        }
-	}
-	
-	$scope.addDays = function (days) {
-		var date = new Date();
-		var result = new Date(date);
-		result.setDate(date.getDate() + days);
-		return result.toLocaleDateString();
-	}
-	
-	$scope.slides=[];
-	$scope.addSlides($scope.slides	, '', 2);
-	$scope.slideIndex = 0;
+  $scope.slideIndex = 0;
+  $scope.oldindex = 0;
 	$scope.today=Math.floor(new Date().getTime()/86400000);
-	//$scope.$apply;
+
+  $scope.slideNext = function(){
+    $ionicSlideBoxDelegate.next();
+  } 
+
+  $scope.slidePrevious = function(){
+    $ionicSlideBoxDelegate.previous();
+  } 
+
+
+  $scope.slideChanged = function(index){
+    console.log(index+' - '+$scope.oldindex % 3);
+    console.log(index-($scope.oldindex % 3));
+    if(index-($scope.oldindex % 3)==-1 || index-($scope.oldindex % 3)==2){
+      $scope.slideIndex = $scope.slideIndex-1;
+    }
+    else{
+      $scope.slideIndex = $scope.slideIndex+1;
+    }
+    $scope.oldindex =  $scope.slideIndex;
+  }
 	
 	if ($stateParams.id) {
-		//console.log("id :"+$routeParams.id);
+		//console.log("id :"+$stateParams.id);
 		//console.log($scope.param.trajet);
-        $scope.setAgenda($scope.param.trajet[$stateParams.id]);
+    $scope.idTrajet = $stateParams.id;
+    $scope.trajetAgenda = $localStorage.favoris[$scope.idTrajet];
+    $scope.gtfsTrajet = $localStorage.saveGtfs[$scope.idTrajet];
 	}
 })
 

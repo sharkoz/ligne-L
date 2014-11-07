@@ -17,14 +17,14 @@ angular
   .module('ligneL')
   .filter('distance', distance);
 
-function formatSpecial(){
-	return function(text){
-		//if(text == undefined){text = ''};
-	    console.log(text);
-	    //var res = text.replace(/[^a-zéèà]/gi, '').replace(/é/gi, 'e').replace(/è/gi, 'e').replace(/à/gi, 'a');
-	    return text;
+function addDays(){
+	return function(days){
+		var date = new Date();
+	    var result = new Date(date);
+	    result.setDate(date.getDate() + days);
+	    return result.toLocaleDateString();
 	};
 };
 angular
   .module('ligneL')
-  .filter('formatSpecial', formatSpecial);
+  .filter('addDays', addDays);
