@@ -55,16 +55,15 @@ Quand le réseau est revenu, Next récupère également les informations de reta
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
 		<gap:plugin name="com.adobe.plugins.gaplugin" />
-        <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
+        	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
 		<gap:plugin name="nl.x-services.plugins.socialsharing" />
 		<gap:plugin name="com.machenmusik.plugins.launchmyapp" version="3.1.2">
 			<param name="URL_SCHEME" value="next" />
-			<param name="HTTP_HOST" value="rlier.fr" />
-			<param name="HTTP_PATHPREFIX" value="ligne-L" />
-			<param name="HTTPS_HOST" value="..." />
-			<param name="HTTPS_PATHPREFIX" value="..." />
+			<param name="HTTP_HOST" value="nexttrain.fr" />
+			<param name="HTTP_PATHPREFIX" value="app" />
+			<param name="HTTPS_HOST" value="nexttrain.fr" />
+			<param name="HTTPS_PATHPREFIX" value="app" />
 		</gap:plugin>
-		<gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.4" />
     <!-- Define app icon for each platform. -->
     <icon src="next.png" />
     <icon src="next.png" gap:platform="android"    gap:density="ldpi" />
