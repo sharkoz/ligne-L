@@ -18,12 +18,8 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 	}
 
 	$localStorage.apiUrl = InitService.apiUrl;
-  
-	// Analytics
-	if(InitService.phonegap){
-		gaPlugin = window.plugins.gaPlugin;
-		gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
-	}
+  	
+  	var gaPlugin;
 	InitService.gaTrackEvent = function(n1, n2, n3, value){
 		if(InitService.phonegap){
 			gaPlugin.trackEvent(null, function(error){console.log(error);}, n1, n2, n3, value);
@@ -104,6 +100,18 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		GeolocService.RefreshLoc();
 
 		GtfsDate(); // Date de dernière MaJ des données du serveur
+
+			// Analytics
+		document.addEventListener("deviceready", onDeviceReady, false);
+		function onDeviceReady() {
+			initAnalytics();
+		}
+		initAnalytics = function(){
+			if(InitService.phonegap){
+				gaPlugin = window.plugins.gaPlugin;
+				gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+			}
+		}
 
 		InitService.gaTrackPage("App", "Open", "App opened", 1);
 		InitService.gaTrackPage("Accueil");
