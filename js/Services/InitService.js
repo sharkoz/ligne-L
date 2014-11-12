@@ -21,7 +21,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
   
 	// Analytics
 	if(InitService.phonegap){
-		gaPlugin = $window[0].plugins.gaPlugin;
+		gaPlugin = window.plugins.gaPlugin;
 		gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
 	}
 	InitService.gaTrackEvent = function(n1, n2, n3, value){
