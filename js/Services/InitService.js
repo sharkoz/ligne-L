@@ -19,18 +19,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 
 	$localStorage.apiUrl = InitService.apiUrl;
   	
-  	var gaPlugin;
-	InitService.gaTrackEvent = function(n1, n2, n3, value){
-		if(InitService.phonegap){
-			gaPlugin.trackEvent(null, function(error){console.log(error);}, n1, n2, n3, value);
-		}
-	}
-	InitService.gaTrackPage = function(page){
-		if(InitService.phonegap){
-			gaPlugin.trackPage(null, function(error){console.log(error);}, page);
-		}
-	}
-	
+
    GtfsDate = function(){
       ApiService.getLastRefresh()
         .then(function(data) {
@@ -76,6 +65,11 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		};
 	};
 
+	InitService.gaTrackEvent = function(n1, n2, n3, value){
+	}
+	InitService.gaTrackPage = function(page){
+	}
+
 	// Fonction d'initialisation
 	InitService.init = function(){
 
@@ -104,19 +98,25 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 			// Analytics
 		document.addEventListener("deviceready", onDeviceReady, false);
 		function onDeviceReady() {
-			initAnalytics();
-		}
-		initAnalytics = function(){
+			var gaPlugin;
 			if(InitService.phonegap){
 				gaPlugin = window.plugins.gaPlugin;
 				gaPlugin.init(successHandler, errorHandler, "UA-45793940-1", 10);
+			}
+			InitService.gaTrackEvent = function(n1, n2, n3, value){
+				if(InitService.phonegap){
+					gaPlugin.trackEvent(null, function(error){console.log(error);}, n1, n2, n3, value);
+				}
+			}
+			InitService.gaTrackPage = function(page){
+				if(InitService.phonegap){
+					gaPlugin.trackPage(null, function(error){console.log(error);}, page);
+				}
 			}
 		}
 
 		InitService.gaTrackPage("App", "Open", "App opened", 1);
 		InitService.gaTrackPage("Accueil");
-		
-
     }
 
 	return InitService;
