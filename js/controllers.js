@@ -124,7 +124,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 
   // Phonegap event listener
   if(InitService.phonegap){
-    $document.addEventListener("resume", onResume, false);
+    document.addEventListener("resume", onResume, false);
   }
   // Desktop event listener
   $window.onfocus = function() {

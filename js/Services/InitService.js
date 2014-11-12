@@ -99,6 +99,12 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
 		document.addEventListener("deviceready", onDeviceReady, false);
 		function onDeviceReady() {
     		console.log("deviceready from InitService.js");
+		    function successHandler(result) {
+		        //alert('anaytics success : '+result);
+		    }
+		    function errorHandler(error) {
+		        //alert('anaytics error : '+error);
+		    }
 			var gaPlugin;
 			if(InitService.phonegap){
 				gaPlugin = window.plugins.gaPlugin;
