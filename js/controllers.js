@@ -12,7 +12,8 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 	// TODO : mettre dans app
 	document.addEventListener("deviceready", onDeviceReady, false);
 	function onDeviceReady() {
-		analytics();
+    console.log("deviceready from controller.js");
+		//analytics();
 	}
 
     $scope.$on('$routeChangeSuccess', function(event, next, current) {
@@ -100,7 +101,18 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 		$scope.slideIndex = 0;
 	}
 
-
+  onResume = function(){
+    console.log("onresume");    
+    TrajetsService.RefreshAll();
+    GeolocService.RefreshLoc();
+    InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
+  };
+  $scope.onResume = function(){
+    console.log("scope.onresume");
+    TrajetsService.RefreshAll();
+    GeolocService.RefreshLoc();
+    InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
+  };
 
 
   InitService.init();
@@ -119,11 +131,6 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
     onResume();
   };
 
-  onResume = function(){
-    TrajetsService.RefreshAll();
-    GeolocService.RefreshLoc();
-    InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
-  };
 });
 
 app.controller('HorairesCtrl',function( $scope, $localStorage, LIB_GARE){
