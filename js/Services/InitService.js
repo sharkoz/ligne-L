@@ -53,6 +53,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
    		// Migration des trajets
    		$localStorage.favoris=[];
    		_.forEach($localStorage.param.trajet,migreTrajetV2);
+   		
    	}
    }
 
