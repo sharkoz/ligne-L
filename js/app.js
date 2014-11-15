@@ -107,7 +107,7 @@ app.filter('agenda', function(toDayFilter, formatAddDateFilter) {
 		else {
 			for (var i=0, len=collection.length; i<len; i++) {
 				train=collection[i];
-				if (toDayFilter(train.valid.deb) >	today+slideIndex || toDayFilter(train.valid.fin) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf(formatAddDateFilter(slideIndex)))>-1) {
+				if (toDayFilter(train.valid.deb) >	today+slideIndex || toDayFilter(train.valid.fin) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf(formatAddDateFilter(slideIndex))>-1)) {
 					// Do nothing
 				}
 				else {
@@ -118,6 +118,12 @@ app.filter('agenda', function(toDayFilter, formatAddDateFilter) {
 		}
      return res;
    };
+});
+
+app.filter('limitFromTo', function(){
+    return function(input, from, to){
+        return (input != undefined)? input.slice(from, from+to) : '';
+    }
 });
 
 app.directive('clock', function($timeout, dateFilter){

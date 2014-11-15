@@ -138,12 +138,20 @@ app.controller('HorairesCtrl',function( $scope, $localStorage, LIB_GARE){
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $localStorage, $ionicSlideBoxDelegate, $stateParams){
+app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $filter, $localStorage, $ionicScrollDelegate, $ionicSlideBoxDelegate, $stateParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 	$scope.param = $scope.$storage.param;
   $scope.favoris = $localStorage.favoris;
-
+  $scope.start = 0;
+  $scope.nextpage = function(){
+    $scope.start += 100;
+    $ionicScrollDelegate.scrollTop(false);
+  }   
+  $scope.prevpage = function(){
+    $scope.start -= 100;
+    $ionicScrollDelegate.scrollBottom(false);
+  }  
   $scope.gare = LIB_GARE;
 
   $scope.slideIndex = 0;
@@ -152,11 +160,38 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $localStorage,
 
   $scope.slideNext = function(){
     $ionicSlideBoxDelegate.next();
+    $scope.filteredPage = $scope.newPage();
   } 
 
   $scope.slidePrevious = function(){
     $ionicSlideBoxDelegate.previous();
+    $scope.filteredPage = $scope.newPage();
   } 
+
+  $scope.newPage = function(){
+    collection = $scope.gtfsTrajet.passages.train;
+    var res = new Array;
+    var train;
+    var today=Math.floor(new Date().getTime()/86400000);
+    var slideIndex = $scope.slideIndex;
+    console.log('fltre')
+    if (collection===undefined) {
+      return ;
+    }
+    else {
+      for (var i=0, len=collection.length; i<len; i++) {
+        train=collection[i];
+        if ($filter('toDay')(train.valid.deb) >  today+slideIndex || $filter('toDay')(train.valid.fin) <today+slideIndex || (!!train.valid.moins && train.valid.moins.indexOf($filter('formatAddDate')  (slideIndex))>-1)) {
+          // Do nothing
+        }
+        else {
+          res.push(collection[i]);
+        }
+        //console.log("i : "+i+" len : " + len + " var : " +collection[i]['date']['jsdate'] + " / now : " +now);
+      }
+    }
+     return res;
+  }
 
 
   $scope.slideChanged = function(index){
@@ -178,6 +213,7 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $localStorage,
     $scope.trajetAgenda = $localStorage.favoris[$scope.idTrajet];
     $scope.gtfsTrajet = $localStorage.saveGtfs[$scope.idTrajet];
 	}
+  $scope.filteredPage = $scope.newPage();
 })
 
 
