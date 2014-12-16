@@ -41,7 +41,7 @@ $urlRouterProvider.otherwise("/");
     });
 });
 
-app.run( [ '$rootScope', function ($rootScope) { $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) { $rootScope.$viewHistory.backView = true }); }]);
+//app.run( [ '$rootScope', function ($rootScope) { $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) { $rootScope.$viewHistory.backView = true }); }]);
 
 app.filter('future', function() {
 	return function(collection) {
