@@ -1,12 +1,12 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal', 'firebase' ]);
+var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
 $urlRouterProvider.otherwise("/");
-
+$ionicConfigProvider.views.maxCache(0);
   $stateProvider
     .state('horaires', {
       url: "/",
