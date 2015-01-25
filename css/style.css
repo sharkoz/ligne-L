@@ -509,6 +509,10 @@ h3 {
   text-align: center;  
 } 
 
+.error{
+  color: red;
+}
+
 .spin_image{
     -webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;

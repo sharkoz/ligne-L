@@ -3,7 +3,7 @@ function SpinnersService ($rootScope) {
 	
 	// Contient les classes à mettre aux spinners, au début on met une classe vide
 	SpinnersService.gps="";
-	SpinnersService.refresh="";
+	$rootScope.refresh={};
 
 	SpinnersService.setGps = function(){
 		SpinnersService.gps="spin_image";
@@ -13,12 +13,17 @@ function SpinnersService ($rootScope) {
 		SpinnersService.gps="";
 	}
 
-	SpinnersService.setRefresh = function(){
-		$rootScope.refresh="spin_image";
+	SpinnersService.setRefresh = function(idTrajet){
+		$rootScope.refresh[idTrajet]="spin_image";
 	}
 
-	SpinnersService.resetRefresh = function(){
-		$rootScope.refresh="";
+	SpinnersService.resetRefresh = function(idTrajet){
+		$rootScope.refresh[idTrajet]="";
+		$rootScope.$broadcast('scroll.refreshComplete');
+	}
+
+	SpinnersService.errorRefresh = function(idTrajet){
+		$rootScope.refresh[idTrajet]="error";
 		$rootScope.$broadcast('scroll.refreshComplete');
 	}
 

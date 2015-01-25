@@ -66,18 +66,20 @@ function TrajetsService ($document, $window, $localStorage, $filter, InitService
     		.then(function(data) {
         		TrajetsService.live[idTrajet] = data.passages;
         		TrajetsService.display[idTrajet] = merge(TrajetsService.live[idTrajet].train, TrajetsService.previ[idTrajet]);
+    			SpinnersService.resetRefresh(idTrajet);
     		})
     		.catch(function(error) {
+    			SpinnersService.errorRefresh(idTrajet);
        			console.log(error);
       		});
   	}
 
 	TrajetsService.RefreshAll = function(){
 		// TODO : remplace le broadcast
-		SpinnersService.setRefresh();
+		_.each($localStorage.favoris, function(value){SpinnersService.setRefresh(value.idTrajet);});
 		_.each($localStorage.favoris, function(value){RefreshTrajet(value.idTrajet);});
 		_.each($localStorage.favoris, function(value){RefreshDistance(value.idTrajet);});
-		SpinnersService.resetRefresh();
+		//SpinnersService.resetRefresh();
 	}
 
 	TrajetsService.AddTrajet = function(depart, arrivee, is_ar){
