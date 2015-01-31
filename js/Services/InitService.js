@@ -30,7 +30,7 @@ function InitService ($document, $window, $localStorage, ApiService, GeolocServi
         });
    };
    refreshGtfsDate = function(data) {
-       $localStorage.saveGtfs_refresh = data;
+       $localStorage.saveGtfs_refresh = _.parseInt(data);
        //console.log("refreshdate : "+data);
    }
 
