@@ -102,7 +102,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 	}
 
   onResume = function(){
-    console.log("onresume");    
+    //console.log("onresume");    
     TrajetsService.RefreshAll();
     GeolocService.RefreshLoc();
     InitService.gaTrackEvent("App", "Refresh", "App refreshed", 1);
@@ -174,7 +174,7 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $filter, $loca
     var train;
     var today=Math.floor(new Date().getTime()/86400000);
     var slideIndex = $scope.slideIndex;
-    console.log('fltre')
+    //console.log('fltre')
     if (collection===undefined) {
       return ;
     }
@@ -195,8 +195,8 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $filter, $loca
 
 
   $scope.slideChanged = function(index){
-    console.log(index+' - '+$scope.oldindex % 3);
-    console.log(index-($scope.oldindex % 3));
+    //console.log(index+' - '+$scope.oldindex % 3);
+    //console.log(index-($scope.oldindex % 3));
     if(index-($scope.oldindex % 3)==-1 || index-($scope.oldindex % 3)==2){
       $scope.slideIndex = $scope.slideIndex-1;
     }
@@ -204,16 +204,18 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $filter, $loca
       $scope.slideIndex = $scope.slideIndex+1;
     }
     $scope.oldindex =  $scope.slideIndex;
+    $scope.filteredPage = $scope.newPage();
   }
 	
 	if ($stateParams.id) {
 		//console.log("id :"+$stateParams.id);
 		//console.log($scope.param.trajet);
     $scope.idTrajet = $stateParams.id;
-    $scope.trajetAgenda = $localStorage.favoris[$scope.idTrajet];
+    $scope.trajetAgenda = _.find($localStorage.favoris, function(chr) { return chr.idTrajet = $scope.idTrajet; });
     $scope.gtfsTrajet = $localStorage.saveGtfs[$scope.idTrajet];
+    $scope.filteredPage = $scope.newPage();
 	}
-  $scope.filteredPage = $scope.newPage();
+  
 })
 
 

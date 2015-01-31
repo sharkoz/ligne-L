@@ -22,7 +22,7 @@
 		</a>
 	</div>
 
-	<ion-slide-box does-continue="true" show-pager="false" on-slide-changed="slideChanged($index)" style="height:100%">
+	<ion-slide-box does-continue="true" show-pager="false" on-slide-changed="slideChanged($index)" style="height:100%" ng-show="idTrajet">
 		<ion-slide ng-repeat="i in '123'.split('')" style="height:100%">
 			<div class="list">
 				<ion-item class="item item-icon-left item-icon-right" ng-hide="start<50" style="left: 0;right: 0;padding-top: 0;padding-bottom: 0;height:35px;text-align:center;line-height:35px" ng-click="prevpage()">
