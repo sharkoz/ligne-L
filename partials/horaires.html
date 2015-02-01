@@ -3,6 +3,9 @@
     <ion-nav-buttons side="left">
 		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
 	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<a class="button button-icon icon ion-android-add" style="font-size:25px;" href="#/ajout" ></a>
+	</ion-nav-buttons>
   </ion-nav-bar>
 <ion-content >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
@@ -10,7 +13,7 @@
 	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy: $storage.nogeoloc ? '' : 'distance'" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
         <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
-			<span class="ion-loop {{refresh[trajet.idTrajet]}} {{trajet.idTrajet}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
+			<span class="ion-loop {{refresh[trajet.idTrajet]}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
 			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{::trajet.idTrajet}}"></a>
             <h2>{{::trajet.depart | libGare}} <i ng-hide="$storage.nogeoloc">{{trajet.distance | distance}}</i></h2>
             <h3>Vers {{trajet.arrivee | libGare}}</h3>

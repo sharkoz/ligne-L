@@ -69,7 +69,7 @@
 			<i class="ion-home"></i>  Accueil
 			</ion-item>
 			<ion-item href="#/ajout" nav-clear>
-			<i class="ion-star"></i>  Gérer les gares
+			<i class="ion-star"></i>  Gérer les favoris
 			</ion-item>
 			<ion-item href="#/options" nav-clear>
 			<i class="ion-settings"></i>  Options
@@ -77,7 +77,7 @@
 			<ion-item href="#/apropos" nav-clear>
 			<i class="ion-information-circled"></i>  A propos
 			</ion-item>
-      <ion-item onclick="window.open('market://details?id=fr.rlier.next', '_system')" nav-clear>
+      <ion-item onclick="window.open('http://play.google.com/store/apps/details?id=fr.rlier.next', '_system')" nav-clear>
       <i class="ion-android-playstore"></i>  Noter l'application
       </ion-item>
 		</ion-list>
@@ -113,8 +113,8 @@
             </div>
             <div ng-show="dest!='0' && 1==0">Arrivée prévue à {{dest | libGare}} : *h*</div>
             <h3>Dessertes théoriques :</h3>
-            <div class="svg refresh spin_image" ng-hide="detail" style="height:18px;width:18px;">MaJ</div>
-            <table class="detail">
+            <span class="ion-loop spin_image" ng-show="detailloading" style="font-size:25px;"></span>
+            <table class="detail" ng-hide="detailloading">
                 <tbody>
                 <tr ng-repeat="arret in detail">
                     <td class="time">{{arret.time | limitTo:5}}</td>

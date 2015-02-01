@@ -42,7 +42,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
       $scope.dest = dest;
       $scope.dep = dep;
       // get détail
-      $scope.$parent.detailloading = true;
+      $scope.detailloading = true;
 
       ApiService.getDetail($scope.train.longnum)
         .then(function(data) {
@@ -64,8 +64,9 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
     };
 
     $scope.getDetail = function(data){
+      console.log("fini")
         $scope.detail = data;
-        $scope.$parent.detailloading = false;
+        $scope.detailloading = false;
     };
     $scope.getDetailError = function(err){
         console.log("Erreur recuperation des details en live");
