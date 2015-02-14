@@ -6,7 +6,7 @@ var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.r
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
 $urlRouterProvider.otherwise("/");
-$ionicConfigProvider.views.maxCache(0);
+//$ionicConfigProvider.views.maxCache(0);
   $stateProvider
     .state('horaires', {
       url: "/",

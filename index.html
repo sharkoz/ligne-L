@@ -36,9 +36,57 @@
 </head>
 
  <body ng-controller="AppCtrl" unresolved>
+
+
+
+    <ion-side-menus enable-menu-with-back-views="true" ng-cloak>
+      <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+          </ion-nav-buttons> 
+          
+          <ion-nav-buttons side="right">
+            <a class="button button-icon  button-clear ion-plus" ng-href="#/ajout"  ></a>
+          </ion-nav-buttons>
+
+        </ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+      </ion-side-menu-content>
+
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar bar-header bar-dark">
+          <h1 class="title">Menu</h1>
+        </ion-header-bar>
+        <ion-content>
+            <ion-list menu-close>
+              <ion-item href="#/" nav-clear>
+              <i class="ion-home"></i>  Accueil
+              </ion-item>
+              <ion-item href="#/ajout" nav-clear>
+              <i class="ion-star"></i>  Gérer les favoris
+              </ion-item>
+              <ion-item href="#/options" nav-clear>
+              <i class="ion-settings"></i>  Options
+              </ion-item>
+              <ion-item href="#/apropos" nav-clear>
+              <i class="ion-information-circled"></i>  A propos
+              </ion-item>
+              <ion-item onclick="window.open('http://play.google.com/store/apps/details?id=fr.rlier.next', '_system')" nav-clear>
+              <i class="ion-android-playstore"></i>  Noter l'application
+              </ion-item>
+            </ion-list>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+
+
+
+
+ <!--
      <ion-side-menus ng-cloak>
 
-    <!-- Center content -->
+    <!-- Center content ->
     <ion-side-menu-content >
       <!--<ion-header-bar class="bar-dark">
 		<!--<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
@@ -53,12 +101,12 @@
       </ion-header-bar>
 		<!--<div ui-view class="view-ligne"></div>
     <ion-nav-bar>
-    </ion-nav-bar>-->
+    </ion-nav-bar>->
 		<ion-nav-view animation="slide-left-right">
 		</ion-nav-view>
     </ion-side-menu-content>
 
-    <!-- Left menu -->
+    <!-- Left menu ->
     <ion-side-menu side="left">
       <ion-header-bar class="bar-dark">
         <h1 class="title">Menu</h1>

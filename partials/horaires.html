@@ -1,15 +1,16 @@
-<ion-view title="Next" cache-view="false">
-  <ion-nav-bar class="bar-positive">
-    <ion-nav-buttons side="left">
+<ion-view title="Next">
+<div class="bar bar-header bar-positive">
+
+    <!--<ion-nav-buttons side="left">
 		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
 	</ion-nav-buttons>
-	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-android-add" style="font-size:25px;" href="#/ajout" ></a>
-	</ion-nav-buttons>
-  </ion-nav-bar>
-<ion-content >
+	<!--<ion-nav-buttons side="right">
+		<a class="button button-icon icon ion-android-add" style="font-size:25px;" ng-href="#/ajout" ></a>
+	</ion-nav-buttons>-->
+</div>
+<ion-content class="has-header" >
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
-	<!--<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher>-->
+	<!----><ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher><!---->
 	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy: $storage.nogeoloc ? '' : 'distance'" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
         <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
