@@ -11,7 +11,7 @@
 	</ion-nav-buttons>
   </ion-nav-bar>
   	<div ng-show="idTrajet" class="bar bar-subheader bar-light">
-		<h2 style="text-align:center;margin:auto;"><i class="ion-android-arrow-back padding-horizontal" ng-click="slidePrevious();"></i> {{ slideIndex | addDays }} <i class="ion-android-arrow-forward padding-horizontal" ng-click="slideNext();"></i></h2>
+		<h2 style="text-align:center;margin:auto;"><i class="ion-android-arrow-back padding-horizontal" ng-click="slidePrevious();"></i> {{ slideIndex | addDays | date: 'fullDate' }} <i class="ion-android-arrow-forward padding-horizontal" ng-click="slideNext();"></i></h2>
 	</div>
 <ion-content class="has-subheader" delegate-handle="myScroll">
 <div class="cardswidth"  style="scroll:auto; bottom:0px;height:100%;">

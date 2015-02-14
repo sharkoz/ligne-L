@@ -293,7 +293,7 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
   var firebaseRef = new Firebase("https://nextt.firebaseio.com/");
 
   // Create a Firebase Simple Login object
-  $scope.auth = $firebaseSimpleLogin(firebaseRef);
+  $scope.auth = "a"//$firebaseSimpleLogin(firebaseRef);
 
   // Initially set no user to be logged in
   $scope.user = null;

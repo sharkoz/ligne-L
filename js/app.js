@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
+var app = angular.module('ligneL', [ 'firebase', 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
