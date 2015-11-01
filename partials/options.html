@@ -1,18 +1,18 @@
 <ion-view title="Options">
-  <ion-nav-bar class="bar-positive">
-    <ion-nav-buttons side="left">
-	<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-	</ion-nav-buttons>
-	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-home" href="#/" ></a>
-	</ion-nav-buttons>
-  </ion-nav-bar>
-<ion-content>
-<div class="cardswidth" ng-cloak>
-	<div class="settings">
-	<ion-list>
-		<ion-item>
-				<span class="padding-top" style="float:right;">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <a class="button button-icon icon ion-home" href="#/"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content>
+        <div class="cardswidth" ng-cloak>
+            <div class="settings">
+                <ion-list>
+                    <ion-item>
+                        <span class="padding-top" style="float:right;">
 				<label class="toggle toggle-assertive">
 				<input type="checkbox" ng-model="$storage.nogeoloc">
 					<div class="track">
@@ -20,21 +20,21 @@
 					</div>
 				</label>
 				</span>
-				<h2>Désactiver la localisation</h2>
-				<h3 ng-show="$storage.nogeoloc">Les trajets sont triés selon l'ordre défini dans la page de gestion des gares</h3>
-				<h3 ng-hide="$storage.nogeoloc">La géolocalisation est activée</h3>
-		</ion-item>
-		<ion-item>
-				<h2>Trains affichés par gare : {{$storage.max}}</h2>
-				<br />
-				<!--<paper-slider snaps="true" pin="true" ng-model="$storage.max" min="3" max="15" style="width:100%"></paper-slider>
+                        <h2>Désactiver la localisation</h2>
+                        <h3 ng-show="$storage.nogeoloc">Les trajets sont triés selon l'ordre défini dans la page de gestion des gares</h3>
+                        <h3 ng-hide="$storage.nogeoloc">La géolocalisation est activée</h3>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Trains affichés par gare : {{$storage.max}}</h2>
+                        <br />
+                        <!--<paper-slider snaps="true" pin="true" ng-model="$storage.max" min="3" max="15" style="width:100%"></paper-slider>
 				<h3>1 <input type="range" ng-model="$storage.max" min="1" max="15" value="5" style="width:80%;"> 15</h3>-->
-				  <div class="item range range-positive" style="border-width:0px">
-					<input type="range" name="volume" ng-model="$storage.max" min="3" max="15" value="33">
-				</div>
-		</ion-item>
-		<ion-item>
-				<span class="padding-top" style="float:right;">
+                        <div class="item range range-positive" style="border-width:0px">
+                            <input type="range" name="volume" ng-model="$storage.max" min="3" max="15" value="33">
+                        </div>
+                    </ion-item>
+                    <ion-item>
+                        <span class="padding-top" style="float:right;">
 				<label class="toggle toggle-assertive">
 				<input type="checkbox" ng-model="$storage.noline">
 					<div class="track">
@@ -42,20 +42,20 @@
 					</div>
 				</label>
 				</span>
-                <h2>Masquer les nom de lignes</h2>
-                <h3 ng-show="$storage.noline">Les noms de lignes ne sont pas affichés</h3>
-                <h3 ng-hide="$storage.noline">Les noms de lignes sont affichés</h3>
-                <paper-toggle-button class="right" ng-model="$storage.noline"></paper-toggle-button>
-		</ion-item>
-		<ion-item ng-href="#/cloud">
-				<h2>Sauvegarde cloud</h2>
-				<h3>Sauvegarder vos trajets dans le cloud</h3>
-		</ion-item>
-		<ion-item>
-				<h2>Réinitialiser l'application</h2>
-				<h3>Attention, cela supprimera toutes vos gares</h3>
-				<input class="right" name="submit" type="submit" value="Purge" ng-click="InitService.purgeStorage()"/>
-		</ion-item>
-</div>
-</ion-content>
+                        <h2>Masquer les nom de lignes</h2>
+                        <h3 ng-show="$storage.noline">Les noms de lignes ne sont pas affichés</h3>
+                        <h3 ng-hide="$storage.noline">Les noms de lignes sont affichés</h3>
+                        <paper-toggle-button class="right" ng-model="$storage.noline"></paper-toggle-button>
+                    </ion-item>
+                    <ion-item ng-href="#/cloud">
+                        <h2>Sauvegarde cloud</h2>
+                        <h3>Sauvegarder vos trajets dans le cloud</h3>
+                    </ion-item>
+                    <ion-item>
+                        <h2>Réinitialiser l'application</h2>
+                        <h3>Attention, cela supprimera toutes vos gares</h3>
+                        <input class="right" name="submit" type="submit" value="Purge" ng-click="InitService.purgeStorage()" />
+                    </ion-item>
+            </div>
+    </ion-content>
 </ion-view>
