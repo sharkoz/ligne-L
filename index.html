@@ -35,11 +35,21 @@
 </head>
 
 <body ng-controller="AppCtrl" unresolved>
-    <ion-side-menus enable-menu-with-back-views="true" ng-cloak>
+
+    <ion-side-menus ng-cloak>
         <!-- Center content -->
         <ion-side-menu-content>
-            <ion-nav-view animation="slide-left-right">
-            </ion-nav-view>
+
+
+            <ion-nav-bar class="bar-positive"> 
+                <ion-nav-buttons side="left">
+                    <!-- Toggle left side menu -->
+                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                </ion-nav-buttons>
+            </ion-nav-bar>
+
+<ion-nav-view animation="slide-left-right"></ion-nav-view>
+
         </ion-side-menu-content>
         <!-- Left menu -->
         <ion-side-menu side="left">
@@ -48,25 +58,26 @@
             </ion-header-bar>
             <ion-content scroll="false">
                 <ion-list menu-close>
-                    <ion-item href="#/" nav-clear>
+                    <a class="item" href="#/" nav-clear>
                         <i class="ion-home"></i> Accueil
-                    </ion-item>
-                    <ion-item href="#/ajout" nav-clear>
+                    </a>
+                    <a class="item" nav-direction="forward" href="#/ajout">
                         <i class="ion-star"></i> Gérer les gares
-                    </ion-item>
-                    <ion-item href="#/options" nav-clear>
+                    </a>
+                    <a class="item" nav-direction="forward" href="#/options" nav-clear>
                         <i class="ion-settings"></i> Options
-                    </ion-item>
-                    <ion-item href="#/apropos" nav-clear>
+                    </a>
+                    <a class="item" href="#/apropos" nav-clear>
                         <i class="ion-information-circled"></i> A propos
-                    </ion-item>
-                    <ion-item onclick="window.open('market://details?id=fr.rlier.next', '_system')" nav-clear>
+                    </a>
+                    <a class="item" onclick="window.open('market://details?id=fr.rlier.next', '_system')" nav-clear>
                         <i class="ion-android-playstore"></i> Noter l'application
-                    </ion-item>
+                    </a>
                 </ion-list>
             </ion-content>
         </ion-side-menu>
     </ion-side-menus>
+
     <div style="position:fixed;bottom:20px;right:20px;z-index:10;">
         <a href="#/ajout" class="button button-icon icon ion-plus-circled" style="color:#4A87EE;font-size:300%;width:56px;height:56px;"></a>
     </div>

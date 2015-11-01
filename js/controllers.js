@@ -19,7 +19,7 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
     $scope.$on('$routeChangeSuccess', function(event, next, current) {
 		  // Cacher le menu
 		  $scope.modalShown=false;
-		  $scope.route = next.route;
+		  //$scope.route = next.route;
 		  if ($scope.phonegap) {$scope.gaPlugin.trackPage(successHandler, errorHandler, $scope.route);};
     });
 
@@ -133,12 +133,12 @@ app.controller('AppCtrl',function( $scope, $location, $document, $window, $local
 
 });
 
-app.controller('HorairesCtrl',function( $scope, $localStorage, LIB_GARE){
+app.controller('HorairesCtrl',function( $scope, $localStorage, $location, LIB_GARE){
 
 })
 
 
-app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $filter, $localStorage, $ionicScrollDelegate, $ionicSlideBoxDelegate, $stateParams){
+app.controller('AgendaCtrl',function( $scope, $timeout, $location, LIB_GARE, $filter, $localStorage, $ionicScrollDelegate, $ionicSlideBoxDelegate, $stateParams){
 //console.log("Chargement du controller HorairesCtrl pour "+$scope.$id);
 
 	$scope.param = $scope.$storage.param;
@@ -217,11 +217,15 @@ app.controller('AgendaCtrl',function( $scope, $timeout, LIB_GARE, $filter, $loca
 })
 
 
-app.controller('TrajetCtrl',function($scope, TrajetsService){
+app.controller('TrajetCtrl',function($scope, $location, TrajetsService){
   $scope.trajet.display = TrajetsService.getDisplay();
 })
 
-app.controller('TrajetModif',function( $scope, $window, ApiService ){
+app.controller('TrajetModif',function( $scope, $location, $window, ApiService, $ionicHistory ){
+
+console.log($ionicHistory.viewHistory());
+
+
    // Recherche des gares
 
      formatSpecial = function(text){
@@ -284,7 +288,7 @@ app.controller('TrajetModif',function( $scope, $window, ApiService ){
 })
 
 
-.controller("loginCtrl", function($scope, $rootScope, $firebase, $firebaseSimpleLogin) {
+.controller("loginCtrl", function($scope, $location, $rootScope, $firebase, $firebaseSimpleLogin) {
   // Get a reference to the Firebase
   // TODO: Replace "ionic-demo" below with the name of your own Firebase
   var firebaseRef = new Firebase("https://nextt.firebaseio.com/");
