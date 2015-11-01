@@ -1,10 +1,13 @@
 <ion-view title="Next">
   <ion-nav-bar class="bar-positive">
-		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+	  <ion-nav-buttons side="left">
+   		<!-- Toggle left side menu -->
+	   <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	  </ion-nav-buttons>
   </ion-nav-bar>
 <ion-content >
+<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();" spinner></ion-refresher>
 <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
-	<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher>
 	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy: $storage.nogeoloc ? '' : 'distance'" ng-controller="TrajetCtrl">
     <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
         <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
