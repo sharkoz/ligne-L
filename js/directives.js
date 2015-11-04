@@ -58,3 +58,19 @@ angular.module('ligneL')
       ele.css('opacity', 1-Math.abs(val)/(1.5*max));
     }
 }]);
+
+
+angular.module('ligneL')
+.directive('menuClosePerso', [function() {
+  return {
+    restrict: 'AC',
+    link: function($scope, $element) {
+      $element.bind('click', function() {
+        var sideMenuCtrl = $element.inheritedData('$ionSideMenusController');
+        if (sideMenuCtrl) {
+          sideMenuCtrl.close();
+        }
+      });
+    }
+  };
+}]);

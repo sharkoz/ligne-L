@@ -1,102 +1,84 @@
 <ion-view title="Favoris">
-  <ion-nav-bar class="bar-positive">
-    <ion-nav-buttons side="left">
-	<button class="button button-icon button-clear icon ion-navicon" menu-toggle="left"></button>
-	</ion-nav-buttons>
-	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-home" href="#/" ></a>
-	</ion-nav-buttons>
-  </ion-nav-bar>
-<ion-content>
-<div class="cardswidth" ng-cloak>
-	<div class="metacard" ng-controller="TrajetModif">
-        <div class="card-ligne front">
-        <script type="text/ng-template" id="customTemplate.html">
-		  <a class="autocomplete" style="selected:">
-		      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-		  </a>
-		</script>
-            <div style="position: relative;"> 
-            	<a ng-show="trajet.garedepart" style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" tabindex="-1" ng-click="trajet.garedepart=''"  class="clear_button">×</a>
-			          <input type="text" ng-model="trajet.garedepart" placeholder="Gare de départ" typeahead="gare as gare.name for gare in gares | filter:{name:$viewValue}:specialCompare | limitTo : 5" typeahead-template-url="customTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
-            </div>
-            <div class="collapsible" ng-show="trajet.garedepart.code">
-                <div ng-hide="autoShow" class="">
-                    <div class="item item-input item-select">
-                        <div class="input-label">Arrivée :</div>
-                            <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="TrajetsService.RefreshAll();">
-                                <OPTION value='0' >Toutes directions</OPTION>
-                                <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
-                            </SELECT>
-                            <div ng-hide="ListeDessertes" ng-click="getDessertes();">
-                                <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
-                            </div>
+
+  <ion-nav-back-button class="button-clear">
+    <i class="ion-arrow-left-c"></i> Back
+  </ion-nav-back-button>
+    <ion-content>
+        <div class="cardswidth" ng-cloak>
+            <div class="metacard" ng-controller="TrajetModif">
+                <div class="card-ligne front">
+                    <script type="text/ng-template" id="customTemplate.html">
+                        <a class="autocomplete" style="selected:">
+                            <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+                        </a>
+                    </script>
+                    <div style="position: relative;">
+                        <a ng-show="trajet.garedepart" style="position: absolute; cursor: pointer; font-size: 1em; top: 2px; right: 5px;" tabindex="-1" ng-click="trajet.garedepart=''" class="clear_button">×</a>
+                        <input type="text" ng-model="trajet.garedepart" placeholder="Gare de départ" typeahead="gare as gare.name for gare in gares | filter:{name:$viewValue}:specialCompare | limitTo : 5" typeahead-template-url="customTemplate.html" typeahead-on-select="onSelect($item, $model, $label)" class="form-control">
+
                     </div>
-					<div class="button-bar">
-						<a class="button" ng-click="autoDepart='';">Annuler</a>
-						<a class="button" ng-click="TrajetsService.AddTrajet(trajet.garedepart.code, trajet.arrivee); autoDepart=''; trajet={}; $route.reload();">Sauvegarder</a>
-					</div>
-                    <div>
-						<input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click=""/>
+                    <div class="collapsible" ng-show="trajet.garedepart.code">
+                        <div ng-hide="autoShow" class="">
+                            <div class="item item-input item-select">
+                                <div class="input-label">Arrivée :</div>
+                                <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="TrajetsService.RefreshAll();">
+                                    <OPTION value='0'>Toutes directions</OPTION>
+                                    <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
+                                </SELECT>
+                                <div ng-hide="ListeDessertes" ng-click="getDessertes();">
+                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
+                                </div>
+                            </div>
+                            <div class="button-bar">
+                                <a class="button" ng-click="autoDepart='';">Annuler</a>
+                                <a class="button" ng-click="TrajetsService.AddTrajet(trajet.garedepart.code, trajet.arrivee); autoDepart=''; trajet={}; $route.reload();">Sauvegarder</a>
+                            </div>
+                            <div>
+                                <input ng-hide="trajet.arrivee!='9'" name="submit" type="submit" value="Sauvegarder avec aussi le retour" style="width:98%" ng-click="" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-<div data-sortable="board.dragControlListeners" data-ng-model="$storage.favoris" >	
-	<div class="card-ligne front" ng-repeat="trajet in $storage.favoris"  data-sortable-item ng-controller="TrajetModif">
-				
-					<div class="title" ng-click="getDessertes();collapse = !collapse; " ng-swipe-left="rmTrajet(trajet);">
+            <div data-sortable="board.dragControlListeners" data-ng-model="$storage.favoris">
+                <div class="card-ligne front" ng-repeat="trajet in $storage.favoris" data-sortable-item ng-controller="TrajetModif">
+                    <div class="title" ng-click="getDessertes();collapse = !collapse; " ng-swipe-left="rmTrajet(trajet);">
                         <span>
                             <span ng-show="collapse" >&#9660;</span>
-                            <span ng-hide="collapse" >&#9654;</span>
-                            {{trajet.depart | libGare}} vers {{trajet.arrivee | libGare}} <span class="ion-arrow-move" data-sortable-item-handle style="vertical-align: text-top;float:right;">
+                        <span ng-hide="collapse">&#9654;</span> {{trajet.depart | libGare}} vers {{trajet.arrivee | libGare}} <span class="ion-arrow-move" data-sortable-item-handle style="vertical-align: text-top;float:right;">
                         </span>
                         <!--<div class="corner_config" ng-click="collapse = !collapse">i</div>-->
                     </div>
-				<div class="collapsible" ng-show="collapse">
-					<div class="item item-input" style="border-style:none;">
-						<div class="input-label">Depart  : {{trajet.depart | libGare}}</div>
-					</div>
-					<div>
-						<div class="item item-input item-select">
-							<div class="input-label">Arrivée :</div>
-								<SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$storage.gtfs[trajet.idTrajet].savedate = '0';TrajetsService.RefreshAll();">
-									<OPTION value='0' >Toutes directions</OPTION>
-									<OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
-								</SELECT>
-								<div ng-hide="ListeDessertes" ng-click="getDessertes();">
-									<span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
-								</div>
-						</div>
-						<div class="button-bar">
-							<a class="button" ng-click="TrajetsService.RmTrajet(trajet.idTrajet);">Supprimer</a>
-							<a class="button" ng-click="collapse = !collapse">Terminer</a>
-						</div>
-						<!--<div class="jelly-form">
+                    <div class="collapsible" ng-show="collapse">
+                        <div class="item item-input" style="border-style:none;">
+                            <div class="input-label">Depart : {{trajet.depart | libGare}}</div>
+                        </div>
+                        <div>
+                            <div class="item item-input item-select">
+                                <div class="input-label">Arrivée :</div>
+                                <SELECT ng-show="ListeDessertes" ng-model="trajet.arrivee" ng-change="$storage.gtfs[trajet.idTrajet].savedate = '0';TrajetsService.RefreshAll();">
+                                    <OPTION value='0'>Toutes directions</OPTION>
+                                    <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
+                                </SELECT>
+                                <div ng-hide="ListeDessertes" ng-click="getDessertes();">
+                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
+                                </div>
+                            </div>
+                            <div class="button-bar">
+                                <a class="button" ng-click="TrajetsService.RmTrajet(trajet.idTrajet);">Supprimer</a>
+                                <a class="button" ng-click="collapse = !collapse">Terminer</a>
+                            </div>
+                            <!--<div class="jelly-form">
 							<input name="submit" type="submit" value="Supprimer trajet" ng-click="rmTrajet(trajet);"/>
 							<input name="submit" type="submit" value="Terminé" ng-click="broadcastRefresh(); collapse = 'false'"/>
 						</div>-->
-					</div>
-				</div>
-	</div>
-</div>
-	
-	   <!-- <div class="metacard" ng-show="debug">
-            <div class="card front">
-                    <div>Debug : {{debug}}</div>
-					<div>Phonegap : {{phonegap}}</div>
-					<div ng-click='gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);alert("OK");'>Test event</div>
-					<div ng-click='$scope.gaPlugin.trackEvent(successHandler, errorHandler, "App", "Refresh", "App refreshed", 1);alert("OK");'>Test event</div>
-					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, $scope.route);alert('OK');">Test page</div>
-					<div ng-click="gaPlugin.trackPage(successHandler, errorHandler, route);alert('OK');">Test page2</div>
-			</div>
-		</div>
--->
-</div>
-
-<paper-toast id="Suppr" text="Trajet supprimé." class="capsule">
-</paper-toast>
-
-</ion-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+        </div>
+        <paper-toast id="Suppr" text="Trajet supprimé." class="capsule">
+        </paper-toast>
+    </ion-content>
 </ion-view>

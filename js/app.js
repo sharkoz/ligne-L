@@ -1,12 +1,10 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('ligneL', [ 'firebase', 'ngResource', 'ionic', 'ui.sortable', 'ui.router', 'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
+var app = angular.module('ligneL', [ 'ngResource', 'ionic', 'ui.sortable',  'ui.bootstrap', 'ngTouch', 'ngStorage', "angucomplete", 'angular-carousel', 'mgcrea.ngStrap.modal' ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
-$urlRouterProvider.otherwise("/");
-//$ionicConfigProvider.views.maxCache(0);
   $stateProvider
     .state('horaires', {
       url: "/",
@@ -39,6 +37,9 @@ $urlRouterProvider.otherwise("/");
       url: "/cloud",
       templateUrl: "partials/firebase.html"
     });
+
+$urlRouterProvider.otherwise("/");
+
 });
 
 //app.run( [ '$rootScope', function ($rootScope) { $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) { $rootScope.$viewHistory.backView = true }); }]);

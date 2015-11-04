@@ -1,55 +1,51 @@
 <ion-view title="Next">
-<div class="bar bar-header bar-positive">
-
-    <!--<ion-nav-buttons side="left">
-		<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-	</ion-nav-buttons>
-	<!--<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-android-add" style="font-size:25px;" ng-href="#/ajout" ></a>
-	</ion-nav-buttons>-->
-</div>
-<ion-content class="has-header" >
-<div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
-	<!--<ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();"></ion-refresher><!---->
-	<div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy: $storage.nogeoloc ? '' : 'distance'" ng-controller="TrajetCtrl">
-    <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->	
-        <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
-			<span class="ion-loop {{refresh[trajet.idTrajet]}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
-			<a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{::trajet.idTrajet}}"></a>
-            <h2>{{::trajet.depart | libGare}} <i ng-hide="$storage.nogeoloc">{{trajet.distance | distance}}</i></h2>
-            <h3>Vers {{trajet.arrivee | libGare}}</h3>
-            <table class="horaires">
-                <tbody>
-                    <tr ng-repeat="train in TrajetsService.getDisplay(trajet.idTrajet) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
-                        <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
-							<b>{{::train.date.val | limitTo:-5}}</b>
-							<br/>
-							<span class='retard c{{train.delta}}'>{{train.message}}</span>
-						</td>
-						<td style="text-align:center;width:1px" ng-show="train.message!='OK' && train.date.mode=='R'">
-							<b>{{train.message}}</b>
-							<br/>
-							<span style="text-decoration: line-through;">{{train.date.val | limitTo:-5}}</span>
-						</td>
-						<td style="text-align:center;width:1px" ng-show="train.date.mode!='R'">
-							<b>{{train.date.val | limitTo:-5}}</b>
-						</td>
-						<td style="text-align:center;width:1px" ng-hide="$storage.noline"><span class="rer transilien ligne{{::train.ligne}}" style="width:30px;height:30px">{{::train.ligne}}</span></td>
-                        <td>{{::train.term | libGare}}</td>
-                        <td style="text-align:center;width:1px"><div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
-                            <div title="{{::train.num}}" ng-hide="train.voie != '-'">-</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </next-slide-eraser>
-	</div>
-    <div ng-hide="$storage.favoris.length" style="text-align:center;"><a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Aucune gare enregistrée.<br/>Cliquez ici pour en ajouter.<br/></a></div>
-</div>
-
-
-<paper-toast id="Suppr" text="Trajet supprimé." class="capsule">
-</paper-toast>
-
-</ion-content>
+    <ion-content class="has-header">
+        <ion-refresher pulling-text="Mettre à jour..." on-refresh="TrajetsService.RefreshAll();" spinner></ion-refresher>
+        <div class="cardswidth" ng-controller="HorairesCtrl" ng-cloak>
+            <div class="metacard" ng-repeat="trajet in $storage.favoris | orderBy: $storage.nogeoloc ? '' : 'distance'" ng-controller="TrajetCtrl">
+                <!--  ng-swipe-left="rmTrajet(trajet);" ng-swipe-right="rmTrajet(trajet);" -->
+                <next-slide-eraser class="card-ligne front" next-swipe="TrajetsService.RmTrajet(trajet.idTrajet);">
+                    <span class="ion-loop {{refresh}}" style="vertical-align: text-top;float:right;font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
+                    <a class="ion-calendar padding-right" style="vertical-align: text-top;float:right;font-size:25px;color:black;" ng-href="#/agenda?id={{::trajet.idTrajet}}"></a>
+                    <h2>{{::trajet.depart | libGare}} <i ng-hide="$storage.nogeoloc">{{trajet.distance | distance}}</i></h2>
+                    <h3>Vers {{trajet.arrivee | libGare}}</h3>
+                    <table class="horaires">
+                        <tbody>
+                            <tr ng-repeat="train in TrajetsService.getDisplay(trajet.idTrajet) | future | limitTo: $storage.max" ng-click="newModal(train, trajet.arrivee, trajet.depart)">
+                                <td style="text-align:center;width:1px" ng-hide="train.message!='OK'">
+                                    <b>{{::train.date.val | limitTo:-5}}</b>
+                                    <br/>
+                                    <span class='retard c{{train.delta}}'>{{train.message}}</span>
+                                </td>
+                                <td style="text-align:center;width:1px" ng-show="train.message!='OK' && train.date.mode=='R'">
+                                    <b>{{train.message}}</b>
+                                    <br/>
+                                    <span style="text-decoration: line-through;">{{train.date.val | limitTo:-5}}</span>
+                                </td>
+                                <td style="text-align:center;width:1px" ng-show="train.date.mode!='R'">
+                                    <b>{{train.date.val | limitTo:-5}}</b>
+                                </td>
+                                <td style="text-align:center;width:1px" ng-hide="$storage.noline"><span class="rer transilien ligne{{::train.ligne}}" style="width:30px;height:30px">{{::train.ligne}}</span></td>
+                                <td>{{::train.term | libGare}}</td>
+                                <td style="text-align:center;width:1px">
+                                    <div title="{{train.num}}" ng-show="train.voie != '-'" class="voie"><b>{{train.voie}}</b></div>
+                                    <div title="{{::train.num}}" ng-hide="train.voie != '-'">-</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </next-slide-eraser>
+            </div>
+            <div ng-hide="$storage.favoris.length" style="text-align:center;">
+                <a href="#/ajout" style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;">
+                    <br/>Aucune gare enregistrée.
+                    <br/>Cliquez ici pour en ajouter.
+                    <br/>
+                </a>
+            </div>
+        </div>
+        <paper-toast id="Suppr" text="Trajet supprimé." class="capsule">
+        </paper-toast>
+    </ion-content>
 </ion-view>
+

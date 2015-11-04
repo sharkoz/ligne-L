@@ -22,8 +22,8 @@ function addDays(){
 		var date = new Date();
 	    var result = new Date(date);
 	    result.setDate(date.getDate() + days);
-	    return result;
-	    //return result.toLocaleDateString();
+	    //return result;
+	    return result.toLocaleDateString();
 	};
 };
 angular

@@ -1,52 +1,39 @@
-<ion-view ng-controller="AgendaCtrl">
-  <ion-nav-bar class="bar-positive">
-    <ion-nav-buttons side="left">
-	<button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-	</ion-nav-buttons>
-	    <ion-nav-title>
-     {{trajetAgenda.depart | libGare}} vers {{trajetAgenda.arrivee | libGare}}
-    </ion-nav-title>
-	<ion-nav-buttons side="right">
-		<a class="button button-icon icon ion-home" href="#/" ></a>
-	</ion-nav-buttons>
-  </ion-nav-bar>
-  	<div ng-show="idTrajet" class="bar bar-subheader bar-light">
-		<h2 style="text-align:center;margin:auto;"><i class="ion-android-arrow-back padding-horizontal" ng-click="slidePrevious();"></i> {{ slideIndex | addDays | date: 'fullDate' }} <i class="ion-android-arrow-forward padding-horizontal" ng-click="slideNext();"></i></h2>
-	</div>
-<ion-content class="has-subheader" delegate-handle="myScroll">
-<div class="cardswidth"  style="scroll:auto; bottom:0px;height:100%;">
-	<div ng-hide="idTrajet">
-	<div style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;"><br/>Choisir le trajet :<br/></div>
-		<a class="card-ligne front" ng-repeat="trajet in favoris | orderBy:'dist'" ng-href="#/agenda?id={{trajet.idTrajet}}">
-		<h2>{{trajet.depart | libGare}} vers {{trajet.arrivee | libGare}}</h2>
-		</a>
-	</div>
-
-	<ion-slide-box does-continue="true" show-pager="false" on-slide-changed="slideChanged($index)" style="height:100%" ng-show="idTrajet">
-		<ion-slide ng-repeat="i in '123'.split('')" style="height:100%">
-			<div class="list">
-				<ion-item class="item item-icon-left item-icon-right" ng-hide="start<50" style="left: 0;right: 0;padding-top: 0;padding-bottom: 0;height:35px;text-align:center;line-height:35px" ng-click="prevpage()">
-					<i class="icon ion-arrow-up-b"></i>Afficher les trajets précédents<i class="icon ion-arrow-up-b"></i>
-				</ion-item>
-				<ion-item style="padding-top: 0;padding-bottom: 0;height:35px;line-height:35px" ng-repeat="train in filteredPage | limitFromTo:start:100" ng-click="newModal(train, trajetAgenda.arrivee, trajetAgenda.depart)" collection-item-height="35" collection-item-width="'100%'">
-					<span style="text-align:center;">
+<ion-view ng-controller="AgendaCtrl" title="{{trajetAgenda.depart | libGare}} vers {{trajetAgenda.arrivee | libGare}}">
+    <div ng-show="idTrajet" class="bar bar-subheader bar-light">
+        <h2 style="text-align:center;margin:auto;"><i class="ion-android-arrow-back padding-horizontal" ng-click="slidePrevious();"></i> {{ slideIndex | addDays }} <i class="ion-android-arrow-forward padding-horizontal" ng-click="slideNext();"></i></h2>
+    </div>
+    <ion-content class="has-subheader" delegate-handle="myScroll">
+        <div class="cardswidth" style="scroll:auto; bottom:0px;height:100%;">
+            <div ng-hide="idTrajet">
+                <div style="text-align:center;font-style:italic;color:#787878;text-decoration:none;font-size:20px;font-weight:lighter;">
+                    <br/>Choisir le trajet :
+                    <br/>
+                </div>
+                <a class="card-ligne front" ng-repeat="trajet in favoris | orderBy:'dist'" ng-href="#/agenda?id={{trajet.idTrajet}}">
+                    <h2>{{trajet.depart | libGare}} vers {{trajet.arrivee | libGare}}</h2>
+                </a>
+            </div>
+            <ion-slide-box does-continue="true" show-pager="false" on-slide-changed="slideChanged($index)" style="height:100%">
+                <ion-slide ng-repeat="i in '123'.split('')" style="height:100%">
+                    <div class="list">
+                        <ion-item ng-hide="start<50" style="left: 0;right: 0;padding-top: 0;padding-bottom: 0;height:35px" ng-click="prevpage()">
+                            Afficher les trajets précédents
+                        </ion-item>
+                        <ion-item style="left: 0;right: 0;padding-top: 0;padding-bottom: 0;height:35px" ng-repeat="train in filteredPage | limitFromTo:start:100" ng-click="newModal(train, trajetAgenda.arrivee, trajetAgenda.depart)" collection-item-height="35" collection-item-width="'100%'">
+                            <span style="text-align:center;">
 						<b>{{::train.date.val | limitTo:-5}}</b>
 					</span>
-					<span style="text-align:center;" ng-hide="::$storage.noline">
-						<span class="rer transilien ligne{{::train.ligne}}" style="width:25px;height:25px;top:5px">{{::train.ligne}}</span>
-					</span>
-					<span>{{::train.term | libGare}}</span>
-				</ion-item>
-				<ion-item class="item item-icon-left item-icon-right" ng-hide="start+100>filteredPage.length" style="padding-top: 0;padding-bottom: 0;height:35px;text-align:center;line-height:35px" ng-click="nextpage()">
-					<i class="icon ion-arrow-down-b"></i>Afficher les trajets suivants <i class="icon ion-arrow-down-b"></i>
-				</ion-item>
-			</div>
-		</ion-slide>
-	</ion-slide-box>
-	
-
-	
-</div>
-</ion-content>
-
+                            <span style="text-align:center;" ng-hide="::$storage.noline">
+						<span class="rer transilien ligne{{::train.ligne}}" style="width:30px;height:30px">{{::train.ligne}}</span>
+                            </span>
+                            <span>{{::train.term | libGare}}</span>
+                        </ion-item>
+                        <ion-item ng-hide="start+100>filteredPage.length" style="left: 0;right: 0;padding-top: 0;padding-bottom: 0;height:35px" ng-click="nextpage()">
+                            Afficher les trajets suivants
+                        </ion-item>
+                    </div>
+                </ion-slide>
+            </ion-slide-box>
+        </div>
+    </ion-content>
 </ion-view>
