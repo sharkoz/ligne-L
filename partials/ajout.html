@@ -26,7 +26,7 @@
                                     <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
                                 </SELECT>
                                 <div ng-hide="ListeDessertes" ng-click="getDessertes();">
-                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
+                                    <span class="ion-loop" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
                                 </div>
                             </div>
                             <div class="button-bar">
@@ -61,7 +61,8 @@
                                     <OPTION ng-repeat="index in ListeDessertes | orderBy:'name'" value="{{index.codeTR3A}}" ng-selected="index.codeTR3A==trajet.arrivee">{{index.codeTR3A | libGare}}</OPTION>
                                 </SELECT>
                                 <div ng-hide="ListeDessertes" ng-click="getDessertes();">
-                                    <span class="svg refresh spin_image" style="height:18px;width:18px;">MaJ</span> {{trajet.arrivee | libGare}}
+                                    <span class="ion-loop spin_image" style="font-size:25px;" ng-click="TrajetsService.RefreshAll()"></span>
+                                    {{trajet.arrivee | libGare}}
                                 </div>
                             </div>
                             <div class="button-bar">
