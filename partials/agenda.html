@@ -1,12 +1,4 @@
 <ion-view ng-controller="AgendaCtrl" title="{{trajetAgenda.depart | libGare}} vers {{trajetAgenda.arrivee | libGare}}">
-    <ion-nav-bar class="bar-positive">
-        <ion-nav-buttons side="left">
-            <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="right">
-            <a class="button button-icon icon ion-home" href="#/"></a>
-        </ion-nav-buttons>
-    </ion-nav-bar>
     <div ng-show="idTrajet" class="bar bar-subheader bar-light">
         <h2 style="text-align:center;margin:auto;"><i class="ion-android-arrow-back padding-horizontal" ng-click="slidePrevious();"></i> {{ slideIndex | addDays }} <i class="ion-android-arrow-forward padding-horizontal" ng-click="slideNext();"></i></h2>
     </div>
