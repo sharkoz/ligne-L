@@ -55,7 +55,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
 		<gap:plugin name="com.adobe.plugins.gaplugin" />
-        	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
+        	<gap:plugin name="org.apache.cordova.inappbrowser" version="1.2.1" />
 		<gap:plugin name="nl.x-services.plugins.socialsharing" />
 		<gap:plugin name="com.machenmusik.plugins.launchmyapp" version="3.1.2">
 			<param name="URL_SCHEME" value="next" />
