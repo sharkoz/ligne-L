@@ -57,6 +57,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
 		<gap:plugin name="com.adobe.plugins.gaplugin" />
         	<gap:plugin name="org.apache.cordova.inappbrowser" />
 		<gap:plugin name="nl.x-services.plugins.socialsharing" />
+		<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 		<gap:plugin name="com.machenmusik.plugins.launchmyapp" version="3.1.2">
 			<param name="URL_SCHEME" value="next" />
 			<param name="HTTP_HOST" value="nexttrain.fr" />
@@ -104,5 +105,7 @@ Quand le réseau est revenu, Next récupère également les informations de reta
 
 
     <access origin="*"/> <!-- allow local pages -->
+<allow-intent href="*" />
+<allow-navigation href="*" />
 
 </widget>
